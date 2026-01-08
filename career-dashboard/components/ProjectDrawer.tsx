@@ -102,7 +102,7 @@ export default function ProjectDrawer() {
 
             {activeProject.links && activeProject.links.length > 0 && (
               <div className="mb-6">
-                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-3">Links</h3>
+                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-3">References / Selected Artifacts</h3>
                 <div className="space-y-2">
                   {activeProject.links.map((link, i) => (
                     <a
@@ -110,9 +110,9 @@ export default function ProjectDrawer() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block text-sm text-blue-600 hover:text-emerald-600 font-medium transition-colors"
+                      className="block text-xs text-slate-600 hover:text-blue-600 font-normal transition-colors"
                     >
-                      {link.label} →
+                      • {link.label}
                     </a>
                   ))}
                 </div>

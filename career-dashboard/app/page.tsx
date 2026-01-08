@@ -1,6 +1,7 @@
 import TopNav from '@/components/TopNav';
 import Overview from '@/components/Overview';
 import MetricStrip from '@/components/MetricStrip';
+import Influences from '@/components/Influences';
 import TechStack from '@/components/TechStack';
 import Timeline from '@/components/Timeline';
 import ProjectDrawer from '@/components/ProjectDrawer';
@@ -11,6 +12,7 @@ export default function Home() {
       <TopNav />
       <Overview />
       <MetricStrip />
+      <Influences />
       <Timeline />
       <ProjectDrawer />
       <TechStack />

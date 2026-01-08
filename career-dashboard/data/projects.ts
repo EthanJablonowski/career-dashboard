@@ -81,20 +81,21 @@ export const projects: Project[] = [
   },
   {
     id: "digitopia-pm",
-    title: "Digitopia — Project Management",
+    title: "Digitopia — Product Manager",
     org: "Digitopia",
-    role: "Project Manager",
+    role: "Product Manager",
     dateStart: "Q4 2019",
     dateEnd: "Q3 2020",
     nodeType: "primary",
-    snapshot: "Coordinated cross-functional teams for medical spa app startup. Managed product roadmap and stakeholder alignment.",
+    snapshot: "Led product definition and delivery for a healthcare app, working closely with founders, developers, and clinical stakeholders to design compliant, user-facing systems.",
     bullets: [
-      "Led product development cycles and sprint planning",
-      "Coordinated between engineering, design, and business teams",
-      "Managed stakeholder communication and expectations",
-      "Created project documentation and requirement specifications"
+      "Defined service offerings, pricing structures, and user flows",
+      "Wrote compliant customer-facing copy and messaging",
+      "Translated business and clinical needs into product requirements",
+      "Partnered with developers on roadmap, features, and technical specs",
+      "Coordinated approvals with founder as final decision-maker"
     ],
-    skills: ["Requirements", "Wireframing", "Vendor sourcing", "Compliance coordination", "Project delivery", "Stakeholder management"],
+    skills: ["Product requirements", "Functional specifications", "Wireframing", "User flows", "Compliance coordination", "Stakeholder management"],
     tradeoff: {
       chose: "Agile iteration with frequent stakeholder feedback",
       insteadOf: "Waterfall approach with upfront specifications",

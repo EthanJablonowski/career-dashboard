@@ -33,6 +33,15 @@ export default function TopNav() {
           >
             LinkedIn
           </Link>
+          <Link
+            href="https://paragraph.com/@0xjablo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-slate-700 hover:text-blue-600 transition-colors font-medium"
+            aria-label="Blog"
+          >
+            Blog
+          </Link>
           <a
             href="mailto:ethan.jablonowski@gmail.com"
             className="text-sm text-slate-700 hover:text-emerald-600 transition-colors font-medium"
