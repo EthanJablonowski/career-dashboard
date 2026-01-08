@@ -1,23 +1,23 @@
 const metrics = [
   {
-    label: "$100M+ marketplace trade volume",
-    note: "verified on-chain"
+    label: "Built and operated a $100M+ decentralized game economy",
+    note: "Owned economic design, product decisions, and live-market outcomes."
   },
   {
-    label: "350k players supported",
-    note: "peak concurrent"
+    label: "Served as Public Operator for a Live Financial Product",
+    note: "100+ AMAs, panels, and public stakeholder presentations for a real-time trading market."
   },
   {
-    label: "100+ talks and AMAs",
-    note: "unscripted"
+    label: "Built and Scaled Profitable Digital Funnels",
+    note: "Launched and optimized affiliate, service, and information products from zero to profit."
   },
   {
-    label: "Built 6+ revenue systems",
-    note: "startups, services, affiliates"
+    label: "Managed Six-Figure Monthly Paid Media Spend",
+    note: "Consistently positive ROI across Meta and Google through unique arbitrage strategy."
   },
   {
-    label: "End-to-end GTM",
-    note: "ads, funnels, pricing, ops"
+    label: "Drove Ecommerce Growth as In-House Marketing Lead",
+    note: "Owned ads and UX improvements, delivering peak customer acquisition and record holiday AOV."
   }
 ];
 

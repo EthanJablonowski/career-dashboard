@@ -18,7 +18,7 @@ export default function TopNav() {
               Ethan Jablonowski
             </h1>
             <p className="text-sm text-slate-600 mt-0.5">
-              Operator: Product • Growth • Ops
+              Product • Digital Growth • Ops & Strategy
             </p>
           </div>
         </div>
