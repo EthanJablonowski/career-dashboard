@@ -32,17 +32,19 @@ export default function MetricStrip() {
 
   return (
     <section className="max-w-6xl mx-auto px-6 py-8">
-      <h2 className="text-lg font-semibold text-slate-900 mb-4">Career Highlights</h2>
+      <h2 className="text-lg font-semibold text-slate-900 mb-4">Highlights</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
         {metrics.map((metric, i) => (
           <div
             key={i}
-            className={`border-2 rounded-xl p-5 transition-all duration-200 flex flex-col justify-between min-h-[100px] ${colors[i]}`}
+            className={`border-2 rounded-xl p-5 transition-all duration-200 flex flex-col ${colors[i]}`}
           >
-            <p className="text-sm font-semibold text-slate-900 leading-snug mb-2">
-              {metric.label}
-            </p>
-            <p className="text-xs font-normal text-slate-600">
+            <div className="flex-1 mb-3">
+              <p className="text-sm font-semibold text-slate-900 leading-snug">
+                {metric.label}
+              </p>
+            </div>
+            <p className="text-xs font-normal text-slate-600 leading-relaxed">
               {metric.note}
             </p>
           </div>

@@ -23,11 +23,13 @@ export default function Influences() {
         {influences.map((influence, i) => (
           <div
             key={i}
-            className="border border-slate-200 rounded-xl p-6 bg-slate-50/30 hover:bg-slate-50 transition-all duration-200"
+            className="border border-slate-200 rounded-xl p-6 bg-slate-50/30 hover:bg-slate-50 transition-all duration-200 flex flex-col"
           >
-            <p className="text-sm text-slate-700 leading-relaxed mb-3 italic">
-              &ldquo;{influence.quote}&rdquo;
-            </p>
+            <div className="flex-1 mb-3">
+              <p className="text-sm text-slate-700 leading-relaxed italic">
+                &ldquo;{influence.quote}&rdquo;
+              </p>
+            </div>
             <p className="text-xs font-semibold text-slate-900">
               {influence.attribution}
             </p>
