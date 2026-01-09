@@ -551,7 +551,7 @@ export const projects: Project[] = [
   },
   {
     id: "boring-business",
-    title: "Wisconsin Home Service Guide",
+    title: "WisconsinHomeServiceGuide.com",
     org: "Self-Employed",
     role: "Founder",
     dateStart: "Q1 2026",
