@@ -4,20 +4,20 @@ const metrics = [
     note: "Owned economic design, product decisions, and live-market outcomes."
   },
   {
-    label: "Served as Public Operator for a Live Financial Product",
+    label: "Served as public operator for an actively traded financial product",
     note: "100+ AMAs, panels, and public stakeholder presentations for a real-time trading market."
   },
   {
-    label: "Built and Scaled Profitable Digital Funnels",
-    note: "Launched and optimized affiliate, service, and information products from zero to profit."
+    label: "Managed six-figure monthly paid media spend",
+    note: "Consistently positive ROI using unique Meta/Google arbitrage strategy."
   },
   {
-    label: "Managed Six-Figure Monthly Paid Media Spend",
-    note: "Consistently positive ROI across Meta and Google through unique arbitrage strategy."
+    label: "Drove ecommerce growth as in-house marketing lead",
+    note: "Drove ads strategy and UX, achieving record holiday AOV and new customers."
   },
   {
-    label: "Drove Ecommerce Growth as In-House Marketing Lead",
-    note: "Owned ads and UX improvements, delivering peak customer acquisition and record holiday AOV."
+    label: "Built and scaled numerous digital business funnels",
+    note: "Numerous affiliate, service, and info product funnels from zero to profit."
   }
 ];
 

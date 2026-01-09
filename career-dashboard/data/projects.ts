@@ -25,109 +25,197 @@ export interface Project {
   media?: { src: string; alt: string; caption?: string }[];
   tags: string[];
   relevantFor?: string[];
+  sections?: {
+    product?: { items: string[]; tools?: string[] };
+    growth?: { items: string[]; tools?: string[] };
+    ops?: { items: string[]; tools?: string[] };
+  };
+  tools?: string[];
 }
 
 export const projects: Project[] = [
   // PRIMARY WORK NODES
   {
     id: "fitness-with-ethan",
-    title: "FitnessWithEthan",
-    org: "Self-Employed",
+    title: "Fitness With Ethan",
+    org: "Fitness With Ethan",
     role: "Founder",
-    dateStart: "Q1 2016",
-    dateEnd: "Q2 2018",
+    dateStart: "Q2 2017",
+    dateEnd: "Q1 2018",
     nodeType: "primary",
-    snapshot: "Built initial revenue through fitness coaching and content. Learned fundamentals of customer acquisition and service delivery.",
-    bullets: [
-      "Created and sold fitness programs and coaching services",
-      "Built audience through content marketing",
-      "Managed client relationships and program delivery",
-      "Developed early marketing and sales skills"
-    ],
-    skills: ["Funnel building", "Offer design", "Paid acquisition", "Customer delivery", "Iteration"],
-    tradeoff: {
-      chose: "Direct service delivery and coaching",
-      insteadOf: "Scalable digital products only",
-      because: "Needed to understand customer pain points and build trust through direct interaction"
+    snapshot: "Built an independent fitness and coaching business after a personal 100-pound weight loss, focused on sustainable habits and realistic expectations.",
+    bullets: [],
+    skills: [],
+    sections: {
+      product: {
+        items: [
+          "Designed coaching programs centered on sustainable weight loss through balanced nutrition and realistic exercise",
+          "Offered multiple coaching tiers, including email-based check-ins and live video coaching",
+          "Created educational resources including weight loss guides, recipes, and getting-started frameworks",
+          "Built a content library designed to counter misinformation while meeting users at their point of search intent"
+        ],
+        tools: ["YouTube", "Facebook Groups", "ManyChat", "MailerLite", "Google Docs"]
+      },
+      growth: {
+        items: [
+          "Built a YouTube channel targeting long-tail, high-intent keywords to capture organic search traffic",
+          "Produced contrarian content that addressed misleading weight loss claims by reframing expectations",
+          "Ran Facebook and YouTube ads driving users into a community-first funnel",
+          "Built and grew a Facebook community to ~4,500 members as the primary engagement and trust layer",
+          "Grew an email list to ~2,000 subscribers through lead magnets, including a self-written weight loss ebook",
+          "Ran webinar and VSL funnels inspired by direct-response frameworks to convert engaged users into coaching"
+        ],
+        tools: ["YouTube", "Facebook Ads", "YouTube Ads", "ManyChat", "MailerLite"]
+      },
+      ops: {
+        items: [
+          "Designed end-to-end funnel architecture from content → community → education → coaching",
+          "Implemented automated Messenger flows to deliver structured content and guide users toward coaching evaluation",
+          "Managed client onboarding, billing, scheduling, and ongoing communication",
+          "Handled churn, retention challenges, and expectation-setting in a high-attrition industry",
+          "Balanced scalability with personalized support in a service-heavy business model"
+        ]
+      }
     },
-    learned: "Customer trust is built through consistent delivery and genuine expertise.",
-    tags: ["Coaching", "Marketing", "Service"],
-    relevantFor: ["growth"]
+    tradeoff: {
+      chose: "Community-first trust-building before selling",
+      insteadOf: "Direct paid traffic to coaching offers",
+      because: "Needed credibility and trust in a market saturated with false promises"
+    },
+    learned: "Sustainable results are harder to sell than shortcuts, even when they work better. Education, trust, and expectation-setting matter as much as traffic and funnels, especially in industries where people are vulnerable and frustrated.",
+    tags: ["Core Experience"],
+    relevantFor: ["product", "growth", "operations"]
   },
   {
     id: "linnea-design",
     title: "Linnea Design",
     org: "Linnea Design",
     role: "Growth Marketing",
-    dateStart: "Q2 2017",
-    dateEnd: "Q2 2018",
+    dateStart: "Q2 2019",
+    dateEnd: "Q2 2020",
     nodeType: "primary",
-    snapshot: "Drove customer acquisition for luxury interior design firm. Built and optimized paid acquisition systems.",
-    bullets: [
-      "Managed Google Ads and Facebook ad campaigns",
-      "Optimized conversion funnels and landing pages",
-      "Analyzed customer acquisition costs and lifetime value",
-      "Collaborated with design team on positioning and messaging"
-    ],
-    skills: ["Performance marketing", "CAC/LTV analysis", "Conversion optimization", "Landing pages", "Paid media"],
-    tradeoff: {
-      chose: "High-intent search traffic over broad awareness",
-      insteadOf: "Brand campaigns and display advertising",
-      because: "Limited budget required focus on direct-response channels with clear ROI"
+    snapshot: "Led growth marketing for an established interior design ecommerce brand, expanding into new demographics and modernizing UX for seniors while migrating to more modern digital infrastructure.",
+    bullets: [],
+    skills: [],
+    sections: {
+      product: {
+        items: [
+          "Led migration of legacy ecommerce system to Shopify to support modern checkout, attribution, and integrations",
+          "Rebuilt website UX to improve online ordering for both younger digital-native buyers and older, less technical customers",
+          "Implemented abandoned cart flows, email follow-ups, and on-site UX improvements including persistent cart and product recommendations",
+          "Partnered with founder to restructure site hierarchy, navigation, and product presentation for clarity and conversion",
+          "Oversaw complex data migration from legacy order management system, including manual cleanup and consolidation"
+        ],
+        tools: ["Shopify", "MailerLite", "Google Analytics"]
+      },
+      growth: {
+        items: [
+          "Launched and managed the brand's first paid acquisition efforts on Meta",
+          "Developed acquisition strategy leveraging high-quality in-house creative assets",
+          "Built early social strategy encouraging customer-generated content through incentives and hashtag campaigns",
+          "Tested positioning and messaging to broaden appeal beyond an aging, phone-first customer base",
+          "Monitored CAC, funnel performance, and conversion behavior to guide iteration"
+        ],
+        tools: ["Meta Ads", "Google Analytics", "Instagram", "Facebook"]
+      },
+      ops: {
+        items: [
+          "Worked closely with founder to modernize ecommerce operations without disrupting existing revenue",
+          "Gained hands-on exposure to order fulfillment, shipping logistics, and seasonal retail volume during holiday rush",
+          "Helped align marketing initiatives with inventory, fulfillment, and customer service realities",
+          "Balanced experimentation with operational constraints of a legacy business"
+        ],
+        tools: ["Shopify"]
+      }
     },
-    learned: "Luxury services require longer sales cycles and relationship-based conversion paths.",
-    tags: ["Marketing", "Paid Ads", "Conversion"],
-    relevantFor: ["growth"]
+    tradeoff: {
+      chose: "Gradual platform migration with parallel systems",
+      insteadOf: "Fast cutover with downtime risk",
+      because: "Preserving existing customer behavior and revenue continuity mattered more than speed"
+    },
+    learned: "Improving something that already works well requires a different calculus. Growth needs to be approached with foresight to avoid breaking what made it successful in the first place. Building new conversion pathways is especially challenging when customers already have established routines.",
+    tags: ["Core Experience"],
+    relevantFor: ["product", "growth", "operations"]
   },
   {
     id: "digitopia-pm",
-    title: "Digitopia — Product Manager",
-    org: "Digitopia",
+    title: "Digittopia — Product Manager",
+    org: "Digittopia",
     role: "Product Manager",
-    dateStart: "Q4 2019",
-    dateEnd: "Q3 2020",
+    dateStart: "Q2 2020",
+    dateEnd: "Q4 2020",
     nodeType: "primary",
-    snapshot: "Led product definition and delivery for a healthcare app, working closely with founders, developers, and clinical stakeholders to design compliant, user-facing systems.",
-    bullets: [
-      "Defined service offerings, pricing structures, and user flows",
-      "Wrote compliant customer-facing copy and messaging",
-      "Translated business and clinical needs into product requirements",
-      "Partnered with developers on roadmap, features, and technical specs",
-      "Coordinated approvals with founder as final decision-maker"
-    ],
-    skills: ["Product requirements", "Functional specifications", "Wireframing", "User flows", "Compliance coordination", "Stakeholder management"],
+    snapshot: "Oversaw design and early development of a mobile application for an LA-based medical spa (Rejuve) to support on-demand, in-home treatments. Worked closely with stakeholders and developers to design a compliant, intuitive user experience.",
+    bullets: [],
+    skills: [],
+    sections: {
+      product: {
+        items: [
+          "Defined service offerings, pricing structures, and end-to-end user flows for a mobile, on-demand healthcare model",
+          "Designed a two-sided mobile experience for customers and providers, including booking, service management, payments, and patient records",
+          "Translated clinical, operational, and business requirements into clear product specifications for development teams",
+          "Interviewed and selected outsourced development partners, owning product scope, feature requirements, and budget oversight",
+          "Led early planning for EHR integration with DrChrono, including feasibility research and initial implementation work"
+        ],
+        tools: ["Figma", "React Native", "DrChrono", "Asana"]
+      },
+      ops: {
+        items: [
+          "Worked directly with licensed medical providers to ensure compliant, accurate service language and workflows",
+          "Coordinated with IV therapy suppliers to plan procurement strategy and operational efficiency",
+          "Acted as day-to-day product liaison to the founder, providing regular updates and decision support across moving pieces"
+        ],
+        tools: ["Asana", "DrChrono"]
+      }
+    },
     tradeoff: {
       chose: "Agile iteration with frequent stakeholder feedback",
       insteadOf: "Waterfall approach with upfront specifications",
       because: "Medical spa market required rapid validation and pivots based on provider feedback"
     },
-    learned: "Clear communication structures prevent misalignment in cross-functional teams.",
-    tags: ["Product", "PM", "Coordination"],
+    learned: "In software, individual design decisions can change feasibility by orders of magnitude. When development is outsourced, clear expectations early matter more than speed. Sometimes external forces override good planning, and you adapt.",
+    tags: ["Core Experience"],
     relevantFor: ["product", "operations"]
   },
   {
     id: "digitopia-media",
-    title: "Digitopia — Media Buying",
-    org: "Digitopia",
+    title: "Digittopia — Media Buying",
+    org: "Digittopia",
     role: "Media Buyer",
-    dateStart: "Q4 2019",
-    dateEnd: "Q3 2020",
+    dateStart: "Q2 2020",
+    dateEnd: "Q4 2020",
     nodeType: "primary",
-    snapshot: "Managed paid acquisition for healthcare app. Optimized CAC and tested messaging across channels.",
-    bullets: [
-      "Ran Facebook and Google ad campaigns for app installs",
-      "Tested messaging and creative variations",
-      "Tracked and optimized customer acquisition costs",
-      "Analyzed channel performance and allocation"
-    ],
-    skills: ["Performance marketing", "Arbitrage", "CAC/LTV", "Conversion tracking", "Creative testing", "Budget pacing"],
+    snapshot: "Built and managed a content-driven paid acquisition and arbitrage system targeting healthcare verticals, leveraging attention pricing inefficiencies across platforms at scale.",
+    bullets: [],
+    skills: [],
+    sections: {
+      growth: {
+        items: [
+          "Co-built and scaled a hybrid SEO and paid social arbitrage system",
+          "Directed build of SevenBars.com and wrote 60+ long-form SEO articles targeting high-CPC healthcare keywords (diabetes, dental implants, COPD)",
+          "Designed and tested Facebook native ads driving traffic to content monetized via Google AdSense",
+          "Rapidly tested creatives, audiences, and content formats, scaling only campaigns achieving 3x+ return",
+          "Analyzed Facebook Ad Library and competitor positioning to inform creative and messaging strategy"
+        ],
+        tools: ["Meta Ads", "Google Ads", "Ahrefs", "Google Keyword Planner"]
+      },
+      ops: {
+        items: [
+          "Tracked spend, revenue, and unit economics in Airtable to guide scaling and budget allocation",
+          "Partnered closely with a teammate to coordinate content iteration, financial reporting, and optimization decisions",
+          "Managed systems that scaled to six figures in monthly ad spend during peak performance periods",
+          "Supported cash-flow planning and stakeholder communications to manage working capital constraints during scaling"
+        ],
+        tools: ["Airtable"]
+      }
+    },
     tradeoff: {
       chose: "Facebook app install campaigns",
       insteadOf: "Google search for direct intent",
       because: "Visual storytelling resonated better with aesthetic-focused medical spa customers"
     },
-    learned: "Healthcare marketing requires careful messaging to balance aspiration with trust.",
-    tags: ["Marketing", "Media Buying", "Healthcare"],
+    learned: "Attention is a market. Pricing fluctuates by audience, timing, platform, and even content quality. The difference between success and failure in ads comes down to how quickly you recognize and act on opportunities to leverage attention.",
+    tags: ["Core Experience"],
     relevantFor: ["growth"]
   },
   {
@@ -136,17 +224,47 @@ export const projects: Project[] = [
     org: "KOMPETE (Modernize Games)",
     role: "Founding COO",
     dateStart: "Q1 2021",
-    dateEnd: "Q1 2022",
+    dateEnd: "Q3 2023",
     nodeType: "primary",
-    snapshot: "Built a player-owned marketplace from zero. Designed tokenomics and trading systems. $100M+ traded on-chain.",
-    bullets: [
-      "Designed economy to prevent inflationary collapse in decentralized system",
-      "Owned marketplace product strategy and trading mechanics",
-      "Directed feature decisions across pricing, risk, and UX",
-      "Led rollout planning across product, community, and marketing",
-      "Defined KPI framing and stakeholder narrative"
-    ],
-    skills: ["Product strategy", "Economy design", "Marketplace systems", "Token mechanics", "UX flows", "Release planning", "KPI framing"],
+    snapshot: "Designed and launched the foundational infrastructure for a player-owned game economy, including token design, marketplace mechanics, and crypto–fiat interoperability.",
+    bullets: [],
+    skills: [],
+    sections: {
+      product: {
+        items: [
+          "Designed the core game economy from first principles, informed by market research across blockchain gaming, virtual economies, and durable incentive systems",
+          "Led securities analysis and legal coordination to structure a utility token with reasonable safeguards against securities classification",
+          "Concepted a hybrid fiat + crypto system allowing players to participate together regardless of payment rail",
+          "Designed the token as the backbone of the ecosystem; directed smart contract requirements including developer tax and economic controls",
+          "Oversaw token deployment, initial liquidity event, and public launch",
+          "Designed peer-to-peer marketplace mechanics and trading features; created initial wireframes and directed UI and development through launch",
+          "Designed and shipped Konvert, a mint-and-burn onboarding mechanic that reduced crypto friction by letting players enter on-chain at their own pace",
+          "Designed and oversaw Kollection, a gamified collecting and trading system with algorithmic scoring to incentivize participation, holding behavior, and trade volume",
+          "Balanced multiple user incentive profiles into a cohesive economic feedback loop",
+          "Built and operated a motion capture pipeline, recording hundreds of custom basketball animations with a contracted professional athlete"
+        ],
+        tools: ["Ethereum Network", "Base Network", "Solidity", "Figma", "Asana", "Claude Code"]
+      },
+      growth: {
+        items: [
+          "Published regular development updates during the build phase to keep the community informed and engaged",
+          "Leveraged early economy features to crowdsource QA testing, creating structured feedback loops for bug reporting and iteration",
+          "Shaped early asset releases with clear narratives to establish value signals and guide collector behavior",
+          "Framed development as transparent, early-access collaboration to set expectations and build trust before launch"
+        ]
+      },
+      ops: {
+        items: [
+          "Acted as early liaison with legal counsel to establish compliant crypto policies and scalable business foundations",
+          "Coordinated drafting and rollout of Terms of Service and Privacy Policy with legal partners",
+          "Worked closely with Xsolla counsel to ensure compliant language and operations across fiat payment rails",
+          "Led business development and ongoing partnership management with Xsolla; primary contact for issue resolution and new product integrations",
+          "Interpreted licensing and royalty requirements for Unreal Engine and MetaHuman; implemented revenue tracking and quarterly reporting to Epic Games",
+          "Authored internal policies for dispute resolution and risk management",
+          "Wrote public-facing player code of conduct to support community health and long-term sustainability"
+        ]
+      }
+    },
     primaryMetric: {
       value: "$100M+",
       label: "Cumulative trade volume",
@@ -157,8 +275,8 @@ export const projects: Project[] = [
       insteadOf: "Traditional take-rate model (5-15% per transaction)",
       because: "Aligned with decentralization values; created trust and adoption"
     },
-    learned: "Decentralization is a design constraint, not a philosophy. Systems need clear rules even when control is distributed.",
-    tags: ["Product", "Web3", "Marketplace", "Economy Design"],
+    learned: "Simple systems are more durable than clever ones. When financial incentives are involved, every edge case matters. Creativity and less-than-sustainable mechanics will win short-term attention, but restraint in design and messaging are what allow an ecosystem to grow without breaking under stress.",
+    tags: ["Core Experience"],
     relevantFor: ["product", "operations"],
     links: [
       {
@@ -173,56 +291,113 @@ export const projects: Project[] = [
     title: "KOMPETE — Scale",
     org: "KOMPETE (Modernize Games)",
     role: "Founding COO",
-    dateStart: "Q1 2022",
+    dateStart: "Q4 2023",
     dateEnd: "Q2 2025",
     nodeType: "primary",
-    snapshot: "Scaled operations to 350k+ players. Primary public spokesperson with 100+ unscripted talks. Built live-service delivery systems.",
-    bullets: [
-      "Primary public spokesperson: 100+ talks, panels, AMAs",
-      "Owned cross-functional alignment across product, ops, community",
-      "Supported 350k+ active players with clear release cadence",
-      "Built operational systems for live-service delivery",
-      "Managed partnerships with Epic Games, Xsolla, and platform providers"
-    ],
-    skills: ["Operations", "Live-service delivery", "Stakeholder comms", "Public speaking", "Community leadership", "Partnerships", "Cross-functional alignment"],
+    snapshot: "Scaled a live, player-owned game economy and decentralized marketplace with real financial assets traded on-chain. Led economic decisions and public communication as the ecosystem grew to $100M+ in trade volume across 110k+ transactions.",
+    bullets: [],
+    skills: [],
+    sections: {
+      product: {
+        items: [
+          "Directed live-service product using real-time player and trader behavior to set priorities, sequencing, and pacing",
+          "Led marketplace UX and functionality improvements to support higher liquidity, faster trading, and sustained activity",
+          "Co-led planning and migration of the economy infrastructure to Base (Coinbase Ethereum L2), materially reducing fees and latency while improving onboarding UX",
+          "Owned day-to-day economic decisions and adjustments in a live, onchain environment",
+          "Oversaw an ecosystem reaching $100M+ trade volume, 110k+ on-chain transactions, and ~$55M circulating market cap, with tens of thousands of assets held by hundreds of thousands of players",
+          "Partnered closely with design, engineering, and CEO to translate market signals into evolving roadmap and shipped product updates"
+        ],
+        tools: ["Figma", "Asana", "Ethereum Network", "Base Network", "Solidity", "Dune", "Claude Code"]
+      },
+      growth: {
+        items: [
+          "Built and managed player and trader communities across Discord (12k+) and Telegram",
+          "Designed incentive structures to drive engagement, referrals, and sustained participation",
+          "Led industry partnerships with gaming guilds, trading groups, and crypto KOLs",
+          "Negotiated partnership terms, managed contracts, and tracked deliverables",
+          "Shaped and maintained the public narrative positioning the studio as a credible underdog worth rooting for",
+          "Contributed to paid media strategy and performance analysis across Google Ads and Meta Ads",
+          "Wrote and directed the majority of blogs, announcements, and social content"
+        ],
+        tools: ["Discord", "Telegram", "Google Ads", "Meta Ads", "X (Twitter)", "YouTube", "TikTok", "Hygraph (CMS)"]
+      },
+      ops: {
+        items: [
+          "Communications lead for the game economy and marketplace",
+          "Delivered 20+ live stakeholder updates covering economic performance, roadmap changes, and market conditions",
+          "Participated in dozens of AMAs, podcasts, panels, and public industry discussions",
+          "Managed accounting across fiat and crypto revenue streams",
+          "Built internal cash-flow tracking to support tax reporting and financial clarity for external professionals",
+          "Coordinated cross-functional execution across product, engineering, community, and external partners"
+        ],
+        tools: ["QuickBooks"]
+      }
+    },
     primaryMetric: {
-      value: "350k+",
-      label: "Active players supported",
-      context: "peak concurrent"
+      value: "$100M+",
+      label: "Trade volume across 110k+ transactions",
+      context: "on-chain verified"
     },
     tradeoff: {
       chose: "Unscripted public communication in live settings",
       insteadOf: "Scripted PR and controlled messaging",
       because: "Community valued authenticity over polish in Web3 context"
     },
-    learned: "Live-service operations require ruthless prioritization and clear communication rhythms.",
-    tags: ["Operations", "Community", "Live Ops", "Web3", "Partnerships"],
+    learned: "In live economies, trust compounds faster than features. Clear expectations and aligned incentives are required to scale. Treating feedback as a feature keeps you in control. Iteration beats perfection. The story you tell is often the only thing people truly understand about your brand, and everyone roots for an underdog.",
+    tags: ["Core Experience"],
     relevantFor: ["operations", "growth"]
   },
   {
     id: "outpost-therapy",
-    title: "Outpost Therapy — Build",
+    title: "Outpost Therapy",
     org: "Outpost Therapy",
     role: "Co-Founder",
     dateStart: "Q2 2025",
     dateEnd: "Present",
     nodeType: "primary",
-    snapshot: "Building mobile pediatric OT practice with product-quality systems. Cash-pay model outside insurance. Complete GTM and operations buildout.",
-    bullets: [
-      "Owned brand, website, and conversion flows",
-      "Designed intake, scheduling, and compliance workflows",
-      "Built GTM foundation: messaging, service model, customer research",
-      "Established operational systems for consistent delivery",
-      "Managing vehicle conversion to mobile sensory gym"
-    ],
-    skills: ["GTM foundations", "Messaging", "Ops design", "Intake workflows", "Service model", "Brand systems"],
+    snapshot: "Co-founding a pediatric therapy business in support of my wife chasing her dreams. Applying everything I've learned about product, growth, and operations to build the brand, service model, and foundations of a modern OT practice from zero.",
+    bullets: [],
+    skills: [],
+    sections: {
+      product: {
+        items: [
+          "Defined service model, positioning, and offerings for a cash-pay pediatric OT practice",
+          "Built brand identity, messaging, and digital presence from scratch",
+          "Designed hybrid mobile + hosted care model to support premium pricing and broader geographic reach",
+          "Developed unit-economics-driven service structure, including session pricing and delivery model",
+          "Created scalable foundation for future therapists, locations, and service expansion"
+        ],
+        tools: ["Webflow", "Claude Code", "Figma", "SimplePractice (EHR)"]
+      },
+      growth: {
+        items: [
+          "Designed SEO-first site architecture (goals, services, locations) to capture high-intent local demand",
+          "Conducted keyword and market research to validate demand, pricing power, and geography strategy",
+          "Built content strategy aligned to parent decision-making and long-tail search behavior",
+          "Positioned brand as a modern alternative to inefficient, insurance-driven therapy systems",
+          "Developed dual-sided messaging: families seeking better care and therapists seeking better careers"
+        ],
+        tools: ["Google Search Console", "Google Keyword Planner", "Ahrefs", "Webflow CMS"]
+      },
+      ops: {
+        items: [
+          "Established core business foundations: entity structure, insurance, permitting, and compliance research",
+          "Implemented SimplePractice to support scheduling, documentation, and payments",
+          "Designed internal operating workflows and project tracking for early-stage execution",
+          "Modeled unit economics and long-term viability of mobile + sensory gym approach",
+          "Evaluated non-traditional infrastructure (converted school bus) to avoid commercial leases and improve margins",
+          "Built systems with optionality to scale if demand and clinical interest support it"
+        ],
+        tools: ["Asana", "SimplePractice", "Google Workspace"]
+      }
+    },
     tradeoff: {
       chose: "Cash-pay model outside insurance system",
       insteadOf: "Traditional insurance billing path",
       because: "Faster iteration, authentic service delivery, no administrative bloat"
     },
-    learned: "Healthcare requires systems thinking and compliance rigor, but innovation happens at edges of traditional models.",
-    tags: ["Product", "Healthcare", "GTM", "Systems", "Operations"],
+    learned: "A strong service business is a product. When delivery, pricing, operations, and brand reinforce each other, you can escape broken industry norms and build something meaningfully better—for customers and operators alike.",
+    tags: ["Core Experience"],
     relevantFor: ["product", "operations"],
     links: [
       {
@@ -236,52 +411,95 @@ export const projects: Project[] = [
   // EXPERIMENT NODES
   {
     id: "early-seo-roots",
-    title: "Early SEO Roots (Affiliate & Product Experiments)",
+    title: "Early SEO Roots (Affiliate)",
     org: "Self-Employed",
     role: "Affiliate Marketer",
     dateStart: "Q1 2014",
-    dateEnd: "Q2 2015",
-    nodeType: "experiment",
-    snapshot: "Early trial-by-fire period learning SEO, affiliate marketing, and attention economics through small product and content experiments.",
-    bullets: [
-      "Built and tested early SEO-driven affiliate and product sites",
-      "Learned how rankings, attention, and demand compound over time",
-      "Experienced firsthand volatility from Google algorithm changes",
-      "Worked under a mentor focused on leverage through distribution (later became CEO of KOMPETE)"
-    ],
-    skills: ["SEO fundamentals", "Keyword research", "Content strategy", "Traffic volatility management", "Incentive alignment", "Attention economics"],
+    dateEnd: "Q2 2017",
+    nodeType: "primary",
+    snapshot: "Early hands-on period learning SEO, affiliate marketing, and attention economics through self-directed experiments. Focused on understanding how traffic, content, and demand compound over time while pursuing location-independent income.",
+    bullets: [],
+    skills: [],
+    sections: {
+      product: {
+        items: [
+          "Built and iterated on small content and affiliate sites using WordPress",
+          "Tested product-focused SEO through comparison pages, informational content, and niche sites",
+          "Learned how site structure, content quality, and intent alignment affect rankings and conversions"
+        ],
+        tools: ["WordPress"]
+      },
+      growth: {
+        items: [
+          "Learned keyword research, on-page SEO, and early link-building techniques through trial and error",
+          "Ran small affiliate experiments using Amazon and other referral programs",
+          "Provided early local SEO services to small businesses during the emergence of the Google Map Pack, including real estate niche",
+          "Experienced firsthand the volatility of organic traffic and platform dependency"
+        ],
+        tools: ["Google Search Console", "Ahrefs"]
+      },
+      ops: {
+        items: [
+          "Operated independently with minimal budget, optimizing for learning velocity over scale",
+          "Balanced experimentation with living cheaply to extend runway",
+          "Developed a bias toward building systems rather than trading time for money"
+        ]
+      }
+    },
     tradeoff: {
-      chose: "Organic search traffic over paid acquisition",
+      chose: "SEO-driven organic demand",
       insteadOf: "Direct paid advertising models",
       because: "Limited capital required building compounding traffic assets rather than buying demand"
     },
-    learned: "Distribution leverage compounds over time, but platform dependency creates fragility. Algorithm changes can erase months of work overnight.",
-    tags: ["Experiment", "SEO", "Affiliate", "Marketing"],
+    learned: "Organic rankings felt like digital real estate on a new frontier. The promise of compounding, permissionless scale was intoxicating. I also learned how fragile \"passive\" income becomes when it relies on platforms and algorithms that constantly change. This period shaped how I think about incentives, risk, and building things that can withstand change.",
+    tags: ["Core Experience"],
     relevantFor: ["growth"]
   },
   {
     id: "real-estate",
     title: "Real Estate — Lead Gen & Agency",
-    org: "Self-Employed",
+    org: "Keller Williams Realty",
     role: "Real Estate Agent",
-    dateStart: "Q2 2018",
+    dateStart: "Q1 2018",
     dateEnd: "Q2 2019",
     nodeType: "experiment",
-    snapshot: "Entered residential real estate to understand lead economics and transaction mechanics firsthand, using agency work to test demand generation.",
-    bullets: [
-      "Explored real estate lead generation and conversion dynamics",
-      "Operated as residential agent to observe transactions end-to-end",
-      "Worked within CRM-driven pipelines and commission incentives",
-      "Identified where leverage exists in real estate leads—and where it breaks down"
-    ],
-    skills: ["Lead gen economics", "CRM/pipeline", "Client comms", "Transaction process", "Sales ops"],
-    tradeoff: {
-      chose: "Direct agent work within established team",
-      insteadOf: "Building independent lead generation business first",
-      because: "Needed to understand transaction mechanics before optimizing acquisition"
+    snapshot: "Hands-on exposure to high-ticket sales and lead generation in a competitive San Diego real estate market.",
+    bullets: [],
+    skills: [],
+    sections: {
+      product: {
+        items: [
+          "Built and managed Google Business Profile for personal agency brand",
+          "Built Youtube Channel around first-time homebuyer content and property listing videos to generate new buyer leads",
+          "Designed Facebook ad creative and landing pages for lead capture campaigns"
+        ],
+        tools: ["Google Business Profile", "YouTube", "Facebook"]
+      },
+      growth: {
+        items: [
+          "Ran paid media campaigns on Google (search + display) and Facebook targeting first-time homebuyers and relocation segments",
+          "Executed outbound prospecting and cold outreach to build pipeline",
+          "Assisted with open houses and community-based relationship building"
+        ],
+        tools: ["Google Business Profile", "YouTube Ads", "Facebook Ads"]
+      },
+      ops: {
+        items: [
+          "Worked with a top producer in the area (100+ transactions/year) to observe high-volume lead conversion systems",
+          "Managed transaction coordination and CRM workflows (follow-ups, scheduling, documentation)",
+          "Coordinated with lenders, inspectors, and title companies to move deals through escrow",
+          "Attended team meetings and training to understand broader market strategy and operational best practices",
+          "Developed and maintained listing presentations, buyer consultation materials, and comps analysis"
+        ]
+      }
     },
-    learned: "Real estate transaction complexity creates friction that limits pure lead arbitrage models.",
-    tags: ["Experiment", "Real Estate", "Lead Gen"],
+    tradeoff: {
+      chose: "Team-based sales system with experienced mentorship",
+      insteadOf: "Solo agent model with full commission splits",
+      because: "Steeper learning curve and faster exposure to high-volume systems worth lower short-term commission"
+    },
+    learned: "In high-ticket sales, lead volume alone is not enough. Credibility and relationships drive outcomes as much as demand generation. Southern California real estate offered firsthand exposure to a highly competitive market.",
+    tags: ["Experiment"],
     relevantFor: ["growth"]
   },
   {
@@ -292,73 +510,118 @@ export const projects: Project[] = [
     dateStart: "Q3 2025",
     dateEnd: "Present",
     nodeType: "experiment",
-    snapshot: "Fast local demand test. Validated CAC and channel strategy through Google Ads. Learned pricing reality through real estimates.",
-    bullets: [
-      "Built and launched Google Ads funnel for seasonal cleanup",
-      "Achieved ~$25–$50 cost per booked customer (with credits)",
-      "Learned estimating/bidding gaps and corrected assumptions",
-      "Validated Google Ads as strong channel; deprioritized print"
-    ],
-    skills: ["Local SEO/Ads", "CAC testing", "Ops execution", "Pricing iteration", "Service delivery"],
+    snapshot: "A hands-on local services experiment to test lead generation economics, conversion, and on-the-ground operations in home services.",
+    bullets: [],
+    skills: [],
+    sections: {
+      product: {
+        items: [
+          "Built a simple, conversion-focused landing page (\"digital flyer\") to route traffic",
+          "Designed brand around solo-operator trust, low overhead, fast quotes, and a personal service guarantee."
+        ],
+        tools: ["Canva"]
+      },
+      growth: {
+        items: [
+          "Researched local and auxiliary keywords (e.g. fall cleanup, leaf cleanup)",
+          "Ranked ~5th organically for \"fall cleanup Chattanooga\"",
+          "Optimized Google Business Profile, built extensive local citations",
+          "Ran Google Ads to test paid demand and CAC",
+          "~$3.80 CPC → ~11% call rate → ~40% close → ~$85 CAC / ~$400 AOV"
+        ],
+        tools: ["Google Ads", "Google Keyword Planner", "Google Search Console", "Google Business Profile"]
+      },
+      ops: {
+        items: [
+          "Handled quoting, scheduling, and on-site service delivery",
+          "Closed sales face-to-face and managed customer expectations directly",
+          "Learned basic home services workflows and property maintenance realities"
+        ],
+        tools: ["Google Voice"]
+      }
+    },
     tradeoff: {
       chose: "Speed over perfection in market validation",
       insteadOf: "Extended planning and market research",
       because: "Real customer conversations worth more than hypothetical modeling"
     },
-    learned: "Local service businesses require operational precision that limits pure marketing arbitrage.",
-    tags: ["Experiment", "Marketing", "CAC", "Local"],
+    learned: "Lead quality and lead management systems matter as much as lead volume. Auxiliary/local-intent keywords are still low-hanging fruit in 2025 for niche service businesses. Simple, trust-based branding converts well for solo operators. Printed signs were not effective for lead gen even with strong placement / impressions. Paid acquisition can work quickly, but ops capacity becomes the bottleneck fast.",
+    tags: ["Experiment"],
     relevantFor: ["growth"]
   },
   {
     id: "boring-business",
-    title: "Boring Business Leads",
+    title: "Wisconsin Home Service Guide",
     org: "Self-Employed",
     role: "Founder",
-    dateStart: "Q4 2025",
+    dateStart: "Q1 2026",
     dateEnd: "Present",
     nodeType: "experiment",
-    snapshot: "Testing lead generation for unsexy, essential services. Validating channel economics and conversion paths.",
-    bullets: [
-      "Building demand generation systems for local services",
-      "Testing Google Ads and conversion funnel optimization",
-      "Validating customer acquisition economics",
-      "Learning operational requirements of lead fulfillment"
-    ],
-    skills: ["Prospecting systems", "Lead qualification", "Offer packaging", "Automation", "Sales pipeline"],
+    snapshot: "Building a network of localized lead-gen sites for home services, alongside a sales engine to track, route, and sell leads.",
+    bullets: [],
+    skills: [],
+    sections: {
+      product: {
+        items: [
+          "Built AI-assisted lead-gen sites at scale (written + visual content engine)",
+          "Building lead tracking + sales dashboard (capture → qualify → route → invoice)"
+        ],
+        tools: ["WordPress", "Node/Next.js", "Supabase", "Stripe", "Zapier", "Figma", "Claude Code"]
+      },
+      growth: {
+        items: [
+          "Found \"cheap attention\" via keyword + SERP + CPL analysis (core + auxiliary pages)",
+          "Executed SEO + LLM optimization (programmatic content, llms.txt, forum/community seeding)"
+        ],
+        tools: ["Ahrefs", "Google Keyword Planner", "Search Console"]
+      },
+      ops: {
+        items: [
+          "Building buyer pipeline (outreach → CRM follow-up → close) + lead delivery workflow",
+          "Defining operating rules: onboarding, pricing, billing, disputes, refunds, quality control"
+        ],
+        tools: ["HubSpot"]
+      }
+    },
     tradeoff: {
       chose: "Local service verticals over tech/SaaS",
       insteadOf: "High-margin digital products",
       because: "Wanted to test fundamentals of demand generation without product complexity"
     },
-    learned: "Lead quality and fulfillment capacity are equally important to acquisition efficiency.",
-    tags: ["Experiment", "Lead Gen", "Marketing"],
+    learned: "I am reminded yet again of the opportunity that SEO presents for building real value to everyday, 'boring' businesses.",
+    tags: ["Experiment"],
     relevantFor: ["growth"]
   },
 
   // LIFE NODE
   {
     id: "pct-thru-hike",
-    title: "PCT Thru-hike",
+    title: "Pacific Crest Trail",
     org: "Personal",
-    role: "Thru-hiker",
+    role: "Thru-hike",
     dateStart: "Q2 2015",
     dateEnd: "Q4 2015",
     nodeType: "life",
-    snapshot: "2,650 miles. Six months. Built endurance for uncertainty and disciplined decision-making under long constraints.",
-    bullets: [
-      "Completed Pacific Crest Trail thru-hike (Mexico to Canada)",
-      "Managed logistics, resupply, risk, and recovery for 6 months",
-      "Built resilience and follow-through under sustained difficulty",
-      "Learned to make good decisions with incomplete information"
-    ],
-    skills: ["Endurance", "Risk management", "Resource planning", "Decision-making", "Self-reliance"],
+    snapshot: "Hiked the Pacific Crest Trail from Mexico to Canada, covering 2,650 miles over six months. Stepped away from routine to gain perspective, spend extended time outdoors, and experience the world at a different pace.",
+    bullets: [],
+    skills: [],
+    sections: {
+      ops: {
+        items: [
+          "Planned and completed a six-month, self-supported thru-hike across desert, mountain, and alpine terrain",
+          "Managed daily logistics including resupply, route planning, risk mitigation, recovery, and pacing",
+          "Made ongoing decisions with incomplete information, adapting plans around weather, wildfires, injury, and terrain",
+          "Learned to compromise, reroute, and move forward when original plans were no longer viable"
+        ]
+      }
+    },
     tradeoff: {
       chose: "Six months off-grid during career transition",
       insteadOf: "Immediate job search after previous role",
       because: "Needed to reset and prove I could finish hard things"
     },
-    learned: "Endurance is about sustainable systems, not heroic effort. Consistency beats intensity.",
-    tags: ["Life", "Endurance", "Resilience"],
+    learned: "Humans are capable of more than they usually give themselves credit for. Consistency matters more than intensity. The experience also restored my faith in people. The hike would have been far harder, and maybe impossible, without the generosity of strangers along the way. Spending months meeting people from different backgrounds, hitchhiking into town, and sleeping under the stars reshaped how I see the world.",
+    tags: ["Personal"],
     relevantFor: []
   }
 ];

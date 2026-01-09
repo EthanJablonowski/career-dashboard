@@ -21,11 +21,11 @@ function parseQuarterDate(dateStr: string): number {
 function getTypeBadge(nodeType: Project['nodeType']) {
   switch (nodeType) {
     case 'primary':
-      return { label: 'Core Experience', color: 'bg-slate-100 text-slate-700 border-slate-200' };
+      return { label: 'Core Experience', color: 'bg-blue-50 text-blue-700 border-blue-200' };
     case 'experiment':
-      return { label: 'Experiment', color: 'bg-blue-50 text-blue-700 border-blue-200' };
+      return { label: 'Experiment', color: 'bg-slate-100 text-slate-700 border-slate-200' };
     case 'life':
-      return { label: 'Personal', color: 'bg-amber-50 text-amber-700 border-amber-200' };
+      return { label: 'Personal', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
     default:
       return { label: 'Experience', color: 'bg-slate-100 text-slate-700 border-slate-200' };
   }
@@ -34,11 +34,11 @@ function getTypeBadge(nodeType: Project['nodeType']) {
 function getNodeColor(nodeType: Project['nodeType']) {
   switch (nodeType) {
     case 'primary':
-      return 'bg-slate-400';
-    case 'experiment':
       return 'bg-blue-400';
+    case 'experiment':
+      return 'bg-slate-400';
     case 'life':
-      return 'bg-amber-400';
+      return 'bg-emerald-400';
     default:
       return 'bg-slate-300';
   }
@@ -60,7 +60,7 @@ export default function Timeline() {
   return (
     <section className="max-w-4xl mx-auto px-6 py-12">
       <div className="mb-10">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-2">My Career Evolution</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-2">What I've Built</h2>
         <p className="text-sm text-slate-600">Click any role to expand for details.</p>
       </div>
 

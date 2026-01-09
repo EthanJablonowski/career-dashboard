@@ -70,28 +70,118 @@ export default function ProjectDrawer() {
               <p className="text-sm text-slate-800 leading-relaxed">{activeProject.snapshot}</p>
             </div>
 
-            <div className="mb-10">
-              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Key Responsibilities</h3>
-              <ul className="space-y-2.5">
-                {activeProject.bullets.map((bullet, i) => (
-                  <li key={i} className="text-sm font-normal text-slate-700 flex">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* New section-based structure */}
+            {activeProject.sections ? (
+              <div className="space-y-8 mb-10">
+                {activeProject.sections.product && (
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Product</h3>
+                    <ul className="space-y-2.5 mb-3">
+                      {activeProject.sections.product.items.map((item, i) => (
+                        <li key={i} className="text-sm font-normal text-slate-700 flex">
+                          <span className="mr-2 text-blue-500">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {activeProject.sections.product.tools && activeProject.sections.product.tools.length > 0 && (
+                      <div>
+                        <p className="text-xs font-semibold text-slate-600 mb-2">Tools:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {activeProject.sections.product.tools.map((tool, i) => (
+                            <span key={i} className="px-2.5 py-1 bg-slate-100 text-slate-700 text-xs rounded-md border border-slate-200 font-medium">
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
 
-            <div className="mb-10">
-              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Skills</h3>
-              <div className="flex flex-wrap gap-2">
-                {activeProject.skills.map((skill, i) => (
-                  <span key={i} className="px-3 py-1.5 bg-emerald-100 text-emerald-800 text-xs rounded-lg border border-emerald-200 font-medium">
-                    {skill}
-                  </span>
-                ))}
+                {activeProject.sections.growth && (
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Digital Growth</h3>
+                    <ul className="space-y-2.5 mb-3">
+                      {activeProject.sections.growth.items.map((item, i) => (
+                        <li key={i} className="text-sm font-normal text-slate-700 flex">
+                          <span className="mr-2 text-blue-500">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {activeProject.sections.growth.tools && activeProject.sections.growth.tools.length > 0 && (
+                      <div>
+                        <p className="text-xs font-semibold text-slate-600 mb-2">Tools:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {activeProject.sections.growth.tools.map((tool, i) => (
+                            <span key={i} className="px-2.5 py-1 bg-slate-100 text-slate-700 text-xs rounded-md border border-slate-200 font-medium">
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {activeProject.sections.ops && (
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Ops & Strategy</h3>
+                    <ul className="space-y-2.5 mb-3">
+                      {activeProject.sections.ops.items.map((item, i) => (
+                        <li key={i} className="text-sm font-normal text-slate-700 flex">
+                          <span className="mr-2 text-blue-500">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {activeProject.sections.ops.tools && activeProject.sections.ops.tools.length > 0 && (
+                      <div>
+                        <p className="text-xs font-semibold text-slate-600 mb-2">Tools:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {activeProject.sections.ops.tools.map((tool, i) => (
+                            <span key={i} className="px-2.5 py-1 bg-slate-100 text-slate-700 text-xs rounded-md border border-slate-200 font-medium">
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
-            </div>
+            ) : (
+              /* Legacy structure for older projects */
+              <>
+                {activeProject.bullets && activeProject.bullets.length > 0 && (
+                  <div className="mb-10">
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Key Responsibilities</h3>
+                    <ul className="space-y-2.5">
+                      {activeProject.bullets.map((bullet, i) => (
+                        <li key={i} className="text-sm font-normal text-slate-700 flex">
+                          <span className="mr-2 text-blue-500">•</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
+            )}
+
+            {activeProject.skills && activeProject.skills.length > 0 && (
+              <div className="mb-10">
+                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Skills</h3>
+                <div className="flex flex-wrap gap-2">
+                  {activeProject.skills.map((skill, i) => (
+                    <span key={i} className="px-3 py-1.5 bg-emerald-100 text-emerald-800 text-xs rounded-lg border border-emerald-200 font-medium">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {activeProject.learned && (
               <div className="mb-10">
