@@ -508,7 +508,7 @@ export const projects: Project[] = [
     org: "Scenic City Cleanup",
     role: "Founder",
     dateStart: "Q3 2025",
-    dateEnd: "Present",
+    dateEnd: "Q1 2026",
     nodeType: "experiment",
     snapshot: "A hands-on local services experiment to test lead generation economics, conversion, and on-the-ground operations in home services.",
     bullets: [],
