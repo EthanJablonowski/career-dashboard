@@ -60,7 +60,7 @@ export default function Timeline() {
   return (
     <section className="max-w-4xl mx-auto px-6 py-12">
       <div className="mb-10">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-2">What I've Built</h2>
+        <h2 className="text-2xl font-semibold text-slate-900 mb-2">What I&apos;ve Built</h2>
         <p className="text-sm text-slate-600">Click any role to expand for details.</p>
       </div>
 
