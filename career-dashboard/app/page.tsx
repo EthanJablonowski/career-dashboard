@@ -5,6 +5,7 @@ import Influences from '@/components/Influences';
 import TechStack from '@/components/TechStack';
 import Timeline from '@/components/Timeline';
 import ProjectDrawer from '@/components/ProjectDrawer';
+import SkillGraph from '@/components/SkillGraph';
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <Influences />
       <Timeline />
       <ProjectDrawer />
+      <SkillGraph />
       <TechStack />
     </main>
   );
