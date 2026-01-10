@@ -3,9 +3,8 @@ import Overview from '@/components/Overview';
 import MetricStrip from '@/components/MetricStrip';
 import Influences from '@/components/Influences';
 import TechStack from '@/components/TechStack';
-import Timeline from '@/components/Timeline';
+import TimelineWithFilters from '@/components/TimelineWithFilters';
 import ProjectDrawer from '@/components/ProjectDrawer';
-import SkillGraph from '@/components/SkillGraph';
 
 export default function Home() {
   return (
@@ -14,9 +13,8 @@ export default function Home() {
       <Overview />
       <MetricStrip />
       <Influences />
-      <Timeline />
+      <TimelineWithFilters />
       <ProjectDrawer />
-      <SkillGraph />
       <TechStack />
     </main>
   );

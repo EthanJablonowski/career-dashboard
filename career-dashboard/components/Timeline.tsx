@@ -5,6 +5,10 @@ import { projects } from '@/data/projects';
 
 type Project = (typeof projects)[number];
 
+interface TimelineProps {
+  filteredProjects?: Project[];
+}
+
 function parseQuarterDate(dateStr: string): number {
   // Supports: "Q1 2026" and "Present"
   if (!dateStr) return 0;
@@ -44,13 +48,14 @@ function getNodeColor(nodeType: Project['nodeType']) {
   }
 }
 
-export default function Timeline() {
+export default function Timeline({ filteredProjects }: TimelineProps) {
   // Derived data only; no mutation of imported data.
   const allProjects = useMemo(() => {
-    return [...projects].sort((a, b) => {
+    const projectsToSort = filteredProjects || projects;
+    return [...projectsToSort].sort((a, b) => {
       return parseQuarterDate(b.dateStart) - parseQuarterDate(a.dateStart);
     });
-  }, []);
+  }, [filteredProjects]);
 
   const handleClick = useCallback((projectId: string) => {
     // Keep hashes consistent. If your drawer expects "#<id>", this is correct.
