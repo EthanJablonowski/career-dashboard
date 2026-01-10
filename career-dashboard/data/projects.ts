@@ -282,11 +282,6 @@ export const projects: Project[] = [
         skills: ["Operating Systems", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Risk Management", "Strategic Partnerships", "Deal Structuring & Management", "Cash Flow & Reporting", "Decision-Making Under Uncertainty"]
       }
     },
-    primaryMetric: {
-      value: "$100M+",
-      label: "Cumulative trade volume",
-      context: "verified on-chain"
-    },
     tradeoff: {
       chose: "Player-owned economy with no central marketplace fees",
       insteadOf: "Traditional take-rate model (5-15% per transaction)",
@@ -352,11 +347,6 @@ export const projects: Project[] = [
         skills: ["Operating Systems", "Cash Flow & Reporting", "Billing & Disputes", "Risk Management", "Cross-Functional Execution", "Stakeholder Communication", "Decision-Making Under Uncertainty"],
         tools: ["QuickBooks"]
       }
-    },
-    primaryMetric: {
-      value: "$100M+",
-      label: "Trade volume across 110k+ transactions",
-      context: "on-chain verified"
     },
     tradeoff: {
       chose: "Unscripted public communication in live settings",
