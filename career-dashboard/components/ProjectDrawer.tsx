@@ -84,6 +84,18 @@ export default function ProjectDrawer() {
                         </li>
                       ))}
                     </ul>
+                    {activeProject.sections.product.skills && activeProject.sections.product.skills.length > 0 && (
+                      <div className="mb-3">
+                        <p className="text-xs font-semibold text-slate-600 mb-2">Skills:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {activeProject.sections.product.skills.map((skill, i) => (
+                            <span key={i} className="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-md border border-blue-200 font-medium">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                     {activeProject.sections.product.tools && activeProject.sections.product.tools.length > 0 && (
                       <div>
                         <p className="text-xs font-semibold text-slate-600 mb-2">Tools:</p>
@@ -110,6 +122,18 @@ export default function ProjectDrawer() {
                         </li>
                       ))}
                     </ul>
+                    {activeProject.sections.growth.skills && activeProject.sections.growth.skills.length > 0 && (
+                      <div className="mb-3">
+                        <p className="text-xs font-semibold text-slate-600 mb-2">Skills:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {activeProject.sections.growth.skills.map((skill, i) => (
+                            <span key={i} className="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-md border border-blue-200 font-medium">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                     {activeProject.sections.growth.tools && activeProject.sections.growth.tools.length > 0 && (
                       <div>
                         <p className="text-xs font-semibold text-slate-600 mb-2">Tools:</p>
@@ -136,6 +160,18 @@ export default function ProjectDrawer() {
                         </li>
                       ))}
                     </ul>
+                    {activeProject.sections.ops.skills && activeProject.sections.ops.skills.length > 0 && (
+                      <div className="mb-3">
+                        <p className="text-xs font-semibold text-slate-600 mb-2">Skills:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {activeProject.sections.ops.skills.map((skill, i) => (
+                            <span key={i} className="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-md border border-blue-200 font-medium">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                     {activeProject.sections.ops.tools && activeProject.sections.ops.tools.length > 0 && (
                       <div>
                         <p className="text-xs font-semibold text-slate-600 mb-2">Tools:</p>
