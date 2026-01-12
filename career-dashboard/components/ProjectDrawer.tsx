@@ -113,7 +113,7 @@ export default function ProjectDrawer() {
 
                 {activeProject.sections.growth && (
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Digital Growth</h3>
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Growth</h3>
                     <ul className="space-y-2.5 mb-3">
                       {activeProject.sections.growth.items.map((item, i) => (
                         <li key={i} className="text-sm font-normal text-slate-700 flex">

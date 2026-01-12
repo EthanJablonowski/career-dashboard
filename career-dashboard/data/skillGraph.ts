@@ -97,7 +97,7 @@ export const skillGraph: Record<string, Branch> = {
     }
   },
   growth: {
-    name: "Digital Growth",
+    name: "Growth",
     description: "Creating and capturing demand through systems, channels, and narrative.",
     skillGroups: {
       "demand-discovery": {
