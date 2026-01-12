@@ -54,7 +54,7 @@ export const projects: Project[] = [
           "Created educational resources including weight loss guides, recipes, and getting-started frameworks",
           "Built a content library designed to counter misinformation while meeting users at their point of search intent"
         ],
-        skills: ["Service & Offering Design", "Pricing & Packaging", "User Flows & UX", "Web Development"],
+        skills: ["Service & Offering Design", "Pricing & Packaging", "User Flows & UX", "Development"],
         tools: ["YouTube", "Facebook Groups", "ManyChat", "MailerLite", "Google Docs"]
       },
       growth: {
@@ -77,7 +77,7 @@ export const projects: Project[] = [
           "Handled churn, retention challenges, and expectation-setting in a high-attrition industry",
           "Balanced scalability with personalized support in a service-heavy business model"
         ],
-        skills: ["Operating Systems", "Customer Experience", "Billing & Disputes", "Decision-Making Under Uncertainty"]
+        skills: ["Operating Systems", "Customer Experience", "Billing & Disputes"]
       }
     },
     tradeoff: {
@@ -109,7 +109,7 @@ export const projects: Project[] = [
           "Partnered with founder to restructure site hierarchy, navigation, and product presentation for clarity and conversion",
           "Oversaw complex data migration from legacy order management system, including manual cleanup and consolidation"
         ],
-        skills: ["Platform & Infrastructure Decisions", "User Flows & UX", "Workflow & Automation Design", "Project Management", "Web Development"],
+        skills: ["Platform & Infrastructure", "User Flows & UX", "Workflow & Automation Design", "Project Management", "Development"],
         tools: ["Shopify", "MailerLite", "Google Analytics"]
       },
       growth: {
@@ -130,7 +130,7 @@ export const projects: Project[] = [
           "Helped align marketing initiatives with inventory, fulfillment, and customer service realities",
           "Balanced experimentation with operational constraints of a legacy business"
         ],
-        skills: ["Operating Systems", "Capacity & Scheduling", "Unit Economics & Pricing Models", "Decision-Making Under Uncertainty"],
+        skills: ["Operating Systems", "Capacity & Scheduling", "Unit Economics & Pricing Models"],
         tools: ["Shopify"]
       }
     },
@@ -163,7 +163,7 @@ export const projects: Project[] = [
           "Interviewed and selected outsourced development partners, owning product scope, feature requirements, and budget oversight",
           "Led early planning for EHR integration with DrChrono, including feasibility research and initial implementation work"
         ],
-        skills: ["Service & Offering Design", "Pricing & Packaging", "User Flows & UX", "Requirements & Product Specs", "Platform & Infrastructure Decisions", "Project Management"],
+        skills: ["Service & Offering Design", "Pricing & Packaging", "User Flows & UX", "Requirements & Product Specs", "Platform & Infrastructure", "Project Management"],
         tools: ["Figma", "React Native", "DrChrono", "Asana"]
       },
       ops: {
@@ -172,7 +172,7 @@ export const projects: Project[] = [
           "Coordinated with IV therapy suppliers to plan procurement strategy and operational efficiency",
           "Acted as day-to-day product liaison to the founder, providing regular updates and decision support across moving pieces"
         ],
-        skills: ["Operating Systems", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Cross-Functional Execution", "Decision-Making Under Uncertainty"],
+        skills: ["Operating Systems", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Cross-Functional Execution"],
         tools: ["Asana", "DrChrono"]
       }
     },
@@ -199,7 +199,7 @@ export const projects: Project[] = [
     sections: {
       product: {
         items: [],
-        skills: ["Web Development"]
+        skills: ["Development"]
       },
       growth: {
         items: [
@@ -219,7 +219,7 @@ export const projects: Project[] = [
           "Managed systems that scaled to six figures in monthly ad spend during peak performance periods",
           "Supported cash-flow planning and stakeholder communications to manage working capital constraints during scaling"
         ],
-        skills: ["Unit Economics & Pricing Models", "Cash Flow & Reporting", "Decision-Making Under Uncertainty"],
+        skills: ["Unit Economics & Pricing Models", "Cash Flow & Reporting"],
         tools: ["Airtable"]
       }
     },
@@ -257,7 +257,7 @@ export const projects: Project[] = [
           "Balanced multiple user incentive profiles into a cohesive economic feedback loop",
           "Built and operated a motion capture pipeline, recording hundreds of custom basketball animations with a contracted professional athlete"
         ],
-        skills: ["Economic & Incentive Design", "Workflow & Automation Design", "Platform & Infrastructure Decisions", "AI-Augmented System Design", "User Flows & UX", "Requirements & Product Specs", "Project Management"],
+        skills: ["Economic & Incentive Design", "Workflow & Automation Design", "Platform & Infrastructure", "AI-Supported Product Development", "User Flows & UX", "Requirements & Product Specs", "Project Management"],
         tools: ["Ethereum Network", "Base Network", "Solidity", "Figma", "Asana", "Claude Code"]
       },
       growth: {
@@ -279,7 +279,7 @@ export const projects: Project[] = [
           "Authored internal policies for dispute resolution and risk management",
           "Wrote public-facing player code of conduct to support community health and long-term sustainability"
         ],
-        skills: ["Operating Systems", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Risk Management", "Strategic Partnerships", "Deal Structuring & Management", "Cash Flow & Reporting", "Decision-Making Under Uncertainty"]
+        skills: ["Operating Systems", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Risk Management", "Strategic Partnerships", "Deal Structuring & Management", "Cash Flow & Reporting"]
       }
     },
     tradeoff: {
@@ -319,7 +319,7 @@ export const projects: Project[] = [
           "Oversaw an ecosystem reaching $100M+ trade volume, 110k+ on-chain transactions, and ~$55M circulating market cap, with tens of thousands of assets held by hundreds of thousands of players",
           "Partnered closely with design, engineering, and CEO to translate market signals into evolving roadmap and shipped product updates"
         ],
-        skills: ["Economic & Incentive Design", "Workflow & Automation Design", "Platform & Infrastructure Decisions", "AI-Augmented System Design", "User Flows & UX", "Requirements & Product Specs", "Project Management"],
+        skills: ["Economic & Incentive Design", "Workflow & Automation Design", "Platform & Infrastructure", "AI-Supported Product Development", "User Flows & UX", "Requirements & Product Specs", "Project Management"],
         tools: ["Figma", "Asana", "Ethereum Network", "Base Network", "Solidity", "Dune", "Claude Code"]
       },
       growth: {
@@ -344,7 +344,7 @@ export const projects: Project[] = [
           "Built internal cash-flow tracking to support tax reporting and financial clarity for external professionals",
           "Coordinated cross-functional execution across product, engineering, community, and external partners"
         ],
-        skills: ["Operating Systems", "Cash Flow & Reporting", "Billing & Disputes", "Risk Management", "Cross-Functional Execution", "Stakeholder Communication", "Decision-Making Under Uncertainty"],
+        skills: ["Operating Systems", "Cash Flow & Reporting", "Billing & Disputes", "Risk Management", "Cross-Functional Execution", "Stakeholder Communication"],
         tools: ["QuickBooks"]
       }
     },
@@ -377,7 +377,7 @@ export const projects: Project[] = [
           "Developed unit-economics-driven service structure, including session pricing and delivery model",
           "Created scalable foundation for future therapists, locations, and service expansion"
         ],
-        skills: ["Service & Offering Design", "Positioning & Value Proposition", "Pricing & Packaging", "Workflow & Automation Design", "Platform & Infrastructure Decisions", "AI-Augmented System Design", "User Flows & UX", "Requirements & Product Specs", "Web Development"],
+        skills: ["Service & Offering Design", "Positioning & Value Proposition", "Pricing & Packaging", "Workflow & Automation Design", "Platform & Infrastructure", "AI-Supported Product Development", "User Flows & UX", "Requirements & Product Specs", "Development"],
         tools: ["Webflow", "Claude Code", "Figma", "SimplePractice (EHR)"]
       },
       growth: {
@@ -388,7 +388,7 @@ export const projects: Project[] = [
           "Positioned brand as a modern alternative to inefficient, insurance-driven therapy systems",
           "Developed dual-sided messaging: families seeking better care and therapists seeking better careers"
         ],
-        skills: ["Market & Keyword Research", "Product-Channel Fit", "SEO Strategy & Architecture", "Content Strategy & Production Systems", "Local SEO", "Narrative & Messaging", "AI-Assisted Research & Ideation"],
+        skills: ["Market & Keyword Research", "Product-Channel Fit", "SEO Strategy & Architecture", "Content Strategy & Production Systems", "Local SEO", "Narrative & Messaging", "AI-Supported Growth"],
         tools: ["Google Search Console", "Google Keyword Planner", "Ahrefs", "Webflow CMS"]
       },
       ops: {
@@ -400,7 +400,7 @@ export const projects: Project[] = [
           "Evaluated non-traditional infrastructure (converted school bus) to avoid commercial leases and improve margins",
           "Built systems with optionality to scale if demand and clinical interest support it"
         ],
-        skills: ["Operating Systems", "Customer Experience", "Unit Economics & Pricing Models", "Cash Flow & Reporting", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Decision-Making Under Uncertainty", "AI for Internal Efficiency"],
+        skills: ["Operating Systems", "Customer Experience", "Unit Economics & Pricing Models", "Cash Flow & Reporting", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "AI-Supported Operations"],
         tools: ["Asana", "SimplePractice", "Google Workspace"]
       }
     },
@@ -440,7 +440,7 @@ export const projects: Project[] = [
           "Tested product-focused SEO through comparison pages, informational content, and niche sites",
           "Learned how site structure, content quality, and intent alignment affect rankings and conversions"
         ],
-        skills: ["User Flows & UX", "Web Development"],
+        skills: ["User Flows & UX", "Development"],
         tools: ["WordPress"]
       },
       growth: {
@@ -459,7 +459,7 @@ export const projects: Project[] = [
           "Balanced experimentation with living cheaply to extend runway",
           "Developed a bias toward building systems rather than trading time for money"
         ],
-        skills: ["Decision-Making Under Uncertainty", "Risk Management"]
+        skills: ["Risk Management"]
       }
     },
     tradeoff: {
@@ -509,7 +509,7 @@ export const projects: Project[] = [
           "Attended team meetings and training to understand broader market strategy and operational best practices",
           "Developed and maintained listing presentations, buyer consultation materials, and comps analysis"
         ],
-        skills: ["Operating Systems", "Customer Experience", "Cross-Functional Execution", "Decision-Making Under Uncertainty"]
+        skills: ["Operating Systems", "Customer Experience", "Cross-Functional Execution"]
       }
     },
     tradeoff: {
@@ -538,7 +538,7 @@ export const projects: Project[] = [
           "Built a simple, conversion-focused landing page (\"digital flyer\") to route traffic",
           "Designed brand around solo-operator trust, low overhead, fast quotes, and a personal service guarantee."
         ],
-        skills: ["Service & Offering Design", "Positioning & Value Proposition", "Pricing & Packaging", "User Flows & UX", "Web Development"],
+        skills: ["Service & Offering Design", "Positioning & Value Proposition", "Pricing & Packaging", "User Flows & UX", "Development"],
         tools: ["Canva"]
       },
       growth: {
@@ -558,7 +558,7 @@ export const projects: Project[] = [
           "Closed sales face-to-face and managed customer expectations directly",
           "Learned basic home services workflows and property maintenance realities"
         ],
-        skills: ["Operating Systems", "Capacity & Scheduling", "Customer Experience", "Unit Economics & Pricing Models", "Decision-Making Under Uncertainty"],
+        skills: ["Operating Systems", "Capacity & Scheduling", "Customer Experience", "Unit Economics & Pricing Models"],
         tools: ["Google Voice"]
       }
     },
@@ -588,7 +588,7 @@ export const projects: Project[] = [
           "Building AI-assisted lead-gen sites at scale (written + visual content engine)",
           "Building lead tracking + sales dashboard (capture → qualify → route → invoice)"
         ],
-        skills: ["Service & Offering Design", "Pricing & Packaging", "Workflow & Automation Design", "Platform & Infrastructure Decisions", "AI-Augmented System Design", "User Flows & UX", "Requirements & Product Specs", "Web Development"],
+        skills: ["Service & Offering Design", "Pricing & Packaging", "Workflow & Automation Design", "Platform & Infrastructure", "AI-Supported Product Development", "User Flows & UX", "Requirements & Product Specs", "Development"],
         tools: ["WordPress", "Node/Next.js", "Supabase", "Stripe", "Zapier", "Figma", "Claude Code"]
       },
       growth: {
@@ -596,7 +596,7 @@ export const projects: Project[] = [
           "Finding \"cheap attention\" via keyword + SERP + CPL analysis (core + auxiliary pages)",
           "Executing SEO + LLM optimization (programmatic content, llms.txt, forum/community seeding)"
         ],
-        skills: ["Market & Keyword Research", "Product-Channel Fit", "SEO Strategy & Architecture", "Content Strategy & Production Systems", "Local SEO", "AI-Assisted Research & Ideation", "AI-Enhanced Content & Optimization"],
+        skills: ["Market & Keyword Research", "Product-Channel Fit", "SEO Strategy & Architecture", "Content Strategy & Production Systems", "Local SEO", "AI-Supported Growth"],
         tools: ["Ahrefs", "Google Keyword Planner", "Search Console"]
       },
       ops: {
@@ -604,7 +604,7 @@ export const projects: Project[] = [
           "Building buyer pipeline (outreach → CRM follow-up → close) + lead delivery workflow",
           "Defining operating rules: onboarding, pricing, billing, disputes, refunds, quality control"
         ],
-        skills: ["Operating Systems", "Customer Experience", "Unit Economics & Pricing Models", "Billing & Disputes", "Cross-Functional Execution", "Decision-Making Under Uncertainty", "AI for Internal Efficiency"],
+        skills: ["Operating Systems", "Customer Experience", "Unit Economics & Pricing Models", "Billing & Disputes", "Cross-Functional Execution", "AI-Supported Operations"],
         tools: ["HubSpot"]
       }
     },
@@ -638,7 +638,7 @@ export const projects: Project[] = [
           "Made ongoing decisions with incomplete information, adapting plans around weather, wildfires, injury, and terrain",
           "Learned to compromise, reroute, and move forward when original plans were no longer viable"
         ],
-        skills: ["Decision-Making Under Uncertainty", "Risk Management"]
+        skills: ["Risk Management"]
       }
     },
     tradeoff: {

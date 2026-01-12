@@ -56,14 +56,14 @@ export const skillGraph: Record<string, Branch> = {
             description: "Building automated systems and workflows to reduce manual work and improve operational efficiency.",
             tools: ["Zapier", "Supabase", "Stripe", "HubSpot"]
           },
-          "platform-infrastructure-decisions": {
-            name: "Platform & Infrastructure Decisions",
-            description: "Selecting platforms, architectures, and technical foundations that support scalability and product goals.",
+          "platform-infrastructure": {
+            name: "Platform & Infrastructure",
+            description: "Choosing platforms, rails, and infrastructure that shape performance, cost, and UX.",
             tools: ["Node/Next.js", "Supabase", "Stripe", "Webflow", "Shopify", "SimplePractice (EHR)", "DrChrono"]
           },
-          "ai-augmented-system-design": {
-            name: "AI-Augmented System Design",
-            description: "Leveraging AI tools to accelerate product design, development, and decision-making.",
+          "ai-supported-product-development": {
+            name: "AI-Supported Product Development",
+            description: "Using AI to speed up analysis, iteration, and build quality across product work.",
             tools: ["Claude Code"]
           }
         }
@@ -87,9 +87,9 @@ export const skillGraph: Record<string, Branch> = {
             description: "Coordinating timelines, resources, and dependencies to ship products on schedule.",
             tools: ["Asana"]
           },
-          "web-development": {
-            name: "Web Development",
-            description: "Building and deploying web-based products, sites, and applications.",
+          "development": {
+            name: "Development",
+            description: "Shipping websites, internal tools, and lightweight apps — often using AI-assisted development to move faster.",
             tools: ["WordPress", "Webflow", "Webflow CMS", "Shopify", "Hygraph (CMS)", "React Native"]
           }
         }
@@ -195,18 +195,13 @@ export const skillGraph: Record<string, Branch> = {
           }
         }
       },
-      "ai-driven-growth": {
-        name: "AI-Driven Growth Systems",
-        description: "Using AI to accelerate research, content creation, and optimization.",
+      "ai-supported-growth": {
+        name: "AI-Supported Growth",
+        description: "Using AI to accelerate research, content production, and optimization across growth efforts.",
         skills: {
-          "ai-assisted-research-ideation": {
-            name: "AI-Assisted Research & Ideation",
-            description: "Leveraging AI to accelerate market research, competitive analysis, and strategic ideation.",
-            tools: ["Claude Code"]
-          },
-          "ai-enhanced-content-optimization": {
-            name: "AI-Enhanced Content & Optimization",
-            description: "Using AI to scale content production, improve quality, and optimize for search and engagement.",
+          "ai-supported-growth": {
+            name: "AI-Supported Growth",
+            description: "Using AI to accelerate research, content production, and optimization across growth efforts.",
             tools: ["Claude Code"]
           }
         }
@@ -293,26 +288,16 @@ export const skillGraph: Record<string, Branch> = {
             name: "Stakeholder Communication",
             description: "Managing communication with investors, partners, customers, and internal stakeholders.",
             tools: ["Google Workspace"]
-          },
-          "decision-making-under-uncertainty": {
-            name: "Decision-Making Under Uncertainty",
-            description: "Making sound decisions with incomplete information, ambiguity, and competing priorities.",
-            tools: []
           }
         }
       },
       "ai-supported-ops": {
         name: "AI-Supported Operations",
-        description: "Using AI to improve planning, analysis, and internal efficiency.",
+        description: "Using AI to reduce operational overhead through planning support, automation, and documentation.",
         skills: {
-          "ai-planning-analysis": {
-            name: "AI for Planning & Analysis",
-            description: "Using AI to accelerate strategic planning, data analysis, and scenario modeling.",
-            tools: ["Claude Code"]
-          },
-          "ai-internal-efficiency": {
-            name: "AI for Internal Efficiency",
-            description: "Leveraging AI to automate workflows, improve documentation, and reduce operational overhead.",
+          "ai-supported-operations": {
+            name: "AI-Supported Operations",
+            description: "Using AI to reduce operational overhead through planning support, automation, and documentation.",
             tools: ["Claude Code"]
           }
         }

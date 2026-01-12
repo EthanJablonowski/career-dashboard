@@ -1,10 +1,58 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { projects, Project } from '@/data/projects';
+import { skillGraph } from '@/data/skillGraph';
 import * as Dialog from '@radix-ui/react-dialog';
 
-export default function ProjectDrawer() {
+type FilterState = {
+  branch: 'product' | 'growth' | 'ops' | null;
+  group: string | null;
+  skill: string | null;
+  tool: string | null;
+};
+
+interface ProjectDrawerProps {
+  onJumpToFilter: (state: Partial<FilterState>) => void;
+}
+
+// Helper to find skill location in taxonomy
+function findSkillLocation(skillName: string): { branch: 'product' | 'growth' | 'ops'; group: string; skill: string } | null {
+  for (const [branchId, branch] of Object.entries(skillGraph)) {
+    for (const [groupId, group] of Object.entries(branch.skillGroups)) {
+      for (const [skillId, skill] of Object.entries(group.skills)) {
+        if (skill.name === skillName) {
+          return {
+            branch: branchId as 'product' | 'growth' | 'ops',
+            group: groupId,
+            skill: skillId
+          };
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Helper to find tool location in taxonomy
+function findToolLocation(toolName: string): { branch: 'product' | 'growth' | 'ops'; group: string; skill: string } | null {
+  for (const [branchId, branch] of Object.entries(skillGraph)) {
+    for (const [groupId, group] of Object.entries(branch.skillGroups)) {
+      for (const [skillId, skill] of Object.entries(group.skills)) {
+        if (skill.tools.includes(toolName)) {
+          return {
+            branch: branchId as 'product' | 'growth' | 'ops',
+            group: groupId,
+            skill: skillId
+          };
+        }
+      }
+    }
+  }
+  return null;
+}
+
+export default function ProjectDrawer({ onJumpToFilter }: ProjectDrawerProps) {
   const [open, setOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
 
@@ -32,31 +80,91 @@ export default function ProjectDrawer() {
     window.location.hash = '';
   };
 
+  const handleSkillClick = useCallback((skillName: string) => {
+    const location = findSkillLocation(skillName);
+    if (location) {
+      handleClose();
+      setTimeout(() => {
+        onJumpToFilter({
+          branch: location.branch,
+          group: location.group,
+          skill: location.skill,
+          tool: null
+        });
+      }, 100);
+    }
+  }, [onJumpToFilter]);
+
+  const handleToolClick = useCallback((toolName: string, sectionSkills?: string[]) => {
+    // Try to find tool in context of section skills first
+    if (sectionSkills) {
+      for (const skillName of sectionSkills) {
+        const location = findSkillLocation(skillName);
+        if (location) {
+          const skill = skillGraph[location.branch].skillGroups[location.group].skills[location.skill];
+          if (skill.tools.includes(toolName)) {
+            handleClose();
+            setTimeout(() => {
+              onJumpToFilter({
+                branch: location.branch,
+                group: location.group,
+                skill: location.skill,
+                tool: toolName
+              });
+            }, 100);
+            return;
+          }
+        }
+      }
+    }
+
+    // Fallback to first tool location
+    const location = findToolLocation(toolName);
+    if (location) {
+      handleClose();
+      setTimeout(() => {
+        onJumpToFilter({
+          branch: location.branch,
+          group: location.group,
+          skill: location.skill,
+          tool: toolName
+        });
+      }, 100);
+    }
+  }, [onJumpToFilter]);
+
   if (!activeProject) return null;
 
   return (
     <Dialog.Root open={open} onOpenChange={(isOpen) => !isOpen && handleClose()}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-warm-900/60 backdrop-blur-sm z-40" />
-        <Dialog.Content className="fixed right-0 top-0 h-full w-full md:w-[600px] bg-warm-50 shadow-2xl overflow-y-auto z-50 pt-[73px]">
-          {/* Close button - top right */}
-          <Dialog.Close asChild>
-            <button className="absolute top-[89px] right-6 w-10 h-10 flex items-center justify-center text-warm-500 hover:text-warm-800 hover:bg-warm-100 rounded-lg transition-all duration-200 ease-out">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </Dialog.Close>
-          <div className="p-10 pt-12">
-            <div className="mb-12">
-              <Dialog.Title className="text-3xl font-medium text-warm-900 mb-3 pr-12">
-                {activeProject.title}
-              </Dialog.Title>
-              <p className="text-base text-warm-700 font-medium">{activeProject.org} • {activeProject.role}</p>
-              <p className="text-sm text-warm-600 mt-1">{activeProject.dateStart} - {activeProject.dateEnd}</p>
+        <Dialog.Content className="fixed right-0 top-0 h-full w-full md:w-[600px] bg-warm-50 shadow-2xl overflow-y-auto z-50">
+          {/* Sticky header */}
+          <div className="sticky top-0 z-10 bg-warm-50 border-b border-warm-200 px-10 py-4 pt-[89px]">
+            <div className="flex items-start justify-between gap-4">
+              <div className="min-w-0 flex-1">
+                <Dialog.Title className="text-xl font-medium text-warm-900 truncate pr-4">
+                  {activeProject.title}
+                </Dialog.Title>
+                <p className="text-sm text-warm-600 mt-1">
+                  {activeProject.org} • {activeProject.role} • {activeProject.dateStart} - {activeProject.dateEnd}
+                </p>
+              </div>
+              <Dialog.Close asChild>
+                <button className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-warm-500 hover:text-warm-800 hover:bg-warm-100 rounded-lg transition-all duration-200 ease-out">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </Dialog.Close>
+            </div>
+          </div>
 
-              <div className="flex flex-wrap gap-2 mt-6">
+          <div className="p-10">
+            <div className="mb-8">
+              <div className="flex flex-wrap gap-2">
                 {activeProject.tags.map((tag) => (
                   <span key={tag} className="px-3 py-1.5 bg-warm-100 text-warm-700 text-xs rounded-full font-medium border border-warm-200">
                     {tag}
@@ -82,7 +190,7 @@ export default function ProjectDrawer() {
             {/* New section-based structure */}
             {activeProject.sections ? (
               <div className="space-y-10 mb-12">
-                {activeProject.sections.product && (
+                {activeProject.sections.product && activeProject.sections.product.items.length > 0 && (
                   <div>
                     <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Product</h3>
                     <ul className="space-y-3 mb-4">
@@ -98,9 +206,13 @@ export default function ProjectDrawer() {
                         <p className="text-xs font-medium text-warm-600 mb-2">Skills:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.product.skills.map((skill, i) => (
-                            <span key={i} className="px-3 py-1.5 bg-sage-50 text-sage-700 text-xs rounded-md border border-sage-200 font-medium">
+                            <button
+                              key={i}
+                              onClick={() => handleSkillClick(skill)}
+                              className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
+                            >
                               {skill}
-                            </span>
+                            </button>
                           ))}
                         </div>
                       </div>
@@ -110,9 +222,13 @@ export default function ProjectDrawer() {
                         <p className="text-xs font-medium text-warm-600 mb-2">Tools:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.product.tools.map((tool, i) => (
-                            <span key={i} className="px-3 py-1.5 bg-warm-100 text-warm-700 text-xs rounded-md border border-warm-200 font-medium">
+                            <button
+                              key={i}
+                              onClick={() => handleToolClick(tool, activeProject.sections?.product?.skills)}
+                              className="px-3 py-1.5 bg-warm-50 text-warm-600 text-xs rounded-md border border-warm-200 font-medium hover:bg-warm-100 hover:border-warm-300 transition-all duration-200 cursor-pointer"
+                            >
                               {tool}
-                            </span>
+                            </button>
                           ))}
                         </div>
                       </div>
@@ -120,7 +236,7 @@ export default function ProjectDrawer() {
                   </div>
                 )}
 
-                {activeProject.sections.growth && (
+                {activeProject.sections.growth && activeProject.sections.growth.items.length > 0 && (
                   <div>
                     <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Growth</h3>
                     <ul className="space-y-3 mb-4">
@@ -136,9 +252,13 @@ export default function ProjectDrawer() {
                         <p className="text-xs font-medium text-warm-600 mb-2">Skills:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.growth.skills.map((skill, i) => (
-                            <span key={i} className="px-3 py-1.5 bg-sage-50 text-sage-700 text-xs rounded-md border border-sage-200 font-medium">
+                            <button
+                              key={i}
+                              onClick={() => handleSkillClick(skill)}
+                              className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
+                            >
                               {skill}
-                            </span>
+                            </button>
                           ))}
                         </div>
                       </div>
@@ -148,9 +268,13 @@ export default function ProjectDrawer() {
                         <p className="text-xs font-medium text-warm-600 mb-2">Tools:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.growth.tools.map((tool, i) => (
-                            <span key={i} className="px-3 py-1.5 bg-warm-100 text-warm-700 text-xs rounded-md border border-warm-200 font-medium">
+                            <button
+                              key={i}
+                              onClick={() => handleToolClick(tool, activeProject.sections?.growth?.skills)}
+                              className="px-3 py-1.5 bg-warm-50 text-warm-600 text-xs rounded-md border border-warm-200 font-medium hover:bg-warm-100 hover:border-warm-300 transition-all duration-200 cursor-pointer"
+                            >
                               {tool}
-                            </span>
+                            </button>
                           ))}
                         </div>
                       </div>
@@ -158,7 +282,7 @@ export default function ProjectDrawer() {
                   </div>
                 )}
 
-                {activeProject.sections.ops && (
+                {activeProject.sections.ops && activeProject.sections.ops.items.length > 0 && (
                   <div>
                     <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Ops & Strategy</h3>
                     <ul className="space-y-3 mb-4">
@@ -174,9 +298,13 @@ export default function ProjectDrawer() {
                         <p className="text-xs font-medium text-warm-600 mb-2">Skills:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.ops.skills.map((skill, i) => (
-                            <span key={i} className="px-3 py-1.5 bg-sage-50 text-sage-700 text-xs rounded-md border border-sage-200 font-medium">
+                            <button
+                              key={i}
+                              onClick={() => handleSkillClick(skill)}
+                              className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
+                            >
                               {skill}
-                            </span>
+                            </button>
                           ))}
                         </div>
                       </div>
@@ -186,9 +314,13 @@ export default function ProjectDrawer() {
                         <p className="text-xs font-medium text-warm-600 mb-2">Tools:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.ops.tools.map((tool, i) => (
-                            <span key={i} className="px-3 py-1.5 bg-warm-100 text-warm-700 text-xs rounded-md border border-warm-200 font-medium">
+                            <button
+                              key={i}
+                              onClick={() => handleToolClick(tool, activeProject.sections?.ops?.skills)}
+                              className="px-3 py-1.5 bg-warm-50 text-warm-600 text-xs rounded-md border border-warm-200 font-medium hover:bg-warm-100 hover:border-warm-300 transition-all duration-200 cursor-pointer"
+                            >
                               {tool}
-                            </span>
+                            </button>
                           ))}
                         </div>
                       </div>
@@ -220,9 +352,13 @@ export default function ProjectDrawer() {
                 <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Skills</h3>
                 <div className="flex flex-wrap gap-2">
                   {activeProject.skills.map((skill, i) => (
-                    <span key={i} className="px-3 py-1.5 bg-sage-50 text-sage-700 text-xs rounded-md border border-sage-200 font-medium">
+                    <button
+                      key={i}
+                      onClick={() => handleSkillClick(skill)}
+                      className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
+                    >
                       {skill}
-                    </span>
+                    </button>
                   ))}
                 </div>
               </div>

@@ -1,11 +1,18 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { skillGraph } from '@/data/skillGraph';
 import { projects } from '@/data/projects';
 import Timeline from './Timeline';
 
 type BranchId = 'product' | 'growth' | 'ops';
+
+type FilterState = {
+  branch: BranchId | null;
+  group: string | null;
+  skill: string | null;
+  tool: string | null;
+};
 
 interface BreadcrumbItem {
   level: 'branch' | 'group' | 'skill';
@@ -13,12 +20,40 @@ interface BreadcrumbItem {
   label: string;
 }
 
-export default function TimelineWithFilters() {
-  const [showFilters, setShowFilters] = useState(false);
-  const [expandedBranch, setExpandedBranch] = useState<BranchId | null>(null);
-  const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
-  const [selectedTool, setSelectedTool] = useState<string | null>(null);
+interface TimelineWithFiltersProps {
+  showFilters: boolean;
+  setShowFilters: (show: boolean) => void;
+  filterState: FilterState;
+  setFilterState: (state: FilterState) => void;
+  onJumpToFilter: (state: Partial<FilterState>) => void;
+  onResetFilters: () => void;
+}
+
+export default function TimelineWithFilters({
+  showFilters,
+  setShowFilters,
+  filterState,
+  setFilterState,
+  onResetFilters,
+}: TimelineWithFiltersProps) {
+  const { branch: expandedBranch, group: expandedGroup, skill: selectedSkill, tool: selectedTool } = filterState;
+
+  // Sync filter state changes
+  const setExpandedBranch = (branch: BranchId | null) => {
+    setFilterState({ ...filterState, branch, group: null, skill: null, tool: null });
+  };
+
+  const setExpandedGroup = (group: string | null) => {
+    setFilterState({ ...filterState, group, skill: null, tool: null });
+  };
+
+  const setSelectedSkill = (skill: string | null) => {
+    setFilterState({ ...filterState, skill, tool: null });
+  };
+
+  const setSelectedTool = (tool: string | null) => {
+    setFilterState({ ...filterState, tool });
+  };
 
   // Build breadcrumbs
   const breadcrumbs = useMemo<BreadcrumbItem[]>(() => {
@@ -88,36 +123,24 @@ export default function TimelineWithFilters() {
   const handleBranchClick = (branchId: BranchId) => {
     if (expandedBranch === branchId) {
       setExpandedBranch(null);
-      setExpandedGroup(null);
-      setSelectedSkill(null);
-      setSelectedTool(null);
     } else {
       setExpandedBranch(branchId);
-      setExpandedGroup(null);
-      setSelectedSkill(null);
-      setSelectedTool(null);
     }
   };
 
   const handleGroupClick = (groupId: string) => {
     if (expandedGroup === groupId) {
       setExpandedGroup(null);
-      setSelectedSkill(null);
-      setSelectedTool(null);
     } else {
       setExpandedGroup(groupId);
-      setSelectedSkill(null);
-      setSelectedTool(null);
     }
   };
 
   const handleSkillClick = (skillId: string) => {
     if (selectedSkill === skillId) {
       setSelectedSkill(null);
-      setSelectedTool(null);
     } else {
       setSelectedSkill(skillId);
-      setSelectedTool(null);
     }
   };
 
@@ -126,11 +149,8 @@ export default function TimelineWithFilters() {
 
     if (crumb.level === 'branch') {
       setExpandedGroup(null);
-      setSelectedSkill(null);
-      setSelectedTool(null);
     } else if (crumb.level === 'group') {
       setSelectedSkill(null);
-      setSelectedTool(null);
     }
   };
 
@@ -139,14 +159,17 @@ export default function TimelineWithFilters() {
   };
 
   const handleResetFilters = () => {
-    setShowFilters(false);
-    setExpandedBranch(null);
-    setExpandedGroup(null);
-    setSelectedSkill(null);
-    setSelectedTool(null);
+    onResetFilters();
   };
 
   const isFiltered = selectedSkill !== null;
+
+  // Auto-show filters if we have a pre-selected filter state from jumping
+  useEffect(() => {
+    if (filterState.branch || filterState.skill) {
+      setShowFilters(true);
+    }
+  }, [filterState.branch, filterState.skill, setShowFilters]);
 
   return (
     <section className="max-w-4xl mx-auto px-6 py-20">
@@ -163,6 +186,42 @@ export default function TimelineWithFilters() {
             </button>
           )}
         </div>
+
+        {/* Filtered-by chips */}
+        {isFiltered && (
+          <div className="flex flex-wrap items-center gap-2 mb-6">
+            <span className="text-xs text-warm-500">Filtered by:</span>
+            {expandedBranch && (
+              <span className="px-2 py-1 bg-sage-100 text-sage-700 text-xs rounded-md font-medium">
+                {skillGraph[expandedBranch].name}
+              </span>
+            )}
+            {expandedGroup && expandedBranch && (
+              <>
+                <span className="text-warm-400">→</span>
+                <span className="px-2 py-1 bg-sage-100 text-sage-700 text-xs rounded-md font-medium">
+                  {skillGraph[expandedBranch].skillGroups[expandedGroup]?.name}
+                </span>
+              </>
+            )}
+            {selectedSkill && expandedGroup && expandedBranch && (
+              <>
+                <span className="text-warm-400">→</span>
+                <span className="px-2 py-1 bg-sage-200 text-sage-800 text-xs rounded-md font-medium">
+                  {skillGraph[expandedBranch].skillGroups[expandedGroup]?.skills[selectedSkill]?.name}
+                </span>
+              </>
+            )}
+            {selectedTool && (
+              <>
+                <span className="text-warm-400">+</span>
+                <span className="px-2 py-1 bg-warm-200 text-warm-700 text-xs rounded-md font-medium border border-warm-300">
+                  {selectedTool}
+                </span>
+              </>
+            )}
+          </div>
+        )}
 
         {!showFilters && !isFiltered && (
           <div className="text-center">

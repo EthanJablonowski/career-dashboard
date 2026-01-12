@@ -86,7 +86,7 @@ export default function Timeline({ filteredProjects }: TimelineProps) {
                 {/* Content */}
                 <button
                   type="button"
-                  className="text-left w-full group"
+                  className="text-left w-full group p-4 -m-4 rounded-xl hover:bg-warm-100/50 transition-all duration-200 ease-out"
                   onClick={() => handleClick(project.id)}
                 >
                   <div className="mb-2">
