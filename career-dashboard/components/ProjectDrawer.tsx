@@ -39,9 +39,18 @@ export default function ProjectDrawer() {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-warm-900/60 backdrop-blur-sm z-40" />
         <Dialog.Content className="fixed right-0 top-0 h-full w-full md:w-[600px] bg-warm-50 shadow-2xl overflow-y-auto z-50 pt-[73px]">
+          {/* Close button - top right */}
+          <Dialog.Close asChild>
+            <button className="absolute top-[89px] right-6 w-10 h-10 flex items-center justify-center text-warm-500 hover:text-warm-800 hover:bg-warm-100 rounded-lg transition-all duration-200 ease-out">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </Dialog.Close>
           <div className="p-10 pt-12">
             <div className="mb-12">
-              <Dialog.Title className="text-3xl font-medium text-warm-900 mb-3">
+              <Dialog.Title className="text-3xl font-medium text-warm-900 mb-3 pr-12">
                 {activeProject.title}
               </Dialog.Title>
               <p className="text-base text-warm-700 font-medium">{activeProject.org} • {activeProject.role}</p>
@@ -67,7 +76,7 @@ export default function ProjectDrawer() {
             )}
 
             <div className="mb-12">
-              <p className="text-base text-warm-700 leading-relaxed">{activeProject.snapshot}</p>
+              <p className="text-base text-warm-700 leading-loose">{activeProject.snapshot}</p>
             </div>
 
             {/* New section-based structure */}
@@ -78,7 +87,7 @@ export default function ProjectDrawer() {
                     <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Product</h3>
                     <ul className="space-y-3 mb-4">
                       {activeProject.sections.product.items.map((item, i) => (
-                        <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                        <li key={i} className="text-sm text-warm-700 flex leading-loose">
                           <span className="mr-2 text-sage-500">•</span>
                           <span>{item}</span>
                         </li>
@@ -116,7 +125,7 @@ export default function ProjectDrawer() {
                     <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Growth</h3>
                     <ul className="space-y-3 mb-4">
                       {activeProject.sections.growth.items.map((item, i) => (
-                        <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                        <li key={i} className="text-sm text-warm-700 flex leading-loose">
                           <span className="mr-2 text-sage-500">•</span>
                           <span>{item}</span>
                         </li>
@@ -154,7 +163,7 @@ export default function ProjectDrawer() {
                     <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Ops & Strategy</h3>
                     <ul className="space-y-3 mb-4">
                       {activeProject.sections.ops.items.map((item, i) => (
-                        <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                        <li key={i} className="text-sm text-warm-700 flex leading-loose">
                           <span className="mr-2 text-sage-500">•</span>
                           <span>{item}</span>
                         </li>
@@ -195,7 +204,7 @@ export default function ProjectDrawer() {
                     <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Key Responsibilities</h3>
                     <ul className="space-y-3">
                       {activeProject.bullets.map((bullet, i) => (
-                        <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                        <li key={i} className="text-sm text-warm-700 flex leading-loose">
                           <span className="mr-2 text-sage-500">•</span>
                           <span>{bullet}</span>
                         </li>
@@ -222,7 +231,7 @@ export default function ProjectDrawer() {
             {activeProject.learned && (
               <div className="mb-12">
                 <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">What I learned</h3>
-                <p className="text-base text-warm-700 leading-relaxed">{activeProject.learned}</p>
+                <p className="text-base text-warm-700 leading-loose">{activeProject.learned}</p>
               </div>
             )}
 
@@ -244,12 +253,6 @@ export default function ProjectDrawer() {
                 </div>
               </div>
             )}
-
-            <Dialog.Close asChild>
-              <button className="mt-10 px-6 py-3 bg-warm-800 text-white rounded-lg hover:bg-warm-900 transition-all duration-200 ease-out font-medium shadow-sm">
-                Close
-              </button>
-            </Dialog.Close>
           </div>
         </Dialog.Content>
       </Dialog.Portal>
