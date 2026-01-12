@@ -23,28 +23,28 @@ const metrics = [
 
 export default function MetricStrip() {
   const colors = [
-    'border-blue-200 bg-blue-50/50 hover:bg-blue-100/70 hover:border-blue-300',
-    'border-emerald-200 bg-emerald-50/50 hover:bg-emerald-100/70 hover:border-emerald-300',
-    'border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300',
-    'border-blue-200 bg-blue-50/50 hover:bg-blue-100/70 hover:border-blue-300',
-    'border-emerald-200 bg-emerald-50/50 hover:bg-emerald-100/70 hover:border-emerald-300',
+    'border-sage-200 bg-sage-50/40 hover:bg-sage-50 hover:shadow-sm hover:scale-[1.02]',
+    'border-amber-200 bg-amber-50/40 hover:bg-amber-50 hover:shadow-sm hover:scale-[1.02]',
+    'border-warm-200 bg-white hover:bg-warm-50 hover:shadow-sm hover:scale-[1.02]',
+    'border-terracotta-200 bg-terracotta-50/40 hover:bg-terracotta-50 hover:shadow-sm hover:scale-[1.02]',
+    'border-forest-200 bg-forest-50/40 hover:bg-forest-50 hover:shadow-sm hover:scale-[1.02]',
   ];
 
   return (
-    <section className="max-w-6xl mx-auto px-6 py-8">
-      <h2 className="text-lg font-semibold text-slate-900 mb-4">Highlights</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+    <section className="max-w-6xl mx-auto px-6 py-12">
+      <h2 className="text-lg font-medium text-warm-900 mb-6">Highlights</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {metrics.map((metric, i) => (
           <div
             key={i}
-            className={`border-2 rounded-xl p-5 transition-all duration-200 flex flex-col ${colors[i]}`}
+            className={`border rounded-xl p-6 transition-all duration-200 ease-out flex flex-col ${colors[i]}`}
           >
-            <div className="flex-1 mb-3">
-              <p className="text-sm font-semibold text-slate-900 leading-snug">
+            <div className="mb-3">
+              <p className="text-[0.9375rem] font-medium text-warm-900 leading-snug line-clamp-3">
                 {metric.label}
               </p>
             </div>
-            <p className="text-xs font-normal text-slate-600 leading-relaxed">
+            <p className="text-xs text-warm-600 leading-relaxed line-clamp-2">
               {metric.note}
             </p>
           </div>

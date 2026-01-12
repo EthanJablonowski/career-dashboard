@@ -37,19 +37,19 @@ export default function ProjectDrawer() {
   return (
     <Dialog.Root open={open} onOpenChange={(isOpen) => !isOpen && handleClose()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40" />
-        <Dialog.Content className="fixed right-0 top-0 h-full w-full md:w-[600px] bg-gradient-to-br from-white via-blue-50/20 to-emerald-50/10 shadow-2xl overflow-y-auto z-50 pt-[73px]">
-          <div className="p-8 pt-10">
-            <div className="mb-10">
-              <Dialog.Title className="text-2xl font-bold text-slate-900 mb-2">
+        <Dialog.Overlay className="fixed inset-0 bg-warm-900/60 backdrop-blur-sm z-40" />
+        <Dialog.Content className="fixed right-0 top-0 h-full w-full md:w-[600px] bg-warm-50 shadow-2xl overflow-y-auto z-50 pt-[73px]">
+          <div className="p-10 pt-12">
+            <div className="mb-12">
+              <Dialog.Title className="text-3xl font-medium text-warm-900 mb-3">
                 {activeProject.title}
               </Dialog.Title>
-              <p className="text-sm text-slate-700 font-medium">{activeProject.org} • {activeProject.role}</p>
-              <p className="text-sm font-normal text-slate-600">{activeProject.dateStart} - {activeProject.dateEnd}</p>
+              <p className="text-base text-warm-700 font-medium">{activeProject.org} • {activeProject.role}</p>
+              <p className="text-sm text-warm-600 mt-1">{activeProject.dateStart} - {activeProject.dateEnd}</p>
 
-              <div className="flex flex-wrap gap-2 mt-4">
+              <div className="flex flex-wrap gap-2 mt-6">
                 {activeProject.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-medium border border-blue-200">
+                  <span key={tag} className="px-3 py-1.5 bg-warm-100 text-warm-700 text-xs rounded-full font-medium border border-warm-200">
                     {tag}
                   </span>
                 ))}
@@ -57,39 +57,39 @@ export default function ProjectDrawer() {
             </div>
 
             {activeProject.primaryMetric && (
-              <div className="mb-10 p-6 bg-gradient-to-br from-blue-50 to-emerald-50 rounded-xl border-2 border-blue-200 max-w-sm shadow-sm">
-                <p className="text-3xl font-bold text-slate-900">{activeProject.primaryMetric.value}</p>
-                <p className="text-sm text-slate-700 font-medium mt-1">{activeProject.primaryMetric.label}</p>
+              <div className="mb-12 p-8 bg-amber-50/30 rounded-xl border-l-4 border-amber-600/40">
+                <p className="text-3xl font-medium text-warm-900">{activeProject.primaryMetric.value}</p>
+                <p className="text-base text-warm-700 font-medium mt-2">{activeProject.primaryMetric.label}</p>
                 {activeProject.primaryMetric.context && (
-                  <p className="text-xs text-slate-600 mt-1">{activeProject.primaryMetric.context}</p>
+                  <p className="text-sm text-warm-600 mt-1">{activeProject.primaryMetric.context}</p>
                 )}
               </div>
             )}
 
-            <div className="mb-10">
-              <p className="text-sm text-slate-800 leading-relaxed">{activeProject.snapshot}</p>
+            <div className="mb-12">
+              <p className="text-base text-warm-700 leading-relaxed">{activeProject.snapshot}</p>
             </div>
 
             {/* New section-based structure */}
             {activeProject.sections ? (
-              <div className="space-y-8 mb-10">
+              <div className="space-y-10 mb-12">
                 {activeProject.sections.product && (
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Product</h3>
-                    <ul className="space-y-2.5 mb-3">
+                    <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Product</h3>
+                    <ul className="space-y-3 mb-4">
                       {activeProject.sections.product.items.map((item, i) => (
-                        <li key={i} className="text-sm font-normal text-slate-700 flex">
-                          <span className="mr-2 text-blue-500">•</span>
+                        <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                          <span className="mr-2 text-sage-500">•</span>
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
                     {activeProject.sections.product.skills && activeProject.sections.product.skills.length > 0 && (
-                      <div className="mb-3">
-                        <p className="text-xs font-semibold text-slate-600 mb-2">Skills:</p>
+                      <div className="mb-4">
+                        <p className="text-xs font-medium text-warm-600 mb-2">Skills:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.product.skills.map((skill, i) => (
-                            <span key={i} className="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-md border border-blue-200 font-medium">
+                            <span key={i} className="px-3 py-1.5 bg-sage-50 text-sage-700 text-xs rounded-md border border-sage-200 font-medium">
                               {skill}
                             </span>
                           ))}
@@ -98,10 +98,10 @@ export default function ProjectDrawer() {
                     )}
                     {activeProject.sections.product.tools && activeProject.sections.product.tools.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold text-slate-600 mb-2">Tools:</p>
+                        <p className="text-xs font-medium text-warm-600 mb-2">Tools:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.product.tools.map((tool, i) => (
-                            <span key={i} className="px-2.5 py-1 bg-slate-100 text-slate-700 text-xs rounded-md border border-slate-200 font-medium">
+                            <span key={i} className="px-3 py-1.5 bg-warm-100 text-warm-700 text-xs rounded-md border border-warm-200 font-medium">
                               {tool}
                             </span>
                           ))}
@@ -113,21 +113,21 @@ export default function ProjectDrawer() {
 
                 {activeProject.sections.growth && (
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Growth</h3>
-                    <ul className="space-y-2.5 mb-3">
+                    <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Growth</h3>
+                    <ul className="space-y-3 mb-4">
                       {activeProject.sections.growth.items.map((item, i) => (
-                        <li key={i} className="text-sm font-normal text-slate-700 flex">
-                          <span className="mr-2 text-blue-500">•</span>
+                        <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                          <span className="mr-2 text-sage-500">•</span>
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
                     {activeProject.sections.growth.skills && activeProject.sections.growth.skills.length > 0 && (
-                      <div className="mb-3">
-                        <p className="text-xs font-semibold text-slate-600 mb-2">Skills:</p>
+                      <div className="mb-4">
+                        <p className="text-xs font-medium text-warm-600 mb-2">Skills:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.growth.skills.map((skill, i) => (
-                            <span key={i} className="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-md border border-blue-200 font-medium">
+                            <span key={i} className="px-3 py-1.5 bg-sage-50 text-sage-700 text-xs rounded-md border border-sage-200 font-medium">
                               {skill}
                             </span>
                           ))}
@@ -136,10 +136,10 @@ export default function ProjectDrawer() {
                     )}
                     {activeProject.sections.growth.tools && activeProject.sections.growth.tools.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold text-slate-600 mb-2">Tools:</p>
+                        <p className="text-xs font-medium text-warm-600 mb-2">Tools:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.growth.tools.map((tool, i) => (
-                            <span key={i} className="px-2.5 py-1 bg-slate-100 text-slate-700 text-xs rounded-md border border-slate-200 font-medium">
+                            <span key={i} className="px-3 py-1.5 bg-warm-100 text-warm-700 text-xs rounded-md border border-warm-200 font-medium">
                               {tool}
                             </span>
                           ))}
@@ -151,21 +151,21 @@ export default function ProjectDrawer() {
 
                 {activeProject.sections.ops && (
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Ops & Strategy</h3>
-                    <ul className="space-y-2.5 mb-3">
+                    <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Ops & Strategy</h3>
+                    <ul className="space-y-3 mb-4">
                       {activeProject.sections.ops.items.map((item, i) => (
-                        <li key={i} className="text-sm font-normal text-slate-700 flex">
-                          <span className="mr-2 text-blue-500">•</span>
+                        <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                          <span className="mr-2 text-sage-500">•</span>
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
                     {activeProject.sections.ops.skills && activeProject.sections.ops.skills.length > 0 && (
-                      <div className="mb-3">
-                        <p className="text-xs font-semibold text-slate-600 mb-2">Skills:</p>
+                      <div className="mb-4">
+                        <p className="text-xs font-medium text-warm-600 mb-2">Skills:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.ops.skills.map((skill, i) => (
-                            <span key={i} className="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-md border border-blue-200 font-medium">
+                            <span key={i} className="px-3 py-1.5 bg-sage-50 text-sage-700 text-xs rounded-md border border-sage-200 font-medium">
                               {skill}
                             </span>
                           ))}
@@ -174,10 +174,10 @@ export default function ProjectDrawer() {
                     )}
                     {activeProject.sections.ops.tools && activeProject.sections.ops.tools.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold text-slate-600 mb-2">Tools:</p>
+                        <p className="text-xs font-medium text-warm-600 mb-2">Tools:</p>
                         <div className="flex flex-wrap gap-2">
                           {activeProject.sections.ops.tools.map((tool, i) => (
-                            <span key={i} className="px-2.5 py-1 bg-slate-100 text-slate-700 text-xs rounded-md border border-slate-200 font-medium">
+                            <span key={i} className="px-3 py-1.5 bg-warm-100 text-warm-700 text-xs rounded-md border border-warm-200 font-medium">
                               {tool}
                             </span>
                           ))}
@@ -191,12 +191,12 @@ export default function ProjectDrawer() {
               /* Legacy structure for older projects */
               <>
                 {activeProject.bullets && activeProject.bullets.length > 0 && (
-                  <div className="mb-10">
-                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Key Responsibilities</h3>
-                    <ul className="space-y-2.5">
+                  <div className="mb-12">
+                    <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Key Responsibilities</h3>
+                    <ul className="space-y-3">
                       {activeProject.bullets.map((bullet, i) => (
-                        <li key={i} className="text-sm font-normal text-slate-700 flex">
-                          <span className="mr-2 text-blue-500">•</span>
+                        <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                          <span className="mr-2 text-sage-500">•</span>
                           <span>{bullet}</span>
                         </li>
                       ))}
@@ -207,11 +207,11 @@ export default function ProjectDrawer() {
             )}
 
             {activeProject.skills && activeProject.skills.length > 0 && (
-              <div className="mb-10">
-                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Skills</h3>
+              <div className="mb-12">
+                <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Skills</h3>
                 <div className="flex flex-wrap gap-2">
                   {activeProject.skills.map((skill, i) => (
-                    <span key={i} className="px-3 py-1.5 bg-emerald-100 text-emerald-800 text-xs rounded-lg border border-emerald-200 font-medium">
+                    <span key={i} className="px-3 py-1.5 bg-sage-50 text-sage-700 text-xs rounded-md border border-sage-200 font-medium">
                       {skill}
                     </span>
                   ))}
@@ -220,15 +220,15 @@ export default function ProjectDrawer() {
             )}
 
             {activeProject.learned && (
-              <div className="mb-10">
-                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">What I learned</h3>
-                <p className="text-sm font-normal text-slate-700 leading-relaxed">{activeProject.learned}</p>
+              <div className="mb-12">
+                <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">What I learned</h3>
+                <p className="text-base text-warm-700 leading-relaxed">{activeProject.learned}</p>
               </div>
             )}
 
             {activeProject.links && activeProject.links.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-3">References / Selected Artifacts</h3>
+              <div className="mb-8">
+                <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">References / Selected Artifacts</h3>
                 <div className="space-y-2">
                   {activeProject.links.map((link, i) => (
                     <a
@@ -236,7 +236,7 @@ export default function ProjectDrawer() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block text-xs text-slate-600 hover:text-blue-600 font-normal transition-colors"
+                      className="block text-sm text-warm-600 hover:text-sage-700 transition-all duration-200 ease-out"
                     >
                       • {link.label}
                     </a>
@@ -246,7 +246,7 @@ export default function ProjectDrawer() {
             )}
 
             <Dialog.Close asChild>
-              <button className="mt-8 px-6 py-2.5 bg-slate-900 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium shadow-md">
+              <button className="mt-10 px-6 py-3 bg-warm-800 text-white rounded-lg hover:bg-warm-900 transition-all duration-200 ease-out font-medium shadow-sm">
                 Close
               </button>
             </Dialog.Close>

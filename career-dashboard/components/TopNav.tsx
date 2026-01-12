@@ -1,34 +1,15 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function TopNav() {
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-lg border-b border-slate-200/60 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Image
-            src="/images/EthanJablonowski_Headshot.png"
-            alt="Ethan Jablonowski"
-            width={40}
-            height={40}
-            className="rounded-full ring-2 ring-blue-100"
-          />
-          <div>
-            <h1 className="text-lg font-semibold text-slate-900">
-              Ethan Jablonowski
-            </h1>
-            <p className="text-sm text-slate-600 mt-0.5">
-              Product • Growth • Ops & Strategy
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-6">
+    <nav className="sticky top-0 z-50 bg-warm-50/95 backdrop-blur-lg border-b border-warm-200 shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-end">
+        <div className="flex items-center gap-8">
           <Link
             href="https://www.linkedin.com/in/ethan-jablonowski/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-slate-700 hover:text-blue-600 transition-colors font-medium"
+            className="text-sm text-warm-600 hover:text-warm-900 transition-all duration-200 ease-out font-medium"
             aria-label="LinkedIn"
           >
             LinkedIn
@@ -37,14 +18,14 @@ export default function TopNav() {
             href="https://paragraph.com/@0xjablo"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-slate-700 hover:text-blue-600 transition-colors font-medium"
+            className="text-sm text-warm-600 hover:text-warm-900 transition-all duration-200 ease-out font-medium"
             aria-label="Blog"
           >
             Blog
           </Link>
           <a
             href="mailto:ethan.jablonowski@gmail.com"
-            className="text-sm text-slate-700 hover:text-emerald-600 transition-colors font-medium"
+            className="text-sm text-warm-600 hover:text-warm-900 transition-all duration-200 ease-out font-medium"
             aria-label="Email"
           >
             Email
@@ -52,7 +33,7 @@ export default function TopNav() {
           <a
             href="/images/EthanJablonowski_Resume.pdf"
             download
-            className="text-sm px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
+            className="text-sm px-6 py-3 bg-warm-800 text-white rounded-lg hover:bg-warm-900 transition-all duration-200 ease-out font-medium"
             aria-label="Download Resume"
           >
             Resume

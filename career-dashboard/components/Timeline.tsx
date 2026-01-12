@@ -25,26 +25,26 @@ function parseQuarterDate(dateStr: string): number {
 function getTypeBadge(nodeType: Project['nodeType']) {
   switch (nodeType) {
     case 'primary':
-      return { label: 'Core Experience', color: 'bg-blue-50 text-blue-700 border-blue-200' };
+      return { label: 'Core Experience', color: 'bg-forest-50 text-forest-700 border-forest-200' };
     case 'experiment':
-      return { label: 'Experiment', color: 'bg-slate-100 text-slate-700 border-slate-200' };
+      return { label: 'Experiment', color: 'bg-terracotta-50 text-terracotta-700 border-terracotta-200' };
     case 'life':
-      return { label: 'Personal', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+      return { label: 'Personal', color: 'bg-amber-50 text-amber-700 border-amber-200' };
     default:
-      return { label: 'Experience', color: 'bg-slate-100 text-slate-700 border-slate-200' };
+      return { label: 'Experience', color: 'bg-warm-100 text-warm-700 border-warm-200' };
   }
 }
 
 function getNodeColor(nodeType: Project['nodeType']) {
   switch (nodeType) {
     case 'primary':
-      return 'bg-blue-400';
+      return 'bg-forest-800';
     case 'experiment':
-      return 'bg-slate-400';
+      return 'bg-terracotta-500';
     case 'life':
-      return 'bg-emerald-400';
+      return 'bg-amber-500';
     default:
-      return 'bg-slate-300';
+      return 'bg-warm-400';
   }
 }
 
@@ -67,19 +67,19 @@ export default function Timeline({ filteredProjects }: TimelineProps) {
       {/* Unified Timeline Stream */}
       <div className="relative">
         {/* Vertical timeline line with subtle gradient */}
-        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-slate-300 via-slate-200 to-slate-100 rounded-full" />
+        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-warm-300 via-warm-200 to-warm-100 rounded-full" />
 
         {/* Timeline entries */}
-        <div className="space-y-8">
+        <div className="space-y-10">
           {allProjects.map((project) => {
             const badge = getTypeBadge(project.nodeType);
             const nodeColor = getNodeColor(project.nodeType);
 
             return (
-              <div key={project.id} className="relative pl-8">
+              <div key={project.id} className="relative pl-10">
                 {/* Node dot */}
                 <div
-                  className={`absolute left-0 top-2 w-3 h-3 rounded-full ${nodeColor} ring-4 ring-white shadow-sm`}
+                  className={`absolute left-0 top-2 w-3 h-3 rounded-full ${nodeColor} ring-4 ring-warm-50 shadow-sm`}
                   style={{ transform: 'translateX(-5px)' }}
                 />
 
@@ -91,7 +91,7 @@ export default function Timeline({ filteredProjects }: TimelineProps) {
                 >
                   <div className="mb-2">
                     <div className="flex items-start justify-between gap-3 mb-1">
-                      <h3 className="text-base font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                      <h3 className="text-base font-medium text-warm-900 group-hover:text-sage-700 transition-all duration-200 ease-out">
                         {project.title}
                       </h3>
                       <span
@@ -100,16 +100,16 @@ export default function Timeline({ filteredProjects }: TimelineProps) {
                         {badge.label}
                       </span>
                     </div>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-warm-600">
                       {project.role} · {project.dateStart} – {project.dateEnd}
                     </p>
                   </div>
 
-                  <p className="text-sm text-slate-700 leading-relaxed mb-2">
+                  <p className="text-sm text-warm-700 leading-relaxed mb-2">
                     {project.snapshot}
                   </p>
 
-                  <span className="text-xs text-blue-600 group-hover:text-blue-700 font-medium inline-flex items-center gap-1">
+                  <span className="text-xs text-sage-600 group-hover:text-sage-700 font-medium inline-flex items-center gap-1 transition-all duration-200 ease-out">
                     View details
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path

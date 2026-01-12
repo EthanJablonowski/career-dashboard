@@ -120,7 +120,7 @@ export const projects: Project[] = [
           "Tested positioning and messaging to broaden appeal beyond an aging, phone-first customer base",
           "Monitored CAC, funnel performance, and conversion behavior to guide iteration"
         ],
-        skills: ["Product-Channel Fit", "Paid Social", "Performance Optimization", "Community Building", "Narrative & Messaging"],
+        skills: ["Product-Channel Fit", "Paid Search", "Paid Social", "Performance Optimization", "Community Building", "Narrative & Messaging"],
         tools: ["Meta Ads", "Google Analytics", "Instagram", "Facebook"]
       },
       ops: {
