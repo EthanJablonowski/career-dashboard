@@ -585,7 +585,7 @@ export const projects: Project[] = [
     sections: {
       product: {
         items: [
-          "Built AI-assisted lead-gen sites at scale (written + visual content engine)",
+          "Building AI-assisted lead-gen sites at scale (written + visual content engine)",
           "Building lead tracking + sales dashboard (capture → qualify → route → invoice)"
         ],
         skills: ["Service & Offering Design", "Pricing & Packaging", "Workflow & Automation Design", "Platform & Infrastructure Decisions", "AI-Augmented System Design", "User Flows & UX", "Requirements & Product Specs", "Web Development"],
@@ -593,8 +593,8 @@ export const projects: Project[] = [
       },
       growth: {
         items: [
-          "Found \"cheap attention\" via keyword + SERP + CPL analysis (core + auxiliary pages)",
-          "Executed SEO + LLM optimization (programmatic content, llms.txt, forum/community seeding)"
+          "Finding \"cheap attention\" via keyword + SERP + CPL analysis (core + auxiliary pages)",
+          "Executing SEO + LLM optimization (programmatic content, llms.txt, forum/community seeding)"
         ],
         skills: ["Market & Keyword Research", "Product-Channel Fit", "SEO Strategy & Architecture", "Content Strategy & Production Systems", "Local SEO", "AI-Assisted Research & Ideation", "AI-Enhanced Content & Optimization"],
         tools: ["Ahrefs", "Google Keyword Planner", "Search Console"]
