@@ -56,33 +56,63 @@ export default function TimelineWithFilters({
     setFilterState({ ...filterState, tool });
   };
 
-  // Get filtered projects based on skill/tool selection
-  const filteredProjects = useMemo(() => {
-    if (!selectedSkill || !expandedBranch || !expandedGroup) return undefined;
+  // Collect all skill names based on current filter level
+  const relevantSkillNames = useMemo(() => {
+    if (!expandedBranch) return [];
 
-    const skill = skillGraph[expandedBranch].skillGroups[expandedGroup]?.skills[selectedSkill];
-    if (!skill) return undefined;
+    const branch = skillGraph[expandedBranch];
+    if (!branch) return [];
+
+    // Level 4: Specific skill selected
+    if (selectedSkill && expandedGroup) {
+      const skill = branch.skillGroups[expandedGroup]?.skills[selectedSkill];
+      return skill ? [skill.name] : [];
+    }
+
+    // Level 3: Skill group selected - get all skills in that group
+    if (expandedGroup) {
+      const group = branch.skillGroups[expandedGroup];
+      if (!group) return [];
+      return Object.values(group.skills).map(s => s.name);
+    }
+
+    // Level 2: Branch selected - get all skills in all groups of this branch
+    return Object.values(branch.skillGroups).flatMap(group =>
+      Object.values(group.skills).map(s => s.name)
+    );
+  }, [expandedBranch, expandedGroup, selectedSkill]);
+
+  // Get filtered projects based on current filter level (progressive filtering)
+  const filteredProjects = useMemo(() => {
+    // No filter active - show all projects
+    if (!expandedBranch) return undefined;
+
+    // No relevant skills found for current filter
+    if (relevantSkillNames.length === 0) return undefined;
 
     return projects.filter(project => {
       if (!project.sections) return false;
 
       const sections = Object.values(project.sections);
-      const hasSkill = sections.some(section =>
-        section?.skills?.includes(skill.name)
+
+      // Check if project has any of the relevant skills
+      const hasRelevantSkill = sections.some(section =>
+        section?.skills?.some(skill => relevantSkillNames.includes(skill))
       );
 
-      if (!hasSkill) return false;
+      if (!hasRelevantSkill) return false;
 
-      // If a tool is selected, further filter by tool
+      // If a tool is selected, further filter by tool (must have tool AND a relevant skill in same section)
       if (selectedTool) {
         return sections.some(section =>
-          section?.tools?.includes(selectedTool) && section?.skills?.includes(skill.name)
+          section?.tools?.includes(selectedTool) &&
+          section?.skills?.some(skill => relevantSkillNames.includes(skill))
         );
       }
 
       return true;
     });
-  }, [selectedSkill, expandedBranch, expandedGroup, selectedTool]);
+  }, [expandedBranch, relevantSkillNames, selectedTool]);
 
   const handleBranchClick = (branchId: BranchId) => {
     if (expandedBranch === branchId) {
@@ -130,7 +160,7 @@ export default function TimelineWithFilters({
     }
   };
 
-  const isFiltered = selectedSkill !== null;
+  const isFiltered = expandedBranch !== null;
   const isFilteringActive = showFilters && (expandedBranch || expandedGroup || selectedSkill);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -230,11 +260,22 @@ export default function TimelineWithFilters({
       {/* Skill Graph Filter UI */}
       {showFilters && (
         <div className="mb-6">
-          {/* Level 1: Branch Tiles - Compact */}
+          {/* Level 1: Branch Tiles - Compact with match count */}
           {!expandedBranch && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {(Object.keys(skillGraph) as BranchId[]).map(branchId => {
                 const branch = skillGraph[branchId];
+                // Count matching projects for this branch
+                const branchSkillNames = Object.values(branch.skillGroups).flatMap(group =>
+                  Object.values(group.skills).map(s => s.name)
+                );
+                const branchMatchCount = projects.filter(project => {
+                  if (!project.sections) return false;
+                  return Object.values(project.sections).some(section =>
+                    section?.skills?.some(skill => branchSkillNames.includes(skill))
+                  );
+                }).length;
+
                 return (
                   <button
                     key={branchId}
@@ -245,45 +286,69 @@ export default function TimelineWithFilters({
                       {branch.name}
                     </h3>
                     <p className="text-xs text-warm-600 line-clamp-2">{branch.description}</p>
+                    <p className="text-[10px] text-warm-400 mt-2">{branchMatchCount} experience{branchMatchCount === 1 ? '' : 's'}</p>
                   </button>
                 );
               })}
             </div>
           )}
 
-          {/* Level 2: Skill Groups - Compact */}
+          {/* Level 2: Skill Groups - Compact with match count */}
           {expandedBranch && !expandedGroup && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {Object.entries(skillGraph[expandedBranch].skillGroups).map(([groupId, group]) => (
-                <button
-                  key={groupId}
-                  onClick={() => handleGroupClick(groupId)}
-                  className="p-4 bg-white border border-warm-200 rounded-lg hover:border-sage-400 hover:shadow-sm transition-all duration-200 ease-out text-left group"
-                >
-                  <h4 className="text-sm font-medium text-warm-900 mb-1 group-hover:text-sage-700 transition-colors">
-                    {group.name}
-                  </h4>
-                  <p className="text-xs text-warm-600 line-clamp-2">{group.description}</p>
-                </button>
-              ))}
+              {Object.entries(skillGraph[expandedBranch].skillGroups).map(([groupId, group]) => {
+                // Count matching projects for this group
+                const groupSkillNames = Object.values(group.skills).map(s => s.name);
+                const groupMatchCount = projects.filter(project => {
+                  if (!project.sections) return false;
+                  return Object.values(project.sections).some(section =>
+                    section?.skills?.some(skill => groupSkillNames.includes(skill))
+                  );
+                }).length;
+
+                return (
+                  <button
+                    key={groupId}
+                    onClick={() => handleGroupClick(groupId)}
+                    className="p-4 bg-white border border-warm-200 rounded-lg hover:border-sage-400 hover:shadow-sm transition-all duration-200 ease-out text-left group"
+                  >
+                    <h4 className="text-sm font-medium text-warm-900 mb-1 group-hover:text-sage-700 transition-colors">
+                      {group.name}
+                    </h4>
+                    <p className="text-xs text-warm-600 line-clamp-2">{group.description}</p>
+                    <p className="text-[10px] text-warm-400 mt-2">{groupMatchCount} experience{groupMatchCount === 1 ? '' : 's'}</p>
+                  </button>
+                );
+              })}
             </div>
           )}
 
-          {/* Level 3: Skills List - Compact */}
+          {/* Level 3: Skills List - Compact with match count */}
           {expandedBranch && expandedGroup && !selectedSkill && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {Object.entries(skillGraph[expandedBranch].skillGroups[expandedGroup].skills).map(([skillId, skill]) => (
-                <button
-                  key={skillId}
-                  onClick={() => handleSkillClick(skillId)}
-                  className="p-4 bg-white border border-warm-200 rounded-lg hover:border-sage-400 hover:shadow-sm transition-all duration-200 ease-out text-left group"
-                >
-                  <h5 className="text-sm font-medium text-warm-900 mb-1 group-hover:text-sage-700 transition-colors">
-                    {skill.name}
-                  </h5>
-                  <p className="text-xs text-warm-600 line-clamp-2">{skill.description}</p>
-                </button>
-              ))}
+              {Object.entries(skillGraph[expandedBranch].skillGroups[expandedGroup].skills).map(([skillId, skill]) => {
+                // Count matching projects for this skill
+                const skillMatchCount = projects.filter(project => {
+                  if (!project.sections) return false;
+                  return Object.values(project.sections).some(section =>
+                    section?.skills?.includes(skill.name)
+                  );
+                }).length;
+
+                return (
+                  <button
+                    key={skillId}
+                    onClick={() => handleSkillClick(skillId)}
+                    className="p-4 bg-white border border-warm-200 rounded-lg hover:border-sage-400 hover:shadow-sm transition-all duration-200 ease-out text-left group"
+                  >
+                    <h5 className="text-sm font-medium text-warm-900 mb-1 group-hover:text-sage-700 transition-colors">
+                      {skill.name}
+                    </h5>
+                    <p className="text-xs text-warm-600 line-clamp-2">{skill.description}</p>
+                    <p className="text-[10px] text-warm-400 mt-2">{skillMatchCount} experience{skillMatchCount === 1 ? '' : 's'}</p>
+                  </button>
+                );
+              })}
             </div>
           )}
 
