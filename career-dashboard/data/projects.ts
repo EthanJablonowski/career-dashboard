@@ -145,7 +145,7 @@ export const projects: Project[] = [
   },
   {
     id: "digitopia-pm",
-    title: "Digittopia — Product Manager",
+    title: "Digittopia (Product Manager)",
     org: "Digittopia",
     role: "Product Manager",
     dateStart: "Q2 2020",
@@ -187,7 +187,7 @@ export const projects: Project[] = [
   },
   {
     id: "digitopia-media",
-    title: "Digittopia — Media Buying",
+    title: "Digittopia (Media Buying)",
     org: "Digittopia",
     role: "Media Buyer",
     dateStart: "Q2 2020",
@@ -234,7 +234,7 @@ export const projects: Project[] = [
   },
   {
     id: "kompete-build",
-    title: "KOMPETE — Build",
+    title: "KOMPETE (Build)",
     org: "KOMPETE (Modernize Games)",
     role: "Founding COO",
     dateStart: "Q1 2021",
@@ -300,7 +300,7 @@ export const projects: Project[] = [
   },
   {
     id: "kompete-scale",
-    title: "KOMPETE — Scale",
+    title: "KOMPETE (Scale)",
     org: "KOMPETE (Modernize Games)",
     role: "Founding COO",
     dateStart: "Q4 2023",
@@ -409,7 +409,7 @@ export const projects: Project[] = [
       insteadOf: "Traditional insurance billing path",
       because: "Faster iteration, authentic service delivery, no administrative bloat"
     },
-    learned: "A strong service business is a product. When delivery, pricing, operations, and brand reinforce each other, you can escape broken industry norms and build something meaningfully better—for customers and operators alike.",
+    learned: "A strong service business is a product. When delivery, pricing, operations, and brand reinforce each other, you can escape broken industry norms and build something meaningfully better for customers and operators alike.",
     tags: ["Core Experience"],
     relevantFor: ["product", "operations"],
     links: [
@@ -473,7 +473,7 @@ export const projects: Project[] = [
   },
   {
     id: "real-estate",
-    title: "Real Estate — Lead Gen & Agency",
+    title: "Real Estate (Lead Gen & Agency)",
     org: "Keller Williams Realty",
     role: "Real Estate Agent",
     dateStart: "Q1 2018",

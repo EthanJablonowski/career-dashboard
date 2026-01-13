@@ -230,14 +230,12 @@ export default function ProjectDrawer({ onJumpToFilter }: ProjectDrawerProps) {
           <div className="sticky top-0 z-10 bg-warm-50 border-b border-warm-200 px-6 md:px-10 py-4 pt-[89px]">
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-3 mb-1">
-                  <Dialog.Title className="text-xl font-medium text-warm-900 truncate">
-                    {activeProject.title}
-                  </Dialog.Title>
-                  <span className={`px-2.5 py-1 text-xs rounded-full border font-medium whitespace-nowrap ${badge.className}`}>
-                    {badge.label}
-                  </span>
-                </div>
+                <Dialog.Title className="text-xl font-medium text-warm-900 truncate mb-1">
+                  {activeProject.title}
+                </Dialog.Title>
+                <span className={`inline-block px-2.5 py-1 text-xs rounded-full border font-medium mb-2 ${badge.className}`}>
+                  {badge.label}
+                </span>
                 <p className="text-sm text-warm-600">
                   {activeProject.org} • {activeProject.role} • {activeProject.dateStart} - {activeProject.dateEnd}
                 </p>

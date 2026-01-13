@@ -71,9 +71,9 @@ export default function TimelineNode({ project, index }: TimelineNodeProps) {
   // Shorten title if needed for better fit
   const getDisplayTitle = () => {
     const title = project.title;
-    // Shorten "Digitopia — Media Buying" to "Digitopia — Media"
-    if (title === "Digitopia — Media Buying") return "Digitopia — Media";
-    if (title === "Digitopia — Project Management") return "Digitopia — PM";
+    // Shorten "Digittopia (Media Buying)" to "Digittopia (Media)"
+    if (title === "Digittopia (Media Buying)") return "Digittopia (Media)";
+    if (title === "Digittopia (Product Manager)") return "Digittopia (PM)";
     return title;
   };
 

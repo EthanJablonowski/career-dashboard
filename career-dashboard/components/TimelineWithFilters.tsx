@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { skillGraph } from '@/data/skillGraph';
 import { projects } from '@/data/projects';
 import Timeline from './Timeline';
@@ -163,6 +163,14 @@ export default function TimelineWithFilters({
   };
 
   const isFiltered = selectedSkill !== null;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Auto-show filters if we have a pre-selected filter state from jumping
   useEffect(() => {
@@ -171,13 +179,45 @@ export default function TimelineWithFilters({
     }
   }, [filterState.branch, filterState.skill, setShowFilters]);
 
+  // Get skill name for mobile filter bar
+  const skillName = expandedBranch && expandedGroup && selectedSkill
+    ? skillGraph[expandedBranch].skillGroups[expandedGroup]?.skills[selectedSkill]?.name
+    : '';
+
   return (
     <section className="max-w-4xl mx-auto px-6 pt-6 pb-20">
+      {/* Mobile sticky filter bar */}
+      {isMobile && isFiltered && (
+        <div className="sticky top-0 z-10 bg-warm-50 border-b border-warm-200 -mx-6 px-6 py-3 mb-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="px-2 py-1 bg-sage-200 text-sage-800 text-xs rounded-md font-medium truncate">
+                {skillName}
+              </span>
+              {selectedTool && (
+                <span className="px-2 py-1 bg-warm-200 text-warm-700 text-xs rounded-md font-medium border border-warm-300 truncate">
+                  {selectedTool}
+                </span>
+              )}
+            </div>
+            <button
+              onClick={handleResetFilters}
+              className="text-xs text-warm-500 hover:text-warm-700 transition-all shrink-0 ml-2"
+            >
+              Clear
+            </button>
+          </div>
+          <p className="text-xs text-warm-500 mt-1">
+            {filteredProjects?.length || 0} result{filteredProjects?.length === 1 ? '' : 's'}
+          </p>
+        </div>
+      )}
+
       {/* Header with Filter Button and Reset */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
           <h2 className="text-xl font-medium text-warm-900">What I&apos;ve Built</h2>
-          {(showFilters || isFiltered) && (
+          {!isMobile && (showFilters || isFiltered) && (
             <button
               onClick={handleResetFilters}
               className="text-sm text-warm-500 hover:text-warm-700 transition-all duration-200 ease-out"
@@ -187,8 +227,8 @@ export default function TimelineWithFilters({
           )}
         </div>
 
-        {/* Filtered-by chips */}
-        {isFiltered && (
+        {/* Filtered-by chips - desktop only when filtered */}
+        {!isMobile && isFiltered && (
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <span className="text-xs text-warm-500">Filtered by:</span>
             {expandedBranch && (
@@ -329,14 +369,17 @@ export default function TimelineWithFilters({
         {/* Level 4: Skill Selected with Tools */}
         {expandedBranch && expandedGroup && selectedSkill && (
           <div>
-            <button
-              onClick={() => handleSkillClick(selectedSkill)}
-              className="mb-6 px-4 py-2 bg-warm-100 text-warm-700 rounded-lg hover:bg-warm-200 transition-all duration-200 ease-out text-sm font-medium"
-            >
-              ← Back to skills
-            </button>
+            {/* Back button - hidden on mobile when we have results (sticky bar handles it) */}
+            {!isMobile && (
+              <button
+                onClick={() => handleSkillClick(selectedSkill)}
+                className="mb-6 px-4 py-2 bg-warm-100 text-warm-700 rounded-lg hover:bg-warm-200 transition-all duration-200 ease-out text-sm font-medium"
+              >
+                ← Back to skills
+              </button>
+            )}
 
-            <div className="p-8 bg-white border border-warm-200 rounded-xl">
+            <div className="p-6 md:p-8 bg-white border border-warm-200 rounded-xl">
               <h3 className="text-lg font-medium text-warm-900 mb-2">
                 {skillGraph[expandedBranch].skillGroups[expandedGroup].skills[selectedSkill].name}
               </h3>
@@ -344,10 +387,11 @@ export default function TimelineWithFilters({
                 {skillGraph[expandedBranch].skillGroups[expandedGroup].skills[selectedSkill].description}
               </p>
 
-              {/* Tools Section */}
+              {/* Tools Section - with visual containment */}
               {skillGraph[expandedBranch].skillGroups[expandedGroup].skills[selectedSkill].tools.length > 0 && (
-                <div>
-                  <h4 className="text-sm font-medium text-warm-700 mb-3">Filter by tool (optional)</h4>
+                <div className="p-4 bg-warm-50 rounded-lg border border-warm-200">
+                  <h4 className="text-sm font-medium text-warm-700 mb-1">Filter by tool (optional)</h4>
+                  <p className="text-xs text-warm-500 mb-3">Narrow results within this skill</p>
                   <div className="flex flex-wrap gap-2">
                     {skillGraph[expandedBranch].skillGroups[expandedGroup].skills[selectedSkill].tools.map(tool => (
                       <button
@@ -356,7 +400,7 @@ export default function TimelineWithFilters({
                         className={`px-3 py-1.5 text-xs rounded-md border font-medium transition-all duration-200 ease-out ${
                           selectedTool === tool
                             ? 'bg-warm-800 text-white border-warm-800'
-                            : 'bg-warm-50 text-warm-700 border-warm-300 hover:border-warm-400'
+                            : 'bg-white text-warm-700 border-warm-300 hover:border-warm-400'
                         }`}
                       >
                         {tool}
@@ -377,8 +421,19 @@ export default function TimelineWithFilters({
       </div>
       )}
 
+      {/* Visual separator when filtered */}
+      {isFiltered && (
+        <div className="border-t border-warm-200 pt-6 mb-2">
+          <h3 className="text-sm font-medium text-warm-600 mb-4">
+            Matching experiences
+          </h3>
+        </div>
+      )}
+
       {/* Timeline with filtered projects */}
-      <Timeline filteredProjects={filteredProjects} />
+      <div className={isFiltered ? '' : 'pt-2'}>
+        <Timeline filteredProjects={filteredProjects} />
+      </div>
     </section>
   );
 }

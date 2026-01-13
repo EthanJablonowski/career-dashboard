@@ -47,28 +47,15 @@ interface HighlightsProps {
 }
 
 export default function Highlights({ onFilterClick }: HighlightsProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    const checkMotion = () => setPrefersReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-
     checkMobile();
-    checkMotion();
-
     window.addEventListener('resize', checkMobile);
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    motionQuery.addEventListener('change', checkMotion);
-
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-      motionQuery.removeEventListener('change', checkMotion);
-    };
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Track horizontal scroll on mobile
@@ -77,10 +64,6 @@ export default function Highlights({ onFilterClick }: HighlightsProps) {
     if (!container) return;
 
     const scrollLeft = container.scrollLeft;
-    const maxScroll = container.scrollWidth - container.clientWidth;
-    const progress = maxScroll > 0 ? scrollLeft / maxScroll : 0;
-    setScrollProgress(progress);
-
     // Calculate which card is most visible
     const cardWidth = container.clientWidth * 0.85 + 16; // 85vw + gap
     const newIndex = Math.round(scrollLeft / cardWidth);
@@ -158,111 +141,37 @@ export default function Highlights({ onFilterClick }: HighlightsProps) {
     );
   }
 
-  // Desktop - horizontal scroll gallery (non-hijacking)
-  if (prefersReducedMotion) {
-    return (
-      <section className="py-10 bg-warm-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="mb-6">
-            <h2 className="text-lg font-medium text-warm-900">Highlights</h2>
-            <p className="text-sm text-warm-600 mt-1">A few outcomes that define the work.</p>
-          </div>
-          <div className="grid grid-cols-5 gap-4">
-            {highlights.map((highlight, i) => (
-              <button
-                key={i}
-                onClick={() => handleCardClick(highlight)}
-                className="p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 hover:shadow-md transition-all duration-200"
-              >
-                <h3 className="text-sm font-medium text-warm-900 mb-2 leading-tight">
-                  {highlight.header}
-                </h3>
-                <p className="text-xs text-warm-600 mb-2">
-                  {highlight.subheader}
-                </p>
-                {highlight.proof && (
-                  <p className="text-[0.65rem] text-warm-500">
-                    {highlight.proof}
-                  </p>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // Desktop - gentle horizontal scroll
+  // Desktop - all cards visible in grid (same for reduced motion)
   return (
-    <section ref={containerRef} className="py-10 bg-warm-50">
+    <section className="py-10 bg-warm-50">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="mb-6">
           <h2 className="text-lg font-medium text-warm-900">Highlights</h2>
-          <p className="text-sm text-warm-600 mt-1">A few outcomes that define the work.</p>
+          <p className="text-sm text-warm-600 mt-1">Click a highlight to see where it was built.</p>
         </div>
 
-        {/* Horizontal scroll gallery */}
-        <div className="relative">
-          <div
-            ref={scrollContainerRef}
-            onScroll={() => {
-              const container = scrollContainerRef.current;
-              if (!container) return;
-              const scrollLeft = container.scrollLeft;
-              const cardWidth = 340;
-              const newIndex = Math.round(scrollLeft / cardWidth);
-              setCurrentIndex(Math.min(newIndex, highlights.length - 1));
-            }}
-            className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {highlights.map((highlight, i) => (
-              <button
-                key={i}
-                onClick={() => handleCardClick(highlight)}
-                className={`flex-none w-[320px] snap-start p-6 bg-white border rounded-xl text-left transition-all duration-300
-                  ${i === currentIndex
-                    ? 'border-sage-300 shadow-lg scale-[1.02]'
-                    : 'border-warm-200 shadow-sm hover:border-sage-300 hover:shadow-md'
-                  }
-                `}
-              >
-                <h3 className="text-base font-medium text-warm-900 mb-2 leading-tight">
-                  {highlight.header}
-                </h3>
-                <p className="text-sm text-warm-600 mb-3">
-                  {highlight.subheader}
+        {/* Grid of all cards */}
+        <div className="grid grid-cols-5 gap-4">
+          {highlights.map((highlight, i) => (
+            <button
+              key={i}
+              onClick={() => handleCardClick(highlight)}
+              className="p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+            >
+              <h3 className="text-sm font-medium text-warm-900 mb-2 leading-tight">
+                {highlight.header}
+              </h3>
+              <p className="text-xs text-warm-600 mb-2">
+                {highlight.subheader}
+              </p>
+              {highlight.proof && (
+                <p className="text-[0.65rem] text-warm-500">
+                  {highlight.proof}
                 </p>
-                {highlight.proof && (
-                  <p className="text-xs text-warm-500">
-                    {highlight.proof}
-                  </p>
-                )}
-              </button>
-            ))}
-          </div>
-
-          {/* Progress dots */}
-          <div className="flex justify-center gap-2 mt-4">
-            {highlights.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  const container = scrollContainerRef.current;
-                  if (container) {
-                    container.scrollTo({ left: i * 340, behavior: 'smooth' });
-                  }
-                }}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === currentIndex
-                    ? 'bg-sage-600 w-6'
-                    : 'bg-warm-300 w-3 hover:bg-warm-400'
-                }`}
-              />
-            ))}
-          </div>
+              )}
+            </button>
+          ))}
         </div>
       </div>
     </section>

@@ -89,7 +89,7 @@ export const skillGraph: Record<string, Branch> = {
           },
           "development": {
             name: "Development",
-            description: "Shipping websites, internal tools, and lightweight apps — often using AI-assisted development to move faster.",
+            description: "Shipping websites, internal tools, and lightweight apps, often using AI-assisted development to move faster.",
             tools: ["WordPress", "Webflow", "Webflow CMS", "Shopify", "Hygraph (CMS)", "React Native"]
           }
         }

@@ -4,7 +4,6 @@ import { useState, useCallback, useRef } from 'react';
 import TopNav from '@/components/TopNav';
 import Overview from '@/components/Overview';
 import Highlights from '@/components/Highlights';
-import FilterHandoff from '@/components/FilterHandoff';
 import TimelineWithFilters from '@/components/TimelineWithFilters';
 import ProjectDrawer from '@/components/ProjectDrawer';
 
@@ -57,15 +56,11 @@ export default function Home() {
     });
   }, []);
 
-  // Only show the hand-off button on desktop (mobile has it built into Highlights)
-  const isMobileView = typeof window !== 'undefined' && window.innerWidth < 768;
-
   return (
     <main className="min-h-screen bg-warm-50">
       <TopNav />
       <Overview />
       <Highlights onFilterClick={handleFilterClick} />
-      <FilterHandoff onFilterClick={handleFilterClick} showButton={!isMobileView} />
       <div ref={timelineRef}>
         <TimelineWithFilters
           showFilters={showFilters}
