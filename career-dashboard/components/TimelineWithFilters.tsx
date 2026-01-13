@@ -172,24 +172,24 @@ export default function TimelineWithFilters({
   }, [filterState.branch, filterState.skill, setShowFilters]);
 
   return (
-    <section className="max-w-4xl mx-auto px-6 py-20">
+    <section className="max-w-4xl mx-auto px-6 pt-6 pb-20">
       {/* Header with Filter Button and Reset */}
-      <div className="mb-12">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-medium text-warm-900">What I&apos;ve Built</h2>
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-medium text-warm-900">What I&apos;ve Built</h2>
           {(showFilters || isFiltered) && (
             <button
               onClick={handleResetFilters}
-              className="text-sm text-warm-600 hover:text-warm-900 transition-all duration-200 ease-out font-medium"
+              className="text-sm text-warm-500 hover:text-warm-700 transition-all duration-200 ease-out"
             >
-              Reset & show all
+              Clear filters
             </button>
           )}
         </div>
 
         {/* Filtered-by chips */}
         {isFiltered && (
-          <div className="flex flex-wrap items-center gap-2 mb-6">
+          <div className="flex flex-wrap items-center gap-2 mb-4">
             <span className="text-xs text-warm-500">Filtered by:</span>
             {expandedBranch && (
               <span className="px-2 py-1 bg-sage-100 text-sage-700 text-xs rounded-md font-medium">
@@ -222,23 +222,11 @@ export default function TimelineWithFilters({
             )}
           </div>
         )}
-
-        {!showFilters && !isFiltered && (
-          <div className="text-center">
-            <button
-              onClick={() => setShowFilters(true)}
-              className="px-6 py-3 bg-warm-800 text-white rounded-lg hover:bg-warm-900 transition-all duration-200 ease-out font-medium shadow-sm"
-            >
-              Filter by skill
-            </button>
-            <p className="text-sm text-warm-600 mt-3">or browse all experiences below</p>
-          </div>
-        )}
       </div>
 
       {/* Skill Graph Filter UI */}
       {showFilters && (
-      <div className="mb-10">
+      <div className="mb-8">
         {/* Breadcrumbs */}
         {breadcrumbs.length > 0 && (
           <div className="mb-6">

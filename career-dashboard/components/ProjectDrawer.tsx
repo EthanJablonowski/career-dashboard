@@ -52,6 +52,78 @@ function findToolLocation(toolName: string): { branch: 'product' | 'growth' | 'o
   return null;
 }
 
+// Chevron icon component
+function ChevronIcon({ isOpen }: { isOpen: boolean }) {
+  return (
+    <svg
+      className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+    </svg>
+  );
+}
+
+// Collapsible section component
+interface CollapsibleSectionProps {
+  title: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+  hasContent: boolean;
+}
+
+function CollapsibleSection({ title, defaultOpen = false, children, hasContent }: CollapsibleSectionProps) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  if (!hasContent) return null;
+
+  return (
+    <div className="border border-warm-200 rounded-lg overflow-hidden">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full px-4 py-3 bg-warm-100/50 flex items-center justify-between hover:bg-warm-100 transition-colors"
+      >
+        <h3 className="text-sm font-medium text-warm-700 uppercase tracking-wider">{title}</h3>
+        <ChevronIcon isOpen={isOpen} />
+      </button>
+      {isOpen && (
+        <div className="px-4 py-4 bg-white">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Collapsible sub-section for Skills/Tools
+interface CollapsibleSubSectionProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+function CollapsibleSubSection({ title, children }: CollapsibleSubSectionProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="mt-3 pt-3 border-t border-warm-100">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 text-xs font-medium text-warm-500 hover:text-warm-700 transition-colors"
+      >
+        <ChevronIcon isOpen={isOpen} />
+        <span>{title}</span>
+      </button>
+      {isOpen && (
+        <div className="mt-2 pl-6">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ProjectDrawer({ onJumpToFilter }: ProjectDrawerProps) {
   const [open, setOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
@@ -96,7 +168,6 @@ export default function ProjectDrawer({ onJumpToFilter }: ProjectDrawerProps) {
   }, [onJumpToFilter]);
 
   const handleToolClick = useCallback((toolName: string, sectionSkills?: string[]) => {
-    // Try to find tool in context of section skills first
     if (sectionSkills) {
       for (const skillName of sectionSkills) {
         const location = findSkillLocation(skillName);
@@ -118,7 +189,6 @@ export default function ProjectDrawer({ onJumpToFilter }: ProjectDrawerProps) {
       }
     }
 
-    // Fallback to first tool location
     const location = findToolLocation(toolName);
     if (location) {
       handleClose();
@@ -133,7 +203,23 @@ export default function ProjectDrawer({ onJumpToFilter }: ProjectDrawerProps) {
     }
   }, [onJumpToFilter]);
 
+  // Get badge info based on nodeType
+  const getBadgeInfo = (nodeType: string) => {
+    switch (nodeType) {
+      case 'primary':
+        return { label: 'Core Experience', className: 'bg-forest-50 text-forest-700 border-forest-200' };
+      case 'experiment':
+        return { label: 'Experiment', className: 'bg-terracotta-50 text-terracotta-700 border-terracotta-200' };
+      case 'life':
+        return { label: 'Personal', className: 'bg-amber-50 text-amber-700 border-amber-200' };
+      default:
+        return { label: 'Experience', className: 'bg-warm-100 text-warm-700 border-warm-200' };
+    }
+  };
+
   if (!activeProject) return null;
+
+  const badge = getBadgeInfo(activeProject.nodeType);
 
   return (
     <Dialog.Root open={open} onOpenChange={(isOpen) => !isOpen && handleClose()}>
@@ -141,13 +227,18 @@ export default function ProjectDrawer({ onJumpToFilter }: ProjectDrawerProps) {
         <Dialog.Overlay className="fixed inset-0 bg-warm-900/60 backdrop-blur-sm z-40" />
         <Dialog.Content className="fixed right-0 top-0 h-full w-full md:w-[600px] bg-warm-50 shadow-2xl overflow-y-auto z-50">
           {/* Sticky header */}
-          <div className="sticky top-0 z-10 bg-warm-50 border-b border-warm-200 px-10 py-4 pt-[89px]">
+          <div className="sticky top-0 z-10 bg-warm-50 border-b border-warm-200 px-6 md:px-10 py-4 pt-[89px]">
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0 flex-1">
-                <Dialog.Title className="text-xl font-medium text-warm-900 truncate pr-4">
-                  {activeProject.title}
-                </Dialog.Title>
-                <p className="text-sm text-warm-600 mt-1">
+                <div className="flex items-center gap-3 mb-1">
+                  <Dialog.Title className="text-xl font-medium text-warm-900 truncate">
+                    {activeProject.title}
+                  </Dialog.Title>
+                  <span className={`px-2.5 py-1 text-xs rounded-full border font-medium whitespace-nowrap ${badge.className}`}>
+                    {badge.label}
+                  </span>
+                </div>
+                <p className="text-sm text-warm-600">
                   {activeProject.org} • {activeProject.role} • {activeProject.dateStart} - {activeProject.dateEnd}
                 </p>
               </div>
@@ -162,218 +253,186 @@ export default function ProjectDrawer({ onJumpToFilter }: ProjectDrawerProps) {
             </div>
           </div>
 
-          <div className="p-10">
-            <div className="mb-8">
-              <div className="flex flex-wrap gap-2">
-                {activeProject.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1.5 bg-warm-100 text-warm-700 text-xs rounded-full font-medium border border-warm-200">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
+          <div className="p-6 md:p-10">
             {activeProject.primaryMetric && (
-              <div className="mb-12 p-8 bg-amber-50/30 rounded-xl border-l-4 border-amber-600/40">
-                <p className="text-3xl font-medium text-warm-900">{activeProject.primaryMetric.value}</p>
-                <p className="text-base text-warm-700 font-medium mt-2">{activeProject.primaryMetric.label}</p>
+              <div className="mb-8 p-6 bg-amber-50/30 rounded-xl border-l-4 border-amber-600/40">
+                <p className="text-2xl font-medium text-warm-900">{activeProject.primaryMetric.value}</p>
+                <p className="text-base text-warm-700 font-medium mt-1">{activeProject.primaryMetric.label}</p>
                 {activeProject.primaryMetric.context && (
                   <p className="text-sm text-warm-600 mt-1">{activeProject.primaryMetric.context}</p>
                 )}
               </div>
             )}
 
-            <div className="mb-12">
-              <p className="text-base text-warm-700 leading-loose">{activeProject.snapshot}</p>
+            <div className="mb-8">
+              <p className="text-base text-warm-700 leading-relaxed">{activeProject.snapshot}</p>
             </div>
 
-            {/* New section-based structure */}
-            {activeProject.sections ? (
-              <div className="space-y-10 mb-12">
-                {activeProject.sections.product && activeProject.sections.product.items.length > 0 && (
-                  <div>
-                    <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Product</h3>
-                    <ul className="space-y-3 mb-4">
-                      {activeProject.sections.product.items.map((item, i) => (
-                        <li key={i} className="text-sm text-warm-700 flex leading-loose">
-                          <span className="mr-2 text-sage-500">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    {activeProject.sections.product.skills && activeProject.sections.product.skills.length > 0 && (
-                      <div className="mb-4">
-                        <p className="text-xs font-medium text-warm-600 mb-2">Skills:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {activeProject.sections.product.skills.map((skill, i) => (
-                            <button
-                              key={i}
-                              onClick={() => handleSkillClick(skill)}
-                              className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
-                            >
-                              {skill}
-                            </button>
-                          ))}
-                        </div>
+            {/* Collapsible section-based structure */}
+            {activeProject.sections && (
+              <div className="space-y-4 mb-8">
+                {/* Product Section */}
+                <CollapsibleSection
+                  title="Product"
+                  hasContent={!!(activeProject.sections.product && activeProject.sections.product.items.length > 0)}
+                >
+                  <ul className="space-y-2">
+                    {activeProject.sections.product?.items.map((item, i) => (
+                      <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                        <span className="mr-2 text-sage-500 flex-shrink-0">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {activeProject.sections.product?.skills && activeProject.sections.product.skills.length > 0 && (
+                    <CollapsibleSubSection title={`Skills (${activeProject.sections.product.skills.length})`}>
+                      <div className="flex flex-wrap gap-2">
+                        {activeProject.sections.product.skills.map((skill, i) => (
+                          <button
+                            key={i}
+                            onClick={() => handleSkillClick(skill)}
+                            className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
+                          >
+                            {skill}
+                          </button>
+                        ))}
                       </div>
-                    )}
-                    {activeProject.sections.product.tools && activeProject.sections.product.tools.length > 0 && (
-                      <div>
-                        <p className="text-xs font-medium text-warm-600 mb-2">Tools:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {activeProject.sections.product.tools.map((tool, i) => (
-                            <button
-                              key={i}
-                              onClick={() => handleToolClick(tool, activeProject.sections?.product?.skills)}
-                              className="px-3 py-1.5 bg-warm-50 text-warm-600 text-xs rounded-md border border-warm-200 font-medium hover:bg-warm-100 hover:border-warm-300 transition-all duration-200 cursor-pointer"
-                            >
-                              {tool}
-                            </button>
-                          ))}
-                        </div>
+                    </CollapsibleSubSection>
+                  )}
+                  {activeProject.sections.product?.tools && activeProject.sections.product.tools.length > 0 && (
+                    <CollapsibleSubSection title={`Tools (${activeProject.sections.product.tools.length})`}>
+                      <div className="flex flex-wrap gap-2">
+                        {activeProject.sections.product.tools.map((tool, i) => (
+                          <button
+                            key={i}
+                            onClick={() => handleToolClick(tool, activeProject.sections?.product?.skills)}
+                            className="px-3 py-1.5 bg-warm-50 text-warm-600 text-xs rounded-md border border-warm-200 font-medium hover:bg-warm-100 hover:border-warm-300 transition-all duration-200 cursor-pointer"
+                          >
+                            {tool}
+                          </button>
+                        ))}
                       </div>
-                    )}
-                  </div>
-                )}
+                    </CollapsibleSubSection>
+                  )}
+                </CollapsibleSection>
 
-                {activeProject.sections.growth && activeProject.sections.growth.items.length > 0 && (
-                  <div>
-                    <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Growth</h3>
-                    <ul className="space-y-3 mb-4">
-                      {activeProject.sections.growth.items.map((item, i) => (
-                        <li key={i} className="text-sm text-warm-700 flex leading-loose">
-                          <span className="mr-2 text-sage-500">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    {activeProject.sections.growth.skills && activeProject.sections.growth.skills.length > 0 && (
-                      <div className="mb-4">
-                        <p className="text-xs font-medium text-warm-600 mb-2">Skills:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {activeProject.sections.growth.skills.map((skill, i) => (
-                            <button
-                              key={i}
-                              onClick={() => handleSkillClick(skill)}
-                              className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
-                            >
-                              {skill}
-                            </button>
-                          ))}
-                        </div>
+                {/* Growth Section */}
+                <CollapsibleSection
+                  title="Growth"
+                  hasContent={!!(activeProject.sections.growth && activeProject.sections.growth.items.length > 0)}
+                >
+                  <ul className="space-y-2">
+                    {activeProject.sections.growth?.items.map((item, i) => (
+                      <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                        <span className="mr-2 text-sage-500 flex-shrink-0">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {activeProject.sections.growth?.skills && activeProject.sections.growth.skills.length > 0 && (
+                    <CollapsibleSubSection title={`Skills (${activeProject.sections.growth.skills.length})`}>
+                      <div className="flex flex-wrap gap-2">
+                        {activeProject.sections.growth.skills.map((skill, i) => (
+                          <button
+                            key={i}
+                            onClick={() => handleSkillClick(skill)}
+                            className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
+                          >
+                            {skill}
+                          </button>
+                        ))}
                       </div>
-                    )}
-                    {activeProject.sections.growth.tools && activeProject.sections.growth.tools.length > 0 && (
-                      <div>
-                        <p className="text-xs font-medium text-warm-600 mb-2">Tools:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {activeProject.sections.growth.tools.map((tool, i) => (
-                            <button
-                              key={i}
-                              onClick={() => handleToolClick(tool, activeProject.sections?.growth?.skills)}
-                              className="px-3 py-1.5 bg-warm-50 text-warm-600 text-xs rounded-md border border-warm-200 font-medium hover:bg-warm-100 hover:border-warm-300 transition-all duration-200 cursor-pointer"
-                            >
-                              {tool}
-                            </button>
-                          ))}
-                        </div>
+                    </CollapsibleSubSection>
+                  )}
+                  {activeProject.sections.growth?.tools && activeProject.sections.growth.tools.length > 0 && (
+                    <CollapsibleSubSection title={`Tools (${activeProject.sections.growth.tools.length})`}>
+                      <div className="flex flex-wrap gap-2">
+                        {activeProject.sections.growth.tools.map((tool, i) => (
+                          <button
+                            key={i}
+                            onClick={() => handleToolClick(tool, activeProject.sections?.growth?.skills)}
+                            className="px-3 py-1.5 bg-warm-50 text-warm-600 text-xs rounded-md border border-warm-200 font-medium hover:bg-warm-100 hover:border-warm-300 transition-all duration-200 cursor-pointer"
+                          >
+                            {tool}
+                          </button>
+                        ))}
                       </div>
-                    )}
-                  </div>
-                )}
+                    </CollapsibleSubSection>
+                  )}
+                </CollapsibleSection>
 
-                {activeProject.sections.ops && activeProject.sections.ops.items.length > 0 && (
-                  <div>
-                    <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Ops & Strategy</h3>
-                    <ul className="space-y-3 mb-4">
-                      {activeProject.sections.ops.items.map((item, i) => (
-                        <li key={i} className="text-sm text-warm-700 flex leading-loose">
-                          <span className="mr-2 text-sage-500">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    {activeProject.sections.ops.skills && activeProject.sections.ops.skills.length > 0 && (
-                      <div className="mb-4">
-                        <p className="text-xs font-medium text-warm-600 mb-2">Skills:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {activeProject.sections.ops.skills.map((skill, i) => (
-                            <button
-                              key={i}
-                              onClick={() => handleSkillClick(skill)}
-                              className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
-                            >
-                              {skill}
-                            </button>
-                          ))}
-                        </div>
+                {/* Ops & Strategy Section */}
+                <CollapsibleSection
+                  title="Ops & Strategy"
+                  hasContent={!!(activeProject.sections.ops && activeProject.sections.ops.items.length > 0)}
+                >
+                  <ul className="space-y-2">
+                    {activeProject.sections.ops?.items.map((item, i) => (
+                      <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                        <span className="mr-2 text-sage-500 flex-shrink-0">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {activeProject.sections.ops?.skills && activeProject.sections.ops.skills.length > 0 && (
+                    <CollapsibleSubSection title={`Skills (${activeProject.sections.ops.skills.length})`}>
+                      <div className="flex flex-wrap gap-2">
+                        {activeProject.sections.ops.skills.map((skill, i) => (
+                          <button
+                            key={i}
+                            onClick={() => handleSkillClick(skill)}
+                            className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
+                          >
+                            {skill}
+                          </button>
+                        ))}
                       </div>
-                    )}
-                    {activeProject.sections.ops.tools && activeProject.sections.ops.tools.length > 0 && (
-                      <div>
-                        <p className="text-xs font-medium text-warm-600 mb-2">Tools:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {activeProject.sections.ops.tools.map((tool, i) => (
-                            <button
-                              key={i}
-                              onClick={() => handleToolClick(tool, activeProject.sections?.ops?.skills)}
-                              className="px-3 py-1.5 bg-warm-50 text-warm-600 text-xs rounded-md border border-warm-200 font-medium hover:bg-warm-100 hover:border-warm-300 transition-all duration-200 cursor-pointer"
-                            >
-                              {tool}
-                            </button>
-                          ))}
-                        </div>
+                    </CollapsibleSubSection>
+                  )}
+                  {activeProject.sections.ops?.tools && activeProject.sections.ops.tools.length > 0 && (
+                    <CollapsibleSubSection title={`Tools (${activeProject.sections.ops.tools.length})`}>
+                      <div className="flex flex-wrap gap-2">
+                        {activeProject.sections.ops.tools.map((tool, i) => (
+                          <button
+                            key={i}
+                            onClick={() => handleToolClick(tool, activeProject.sections?.ops?.skills)}
+                            className="px-3 py-1.5 bg-warm-50 text-warm-600 text-xs rounded-md border border-warm-200 font-medium hover:bg-warm-100 hover:border-warm-300 transition-all duration-200 cursor-pointer"
+                          >
+                            {tool}
+                          </button>
+                        ))}
                       </div>
-                    )}
-                  </div>
-                )}
+                    </CollapsibleSubSection>
+                  )}
+                </CollapsibleSection>
               </div>
-            ) : (
-              /* Legacy structure for older projects */
-              <>
-                {activeProject.bullets && activeProject.bullets.length > 0 && (
-                  <div className="mb-12">
-                    <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Key Responsibilities</h3>
-                    <ul className="space-y-3">
-                      {activeProject.bullets.map((bullet, i) => (
-                        <li key={i} className="text-sm text-warm-700 flex leading-loose">
-                          <span className="mr-2 text-sage-500">•</span>
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </>
             )}
 
-            {activeProject.skills && activeProject.skills.length > 0 && (
-              <div className="mb-12">
-                <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Skills</h3>
-                <div className="flex flex-wrap gap-2">
-                  {activeProject.skills.map((skill, i) => (
-                    <button
-                      key={i}
-                      onClick={() => handleSkillClick(skill)}
-                      className="px-3 py-1.5 bg-sage-100 text-sage-800 text-xs rounded-md border border-sage-300 font-medium hover:bg-sage-200 hover:border-sage-400 transition-all duration-200 cursor-pointer"
-                    >
-                      {skill}
-                    </button>
+            {/* Legacy structure */}
+            {!activeProject.sections && activeProject.bullets && activeProject.bullets.length > 0 && (
+              <div className="mb-8">
+                <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">Key Responsibilities</h3>
+                <ul className="space-y-2">
+                  {activeProject.bullets.map((bullet, i) => (
+                    <li key={i} className="text-sm text-warm-700 flex leading-relaxed">
+                      <span className="mr-2 text-sage-500">•</span>
+                      <span>{bullet}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             )}
 
             {activeProject.learned && (
-              <div className="mb-12">
-                <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">What I learned</h3>
-                <p className="text-base text-warm-700 leading-loose">{activeProject.learned}</p>
+              <div className="mb-8 p-4 bg-sage-50/50 rounded-lg border border-sage-100">
+                <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-2">What I learned</h3>
+                <p className="text-sm text-warm-700 leading-relaxed">{activeProject.learned}</p>
               </div>
             )}
 
             {activeProject.links && activeProject.links.length > 0 && (
               <div className="mb-8">
-                <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-4">References / Selected Artifacts</h3>
+                <h3 className="text-sm font-medium text-warm-600 uppercase tracking-wider mb-3">References</h3>
                 <div className="space-y-2">
                   {activeProject.links.map((link, i) => (
                     <a
@@ -381,9 +440,9 @@ export default function ProjectDrawer({ onJumpToFilter }: ProjectDrawerProps) {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block text-sm text-warm-600 hover:text-sage-700 transition-all duration-200 ease-out"
+                      className="block text-sm text-sage-600 hover:text-sage-800 transition-all duration-200 ease-out"
                     >
-                      • {link.label}
+                      → {link.label}
                     </a>
                   ))}
                 </div>

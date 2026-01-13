@@ -57,12 +57,15 @@ export default function Home() {
     });
   }, []);
 
+  // Only show the hand-off button on desktop (mobile has it built into Highlights)
+  const isMobileView = typeof window !== 'undefined' && window.innerWidth < 768;
+
   return (
     <main className="min-h-screen bg-warm-50">
       <TopNav />
       <Overview />
-      <Highlights />
-      <FilterHandoff onFilterClick={handleFilterClick} />
+      <Highlights onFilterClick={handleFilterClick} />
+      <FilterHandoff onFilterClick={handleFilterClick} showButton={!isMobileView} />
       <div ref={timelineRef}>
         <TimelineWithFilters
           showFilters={showFilters}
