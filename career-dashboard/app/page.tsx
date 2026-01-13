@@ -24,14 +24,6 @@ export default function Home() {
   });
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  const handleFilterClick = useCallback(() => {
-    setShowFilters(true);
-    // Scroll to timeline section
-    setTimeout(() => {
-      timelineRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
-  }, []);
-
   const handleJumpToFilter = useCallback((state: Partial<FilterState>) => {
     setFilterState({
       branch: state.branch ?? null,
@@ -60,7 +52,7 @@ export default function Home() {
     <main className="min-h-screen bg-warm-50">
       <TopNav />
       <Overview />
-      <Highlights onFilterClick={handleFilterClick} />
+      <Highlights />
       <div ref={timelineRef}>
         <TimelineWithFilters
           showFilters={showFilters}

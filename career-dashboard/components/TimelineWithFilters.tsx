@@ -14,12 +14,6 @@ type FilterState = {
   tool: string | null;
 };
 
-interface BreadcrumbItem {
-  level: 'branch' | 'group' | 'skill';
-  id: string;
-  label: string;
-}
-
 interface TimelineWithFiltersProps {
   showFilters: boolean;
   setShowFilters: (show: boolean) => void;
@@ -29,6 +23,9 @@ interface TimelineWithFiltersProps {
   onResetFilters: () => void;
 }
 
+// Constants for tool chip limiting
+const MAX_VISIBLE_TOOLS = 8;
+
 export default function TimelineWithFilters({
   showFilters,
   setShowFilters,
@@ -37,60 +34,27 @@ export default function TimelineWithFilters({
   onResetFilters,
 }: TimelineWithFiltersProps) {
   const { branch: expandedBranch, group: expandedGroup, skill: selectedSkill, tool: selectedTool } = filterState;
+  const [showAllTools, setShowAllTools] = useState(false);
 
   // Sync filter state changes
   const setExpandedBranch = (branch: BranchId | null) => {
     setFilterState({ ...filterState, branch, group: null, skill: null, tool: null });
+    setShowAllTools(false);
   };
 
   const setExpandedGroup = (group: string | null) => {
     setFilterState({ ...filterState, group, skill: null, tool: null });
+    setShowAllTools(false);
   };
 
   const setSelectedSkill = (skill: string | null) => {
     setFilterState({ ...filterState, skill, tool: null });
+    setShowAllTools(false);
   };
 
   const setSelectedTool = (tool: string | null) => {
     setFilterState({ ...filterState, tool });
   };
-
-  // Build breadcrumbs
-  const breadcrumbs = useMemo<BreadcrumbItem[]>(() => {
-    const crumbs: BreadcrumbItem[] = [];
-
-    if (expandedBranch) {
-      crumbs.push({
-        level: 'branch',
-        id: expandedBranch,
-        label: skillGraph[expandedBranch].name
-      });
-    }
-
-    if (expandedGroup && expandedBranch) {
-      const group = skillGraph[expandedBranch].skillGroups[expandedGroup];
-      if (group) {
-        crumbs.push({
-          level: 'group',
-          id: expandedGroup,
-          label: group.name
-        });
-      }
-    }
-
-    if (selectedSkill && expandedGroup && expandedBranch) {
-      const skill = skillGraph[expandedBranch].skillGroups[expandedGroup]?.skills[selectedSkill];
-      if (skill) {
-        crumbs.push({
-          level: 'skill',
-          id: selectedSkill,
-          label: skill.name
-        });
-      }
-    }
-
-    return crumbs;
-  }, [expandedBranch, expandedGroup, selectedSkill]);
 
   // Get filtered projects based on skill/tool selection
   const filteredProjects = useMemo(() => {
@@ -144,25 +108,30 @@ export default function TimelineWithFilters({
     }
   };
 
-  const handleBreadcrumbClick = (index: number) => {
-    const crumb = breadcrumbs[index];
-
-    if (crumb.level === 'branch') {
-      setExpandedGroup(null);
-    } else if (crumb.level === 'group') {
-      setSelectedSkill(null);
-    }
-  };
-
   const handleToolClick = (tool: string) => {
     setSelectedTool(selectedTool === tool ? null : tool);
   };
 
   const handleResetFilters = () => {
     onResetFilters();
+    setShowAllTools(false);
+  };
+
+  // Go back one level
+  const handleBack = () => {
+    if (selectedSkill) {
+      setSelectedSkill(null);
+    } else if (expandedGroup) {
+      setExpandedGroup(null);
+    } else if (expandedBranch) {
+      setExpandedBranch(null);
+    } else {
+      setShowFilters(false);
+    }
   };
 
   const isFiltered = selectedSkill !== null;
+  const isFilteringActive = showFilters && (expandedBranch || expandedGroup || selectedSkill);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -179,252 +148,199 @@ export default function TimelineWithFilters({
     }
   }, [filterState.branch, filterState.skill, setShowFilters]);
 
-  // Get skill name for mobile filter bar
-  const skillName = expandedBranch && expandedGroup && selectedSkill
-    ? skillGraph[expandedBranch].skillGroups[expandedGroup]?.skills[selectedSkill]?.name
-    : '';
+  // Get current breadcrumb label
+  const getCurrentLabel = () => {
+    if (selectedSkill && expandedBranch && expandedGroup) {
+      return skillGraph[expandedBranch].skillGroups[expandedGroup]?.skills[selectedSkill]?.name || '';
+    }
+    if (expandedGroup && expandedBranch) {
+      return skillGraph[expandedBranch].skillGroups[expandedGroup]?.name || '';
+    }
+    if (expandedBranch) {
+      return skillGraph[expandedBranch].name;
+    }
+    return '';
+  };
+
+  // Get skill info for summary card
+  const skillInfo = expandedBranch && expandedGroup && selectedSkill
+    ? skillGraph[expandedBranch].skillGroups[expandedGroup]?.skills[selectedSkill]
+    : null;
+
+  // Get tools for the selected skill
+  const tools = skillInfo?.tools || [];
+  const visibleTools = showAllTools ? tools : tools.slice(0, MAX_VISIBLE_TOOLS);
+  const hasMoreTools = tools.length > MAX_VISIBLE_TOOLS;
 
   return (
     <section className="max-w-4xl mx-auto px-6 pt-6 pb-20">
-      {/* Mobile sticky filter bar */}
-      {isMobile && isFiltered && (
-        <div className="sticky top-0 z-10 bg-warm-50 border-b border-warm-200 -mx-6 px-6 py-3 mb-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="px-2 py-1 bg-sage-200 text-sage-800 text-xs rounded-md font-medium truncate">
-                {skillName}
-              </span>
-              {selectedTool && (
-                <span className="px-2 py-1 bg-warm-200 text-warm-700 text-xs rounded-md font-medium border border-warm-300 truncate">
-                  {selectedTool}
-                </span>
-              )}
-            </div>
+      {/* Header */}
+      <div className="mb-4">
+        <h2 className="text-xl font-medium text-warm-900">What I&apos;ve Built</h2>
+      </div>
+
+      {/* Mobile: Explore by skill button (when filters not shown) */}
+      {isMobile && !showFilters && (
+        <div className="mb-6">
+          <button
+            onClick={() => setShowFilters(true)}
+            className="w-full py-3 bg-warm-800 text-white text-sm font-medium rounded-lg hover:bg-warm-900 transition-colors"
+          >
+            Explore by skill
+          </button>
+        </div>
+      )}
+
+      {/* Desktop: Filter by skill button (when filters not shown) */}
+      {!isMobile && !showFilters && (
+        <div className="mb-6">
+          <button
+            onClick={() => setShowFilters(true)}
+            className="px-4 py-2 bg-warm-100 text-warm-700 text-sm font-medium rounded-lg hover:bg-warm-200 transition-colors border border-warm-200"
+          >
+            Filter by skill
+          </button>
+        </div>
+      )}
+
+      {/* Sticky compact navigation bar when filtering */}
+      {isFilteringActive && (
+        <div className="sticky top-0 z-10 bg-warm-50 border-b border-warm-200 -mx-6 px-6 py-2 mb-4 flex items-center justify-between">
+          <button
+            onClick={handleBack}
+            className="flex items-center gap-1 text-sm text-warm-600 hover:text-warm-800 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>{selectedSkill ? 'Change skill' : expandedGroup ? 'Back' : expandedBranch ? 'Back' : 'Close'}</span>
+          </button>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-warm-500 truncate max-w-[150px]">{getCurrentLabel()}</span>
             <button
               onClick={handleResetFilters}
-              className="text-xs text-warm-500 hover:text-warm-700 transition-all shrink-0 ml-2"
+              className="text-xs text-warm-500 hover:text-warm-700 transition-colors"
             >
               Clear
             </button>
           </div>
-          <p className="text-xs text-warm-500 mt-1">
-            {filteredProjects?.length || 0} result{filteredProjects?.length === 1 ? '' : 's'}
-          </p>
         </div>
       )}
 
-      {/* Header with Filter Button and Reset */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xl font-medium text-warm-900">What I&apos;ve Built</h2>
-          {!isMobile && (showFilters || isFiltered) && (
-            <button
-              onClick={handleResetFilters}
-              className="text-sm text-warm-500 hover:text-warm-700 transition-all duration-200 ease-out"
-            >
-              Clear filters
-            </button>
-          )}
-        </div>
-
-        {/* Filtered-by chips - desktop only when filtered */}
-        {!isMobile && isFiltered && (
-          <div className="flex flex-wrap items-center gap-2 mb-4">
-            <span className="text-xs text-warm-500">Filtered by:</span>
-            {expandedBranch && (
-              <span className="px-2 py-1 bg-sage-100 text-sage-700 text-xs rounded-md font-medium">
-                {skillGraph[expandedBranch].name}
-              </span>
-            )}
-            {expandedGroup && expandedBranch && (
-              <>
-                <span className="text-warm-400">→</span>
-                <span className="px-2 py-1 bg-sage-100 text-sage-700 text-xs rounded-md font-medium">
-                  {skillGraph[expandedBranch].skillGroups[expandedGroup]?.name}
-                </span>
-              </>
-            )}
-            {selectedSkill && expandedGroup && expandedBranch && (
-              <>
-                <span className="text-warm-400">→</span>
-                <span className="px-2 py-1 bg-sage-200 text-sage-800 text-xs rounded-md font-medium">
-                  {skillGraph[expandedBranch].skillGroups[expandedGroup]?.skills[selectedSkill]?.name}
-                </span>
-              </>
-            )}
-            {selectedTool && (
-              <>
-                <span className="text-warm-400">+</span>
-                <span className="px-2 py-1 bg-warm-200 text-warm-700 text-xs rounded-md font-medium border border-warm-300">
-                  {selectedTool}
-                </span>
-              </>
-            )}
-          </div>
-        )}
-      </div>
-
       {/* Skill Graph Filter UI */}
       {showFilters && (
-      <div className="mb-8">
-        {/* Breadcrumbs */}
-        {breadcrumbs.length > 0 && (
-          <div className="mb-6">
-            <div className="flex items-center gap-2 text-sm text-warm-600 overflow-x-auto">
-              {breadcrumbs.map((crumb, index) => (
-                <div key={crumb.id} className="flex items-center gap-2 shrink-0">
+        <div className="mb-6">
+          {/* Level 1: Branch Tiles - Compact */}
+          {!expandedBranch && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {(Object.keys(skillGraph) as BranchId[]).map(branchId => {
+                const branch = skillGraph[branchId];
+                return (
                   <button
-                    onClick={() => handleBreadcrumbClick(index)}
-                    className="hover:text-sage-700 transition-all duration-200 ease-out"
+                    key={branchId}
+                    onClick={() => handleBranchClick(branchId)}
+                    className="p-4 bg-white border border-warm-200 rounded-lg hover:border-sage-400 hover:shadow-sm transition-all duration-200 ease-out text-left group"
                   >
-                    {crumb.label}
+                    <h3 className="text-base font-medium text-warm-900 mb-1 group-hover:text-sage-700 transition-colors">
+                      {branch.name}
+                    </h3>
+                    <p className="text-xs text-warm-600 line-clamp-2">{branch.description}</p>
                   </button>
-                  {index < breadcrumbs.length - 1 && (
-                    <span className="text-warm-400">→</span>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Level 1: Branch Tiles */}
-        {!expandedBranch && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {(Object.keys(skillGraph) as BranchId[]).map(branchId => {
-              const branch = skillGraph[branchId];
-              return (
-                <button
-                  key={branchId}
-                  onClick={() => handleBranchClick(branchId)}
-                  className="p-6 bg-white border border-warm-200 rounded-xl hover:border-sage-400 hover:shadow-sm transition-all duration-200 ease-out text-left group"
-                >
-                  <h3 className="text-lg font-medium text-warm-900 mb-2 group-hover:text-sage-700 transition-all duration-200 ease-out">
-                    {branch.name}
-                  </h3>
-                  <p className="text-sm text-warm-600 mb-4">{branch.description}</p>
-                  <div className="text-sm text-sage-600 font-medium">
-                    Explore →
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Level 2: Skill Groups */}
-        {expandedBranch && !expandedGroup && (
-          <div>
-            <button
-              onClick={() => handleBranchClick(expandedBranch)}
-              className="mb-6 px-4 py-2 bg-warm-100 text-warm-700 rounded-lg hover:bg-warm-200 transition-all duration-200 ease-out text-sm font-medium"
-            >
-              ← Back to branches
-            </button>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Level 2: Skill Groups - Compact */}
+          {expandedBranch && !expandedGroup && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {Object.entries(skillGraph[expandedBranch].skillGroups).map(([groupId, group]) => (
                 <button
                   key={groupId}
                   onClick={() => handleGroupClick(groupId)}
-                  className="p-6 bg-white border border-warm-200 rounded-xl hover:border-sage-400 hover:shadow-sm transition-all duration-200 ease-out text-left group"
+                  className="p-4 bg-white border border-warm-200 rounded-lg hover:border-sage-400 hover:shadow-sm transition-all duration-200 ease-out text-left group"
                 >
-                  <h4 className="text-base font-medium text-warm-900 mb-2 group-hover:text-sage-700 transition-all duration-200 ease-out">
+                  <h4 className="text-sm font-medium text-warm-900 mb-1 group-hover:text-sage-700 transition-colors">
                     {group.name}
                   </h4>
-                  <p className="text-sm text-warm-600">{group.description}</p>
+                  <p className="text-xs text-warm-600 line-clamp-2">{group.description}</p>
                 </button>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Level 3: Skills List */}
-        {expandedBranch && expandedGroup && !selectedSkill && (
-          <div>
-            <button
-              onClick={() => handleGroupClick(expandedGroup)}
-              className="mb-6 px-4 py-2 bg-warm-100 text-warm-700 rounded-lg hover:bg-warm-200 transition-all duration-200 ease-out text-sm font-medium"
-            >
-              ← Back to skill groups
-            </button>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Level 3: Skills List - Compact */}
+          {expandedBranch && expandedGroup && !selectedSkill && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {Object.entries(skillGraph[expandedBranch].skillGroups[expandedGroup].skills).map(([skillId, skill]) => (
                 <button
                   key={skillId}
                   onClick={() => handleSkillClick(skillId)}
-                  className="p-6 bg-white border border-warm-200 rounded-xl hover:border-sage-400 hover:shadow-sm transition-all duration-200 ease-out text-left group"
+                  className="p-4 bg-white border border-warm-200 rounded-lg hover:border-sage-400 hover:shadow-sm transition-all duration-200 ease-out text-left group"
                 >
-                  <h5 className="text-base font-medium text-warm-900 mb-2 group-hover:text-sage-700 transition-all duration-200 ease-out">
+                  <h5 className="text-sm font-medium text-warm-900 mb-1 group-hover:text-sage-700 transition-colors">
                     {skill.name}
                   </h5>
-                  <p className="text-sm text-warm-600">{skill.description}</p>
+                  <p className="text-xs text-warm-600 line-clamp-2">{skill.description}</p>
                 </button>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Level 4: Skill Selected with Tools */}
-        {expandedBranch && expandedGroup && selectedSkill && (
-          <div>
-            {/* Back button - hidden on mobile when we have results (sticky bar handles it) */}
-            {!isMobile && (
-              <button
-                onClick={() => handleSkillClick(selectedSkill)}
-                className="mb-6 px-4 py-2 bg-warm-100 text-warm-700 rounded-lg hover:bg-warm-200 transition-all duration-200 ease-out text-sm font-medium"
-              >
-                ← Back to skills
-              </button>
-            )}
-
-            <div className="p-6 md:p-8 bg-white border border-warm-200 rounded-xl">
-              <h3 className="text-lg font-medium text-warm-900 mb-2">
-                {skillGraph[expandedBranch].skillGroups[expandedGroup].skills[selectedSkill].name}
+          {/* Level 4: Skill Summary Card with Tools */}
+          {selectedSkill && skillInfo && (
+            <div className="p-4 bg-white border border-warm-200 rounded-lg">
+              <h3 className="text-base font-medium text-warm-900 mb-1">
+                {skillInfo.name}
               </h3>
-              <p className="text-sm text-warm-600 mb-6">
-                {skillGraph[expandedBranch].skillGroups[expandedGroup].skills[selectedSkill].description}
+              <p className="text-xs text-warm-600 mb-3">
+                {skillInfo.description}
               </p>
 
-              {/* Tools Section - with visual containment */}
-              {skillGraph[expandedBranch].skillGroups[expandedGroup].skills[selectedSkill].tools.length > 0 && (
-                <div className="p-4 bg-warm-50 rounded-lg border border-warm-200">
-                  <h4 className="text-sm font-medium text-warm-700 mb-1">Filter by tool (optional)</h4>
-                  <p className="text-xs text-warm-500 mb-3">Narrow results within this skill</p>
-                  <div className="flex flex-wrap gap-2">
-                    {skillGraph[expandedBranch].skillGroups[expandedGroup].skills[selectedSkill].tools.map(tool => (
+              {/* Tool chips - compact */}
+              {tools.length > 0 && (
+                <div className="pt-3 border-t border-warm-100">
+                  <p className="text-xs text-warm-500 mb-2">Filter by tool (optional)</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {visibleTools.map(tool => (
                       <button
                         key={tool}
                         onClick={() => handleToolClick(tool)}
-                        className={`px-3 py-1.5 text-xs rounded-md border font-medium transition-all duration-200 ease-out ${
+                        className={`px-2 py-1 text-[11px] rounded border font-medium transition-all duration-150 ${
                           selectedTool === tool
                             ? 'bg-warm-800 text-white border-warm-800'
-                            : 'bg-white text-warm-700 border-warm-300 hover:border-warm-400'
+                            : 'bg-white text-warm-600 border-warm-200 hover:border-warm-300'
                         }`}
                       >
                         {tool}
                       </button>
                     ))}
+                    {hasMoreTools && !showAllTools && (
+                      <button
+                        onClick={() => setShowAllTools(true)}
+                        className="px-2 py-1 text-[11px] rounded border border-warm-200 text-warm-500 hover:text-warm-700 hover:border-warm-300 transition-colors"
+                      >
+                        +{tools.length - MAX_VISIBLE_TOOLS} more
+                      </button>
+                    )}
                   </div>
                 </div>
               )}
 
-              <div className="mt-6 pt-6 border-t border-warm-200">
-                <p className="text-sm text-warm-600">
-                  {filteredProjects?.length || 0} experience{filteredProjects?.length === 1 ? '' : 's'} {selectedTool ? `using ${selectedTool}` : 'match this skill'}
+              <div className="mt-3 pt-3 border-t border-warm-100">
+                <p className="text-xs text-warm-500">
+                  {filteredProjects?.length || 0} experience{filteredProjects?.length === 1 ? '' : 's'} {selectedTool ? `using ${selectedTool}` : 'match'}
                 </p>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
       )}
 
       {/* Visual separator when filtered */}
       {isFiltered && (
-        <div className="border-t border-warm-200 pt-6 mb-2">
-          <h3 className="text-sm font-medium text-warm-600 mb-4">
+        <div className="border-t border-warm-200 pt-4 mb-2">
+          <h3 className="text-xs font-medium text-warm-500 uppercase tracking-wide mb-3">
             Matching experiences
           </h3>
         </div>

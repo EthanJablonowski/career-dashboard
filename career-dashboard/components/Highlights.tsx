@@ -42,11 +42,26 @@ const highlights: Highlight[] = [
   }
 ];
 
-interface HighlightsProps {
-  onFilterClick: () => void;
+// Chevron arrow icon for click affordance
+function ChevronRight({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M9 18l6-6-6-6" />
+    </svg>
+  );
 }
 
-export default function Highlights({ onFilterClick }: HighlightsProps) {
+export default function Highlights() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -99,9 +114,9 @@ export default function Highlights({ onFilterClick }: HighlightsProps) {
                 <button
                   key={i}
                   onClick={() => handleCardClick(highlight)}
-                  className="flex-none w-[85vw] max-w-[320px] snap-center p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 transition-all duration-200"
+                  className="relative flex-none w-[85vw] max-w-[320px] snap-center p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 transition-all duration-200"
                 >
-                  <h3 className="text-base font-medium text-warm-900 mb-2 leading-tight">
+                  <h3 className="text-base font-medium text-warm-900 mb-2 leading-tight pr-6">
                     {highlight.header}
                   </h3>
                   <p className="text-sm text-warm-600 mb-2">
@@ -112,6 +127,8 @@ export default function Highlights({ onFilterClick }: HighlightsProps) {
                       {highlight.proof}
                     </p>
                   )}
+                  {/* Chevron affordance - always visible on mobile */}
+                  <ChevronRight className="absolute bottom-4 right-4 text-warm-400" />
                 </button>
               ))}
             </div>
@@ -126,29 +143,19 @@ export default function Highlights({ onFilterClick }: HighlightsProps) {
               </div>
             </div>
           </div>
-
-          {/* Mobile CTA - leads into filter */}
-          <div className="px-6 mt-6">
-            <button
-              onClick={onFilterClick}
-              className="w-full py-3 bg-warm-800 text-white text-sm font-medium rounded-lg hover:bg-warm-900 transition-colors"
-            >
-              Explore by skill
-            </button>
-          </div>
         </div>
       </section>
     );
   }
 
-  // Desktop - all cards visible in grid (same for reduced motion)
+  // Desktop - all cards visible in grid
   return (
     <section className="py-10 bg-warm-50">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="mb-6">
           <h2 className="text-lg font-medium text-warm-900">Highlights</h2>
-          <p className="text-sm text-warm-600 mt-1">Click a highlight to see where it was built.</p>
+          <p className="text-sm text-warm-600 mt-1">A few outcomes that define the work.</p>
         </div>
 
         {/* Grid of all cards */}
@@ -157,9 +164,9 @@ export default function Highlights({ onFilterClick }: HighlightsProps) {
             <button
               key={i}
               onClick={() => handleCardClick(highlight)}
-              className="p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+              className="relative p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group"
             >
-              <h3 className="text-sm font-medium text-warm-900 mb-2 leading-tight">
+              <h3 className="text-sm font-medium text-warm-900 mb-2 leading-tight pr-4">
                 {highlight.header}
               </h3>
               <p className="text-xs text-warm-600 mb-2">
@@ -170,6 +177,8 @@ export default function Highlights({ onFilterClick }: HighlightsProps) {
                   {highlight.proof}
                 </p>
               )}
+              {/* Chevron affordance - faint normally, full on hover */}
+              <ChevronRight className="absolute bottom-4 right-4 text-warm-300 group-hover:text-sage-500 transition-colors" />
             </button>
           ))}
         </div>
