@@ -114,21 +114,25 @@ export default function Highlights() {
                 <button
                   key={i}
                   onClick={() => handleCardClick(highlight)}
-                  className="relative flex-none w-[85vw] max-w-[320px] snap-center p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 transition-all duration-200"
+                  className="relative flex-none w-[85vw] max-w-[320px] h-[130px] snap-center p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 transition-all duration-200 flex flex-col"
                 >
-                  <h3 className="text-base font-medium text-warm-900 mb-2 leading-tight pr-6">
+                  {/* Title - 2 line clamp */}
+                  <h3 className="text-base font-medium text-warm-900 leading-snug pr-6 line-clamp-2">
                     {highlight.header}
                   </h3>
-                  <p className="text-sm text-warm-600 mb-2">
+                  {/* Subtitle - 2 line clamp */}
+                  <p className="text-sm text-warm-600 mt-2 leading-relaxed line-clamp-2">
                     {highlight.subheader}
                   </p>
-                  {highlight.proof && (
-                    <p className="text-xs text-warm-500">
-                      {highlight.proof}
-                    </p>
-                  )}
-                  {/* Chevron affordance - always visible on mobile */}
-                  <ChevronRight className="absolute bottom-4 right-4 text-warm-400" />
+                  {/* Meta row - pinned to bottom */}
+                  <div className="mt-auto pt-2 flex items-center justify-between">
+                    {highlight.proof && (
+                      <p className="text-xs text-warm-500 leading-tight line-clamp-1 pr-4">
+                        {highlight.proof}
+                      </p>
+                    )}
+                    <ChevronRight className="flex-shrink-0 text-warm-400" />
+                  </div>
                 </button>
               ))}
             </div>
@@ -164,21 +168,25 @@ export default function Highlights() {
             <button
               key={i}
               onClick={() => handleCardClick(highlight)}
-              className="relative p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group"
+              className="relative h-[140px] p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group flex flex-col"
             >
-              <h3 className="text-sm font-medium text-warm-900 mb-2 leading-tight pr-4">
+              {/* Title - 2 line clamp */}
+              <h3 className="text-sm font-medium text-warm-900 leading-snug pr-4 line-clamp-2">
                 {highlight.header}
               </h3>
-              <p className="text-xs text-warm-600 mb-2">
+              {/* Subtitle - 2 line clamp */}
+              <p className="text-xs text-warm-600 mt-2 leading-relaxed line-clamp-2">
                 {highlight.subheader}
               </p>
-              {highlight.proof && (
-                <p className="text-[0.65rem] text-warm-500">
-                  {highlight.proof}
-                </p>
-              )}
-              {/* Chevron affordance - faint normally, full on hover */}
-              <ChevronRight className="absolute bottom-4 right-4 text-warm-300 group-hover:text-sage-500 transition-colors" />
+              {/* Meta row - pinned to bottom */}
+              <div className="mt-auto pt-2 flex items-center justify-between">
+                {highlight.proof && (
+                  <p className="text-[0.65rem] text-warm-500 leading-tight line-clamp-1 pr-4">
+                    {highlight.proof}
+                  </p>
+                )}
+                <ChevronRight className="flex-shrink-0 text-warm-300 group-hover:text-sage-500 transition-colors" />
+              </div>
             </button>
           ))}
         </div>

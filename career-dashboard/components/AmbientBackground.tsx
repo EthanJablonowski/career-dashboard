@@ -143,10 +143,10 @@ const BLOB_CONFIGS: BlobConfig[] = [
     cy: 25,
     radius: 40,
     points: 8,
-    variance: 12,
+    variance: 18, // increased from 12
     color: '#d4d1c8', // warm-400 - more visible taupe
     opacity: 0.35,
-    duration: 25000,
+    duration: 15000, // faster from 25000
   },
   // Medium sage shape - right side
   {
@@ -154,10 +154,10 @@ const BLOB_CONFIGS: BlobConfig[] = [
     cy: 50,
     radius: 35,
     points: 7,
-    variance: 10,
+    variance: 15, // increased from 10
     color: '#b0bcad', // sage-300 - muted sage green
     opacity: 0.3,
-    duration: 30000,
+    duration: 18000, // faster from 30000
   },
   // Subtle forest accent - bottom left
   {
@@ -165,10 +165,10 @@ const BLOB_CONFIGS: BlobConfig[] = [
     cy: 75,
     radius: 45,
     points: 9,
-    variance: 15,
+    variance: 20, // increased from 15
     color: '#cad2ca', // forest-200 - soft forest
     opacity: 0.25,
-    duration: 35000,
+    duration: 20000, // faster from 35000
   },
   // Warm amber accent - center right
   {
@@ -176,10 +176,10 @@ const BLOB_CONFIGS: BlobConfig[] = [
     cy: 35,
     radius: 25,
     points: 6,
-    variance: 8,
+    variance: 12, // increased from 8
     color: '#ebdcc0', // amber-300 - warm sand
     opacity: 0.3,
-    duration: 20000,
+    duration: 12000, // faster from 20000
   },
 ];
 
