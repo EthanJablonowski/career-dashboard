@@ -12,14 +12,14 @@ interface Highlight {
 const highlights: Highlight[] = [
   {
     header: "Built & operated a $100M+ game economy",
-    subheader: "On-chain marketplace at scale",
-    proof: "110k+ transactions • live economy decisions",
+    subheader: "Decentralized marketplace and ecosystem",
+    proof: "110k+ transactions • Actively traded tokens & assets",
     targetRole: "kompete-scale"
   },
   {
-    header: "Public operator for an actively traded product",
+    header: "Public face for an actively traded product",
     subheader: "Real-time stakeholder communication",
-    proof: "100+ AMAs, panels, and presentations",
+    proof: "100+ updates, AMAs, and panels",
     targetRole: "kompete-scale"
   },
   {
@@ -37,7 +37,7 @@ const highlights: Highlight[] = [
   {
     header: "Built digital funnels from zero to profit",
     subheader: "Affiliate, service, and info products",
-    proof: "Numerous successful experiments",
+    proof: "Key insights on attention and conversion",
     targetRole: "fitness-with-ethan"
   }
 ];
@@ -99,7 +99,7 @@ export default function Highlights() {
           {/* Header */}
           <div className="px-6 mb-4">
             <h2 className="text-lg font-medium text-warm-900">Highlights</h2>
-            <p className="text-sm text-warm-600 mt-1">A few outcomes that define the work.</p>
+            <p className="text-sm text-warm-600 mt-1">A few outcomes that define my work</p>
           </div>
 
           {/* Mobile Carousel */}
@@ -155,7 +155,7 @@ export default function Highlights() {
         {/* Header */}
         <div className="mb-6">
           <h2 className="text-lg font-medium text-warm-900">Highlights</h2>
-          <p className="text-sm text-warm-600 mt-1">A few outcomes that define the work.</p>
+          <p className="text-sm text-warm-600 mt-1">A few outcomes that define my work</p>
         </div>
 
         {/* Grid of all cards */}

@@ -19,7 +19,7 @@ export interface Branch {
 export const skillGraph: Record<string, Branch> = {
   product: {
     name: "Product",
-    description: "Designing what gets built, how it works, and why it delivers value.",
+    description: "Driving what gets built, how it works, and why it delivers value.",
     skillGroups: {
       "product-strategy": {
         name: "Product Strategy",
@@ -44,16 +44,16 @@ export const skillGraph: Record<string, Branch> = {
       },
       "system-design": {
         name: "System Design",
-        description: "Designing incentives, workflows, and infrastructure that scale.",
+        description: "Structuring infrastructure, incentives, and workflows that scale.",
         skills: {
           "economic-incentive-design": {
-            name: "Economic & Incentive Design",
-            description: "Designing economic systems, token models, and incentive structures that align user behavior with business goals.",
+            name: "Economics & Incentives",
+            description: "Designing economic systems, incentive structures, and token models that align user behavior with business goals.",
             tools: ["Ethereum Network", "Base Network", "Solidity", "Dune"]
           },
           "workflow-automation-design": {
-            name: "Workflow & Automation Design",
-            description: "Building automated systems and workflows to reduce manual work and improve operational efficiency.",
+            name: "Workflows & Automations",
+            description: "Establishing pipelines and automated systems to improve operational efficiency and reduce manual work.",
             tools: ["Zapier", "Supabase", "Stripe", "HubSpot"]
           },
           "platform-infrastructure": {
@@ -61,10 +61,10 @@ export const skillGraph: Record<string, Branch> = {
             description: "Choosing platforms, rails, and infrastructure that shape performance, cost, and UX.",
             tools: ["Node/Next.js", "Supabase", "Stripe", "Webflow", "Shopify", "SimplePractice (EHR)", "DrChrono"]
           },
-          "ai-supported-product-development": {
-            name: "AI-Supported Product Development",
-            description: "Using AI to speed up analysis, iteration, and build quality across product work.",
-            tools: ["Claude Code"]
+          "user-flows-ux": {
+            name: "User Flows & UX",
+            description: "Designing intuitive user experiences, flows, and interfaces that guide users through product interactions.",
+            tools: ["Figma", "Canva"]
           }
         }
       },
@@ -72,14 +72,9 @@ export const skillGraph: Record<string, Branch> = {
         name: "Product Execution",
         description: "Turning ideas into shipped, usable systems.",
         skills: {
-          "user-flows-ux": {
-            name: "User Flows & UX",
-            description: "Designing intuitive user experiences, flows, and interfaces that guide users through product interactions.",
-            tools: ["Figma", "Canva"]
-          },
           "requirements-product-specs": {
-            name: "Requirements & Product Specs",
-            description: "Translating goals into clear, actionable specifications for development and execution.",
+            name: "Requirements & Specs",
+            description: "Translating product requirements and features into clear, actionable specifications for development.",
             tools: ["Asana", "Google Docs"]
           },
           "project-management": {
@@ -88,9 +83,20 @@ export const skillGraph: Record<string, Branch> = {
             tools: ["Asana"]
           },
           "development": {
-            name: "Development",
+            name: "Build & Delivery",
             description: "Shipping websites, internal tools, and lightweight apps, often using AI-assisted development to move faster.",
             tools: ["WordPress", "Webflow", "Webflow CMS", "Shopify", "Hygraph (CMS)", "React Native"]
+          }
+        }
+      },
+      "ai-supported-product": {
+        name: "AI-Supported Product Development",
+        description: "Using AI to speed up analysis, iteration, and build quality across product work.",
+        skills: {
+          "ai-supported-product-development": {
+            name: "AI-Supported Product Development",
+            description: "Using AI to speed up analysis, iteration, and build quality across product work.",
+            tools: ["Claude Code"]
           }
         }
       }
@@ -98,7 +104,7 @@ export const skillGraph: Record<string, Branch> = {
   },
   growth: {
     name: "Growth",
-    description: "Creating and capturing demand through systems, channels, and narrative.",
+    description: "Creating, capturing, and converting demand through systems, channels, and narrative.",
     skillGroups: {
       "demand-discovery": {
         name: "Demand Discovery",
@@ -126,8 +132,8 @@ export const skillGraph: Record<string, Branch> = {
             tools: ["Ahrefs", "Google Search Console", "WordPress", "Webflow CMS"]
           },
           "content-strategy-production-systems": {
-            name: "Content Strategy & Production Systems",
-            description: "Creating scalable systems for content production, distribution, and optimization.",
+            name: "Content Strategy & Production",
+            description: "Creating scalable systems for content planning, production, distribution, and optimization.",
             tools: ["WordPress", "Webflow", "Hygraph (CMS)", "YouTube"]
           },
           "local-seo": {
@@ -143,7 +149,7 @@ export const skillGraph: Record<string, Branch> = {
         skills: {
           "paid-search": {
             name: "Paid Search",
-            description: "Running search advertising campaigns to capture high-intent demand at scale.",
+            description: "Running search advertising campaigns to capture high-intent demand.",
             tools: ["Google Ads", "Google Keyword Planner"]
           },
           "paid-social": {
@@ -165,7 +171,7 @@ export const skillGraph: Record<string, Branch> = {
       },
       "community-brand": {
         name: "Community & Brand",
-        description: "Building trust, identity, and belonging around products and missions.",
+        description: "Building trust, identity, and loyalty around products and brands.",
         skills: {
           "community-building": {
             name: "Community Building",
@@ -185,23 +191,23 @@ export const skillGraph: Record<string, Branch> = {
         skills: {
           "strategic-partnerships": {
             name: "Strategic Partnerships",
-            description: "Identifying and building mutually beneficial partnerships that create strategic value.",
+            description: "Identifying and building mutually beneficial relationships that create strategic value.",
             tools: []
           },
           "deal-structuring-management": {
             name: "Deal Structuring & Management",
-            description: "Negotiating, structuring, and managing partnership agreements and commercial relationships.",
+            description: "Crafting, negotiating, and managing partnership agreements and commercial relationships.",
             tools: []
           }
         }
       },
       "ai-supported-growth": {
         name: "AI-Supported Growth",
-        description: "Using AI to accelerate research, content production, and optimization across growth efforts.",
+        description: "Using AI to accelerate research, content production, and optimization across efforts.",
         skills: {
           "ai-supported-growth": {
             name: "AI-Supported Growth",
-            description: "Using AI to accelerate research, content production, and optimization across growth efforts.",
+            description: "Using AI to accelerate research, content production, and optimization across efforts.",
             tools: ["Claude Code"]
           }
         }
@@ -238,18 +244,18 @@ export const skillGraph: Record<string, Branch> = {
         description: "Managing unit economics, cash flow, and financial sustainability.",
         skills: {
           "unit-economics-pricing-models": {
-            name: "Unit Economics & Pricing Models",
+            name: "Unit Economics & Pricing",
             description: "Modeling profitability per customer, transaction, or unit to guide pricing and growth decisions.",
             tools: ["Airtable"]
           },
           "cash-flow-reporting": {
             name: "Cash Flow & Reporting",
-            description: "Tracking revenue, expenses, and financial health to support decision-making and compliance.",
+            description: "Tracking revenue, expenses, and financial health to support decision-making and ensure accurate reports.",
             tools: ["QuickBooks", "Airtable"]
           },
           "billing-disputes": {
             name: "Billing & Disputes",
-            description: "Managing payment processing, invoicing, and customer billing issues.",
+            description: "Managing payment invoicing, processing, and customer billing issues.",
             tools: ["Stripe", "QuickBooks"]
           }
         }
@@ -281,7 +287,7 @@ export const skillGraph: Record<string, Branch> = {
         skills: {
           "cross-functional-execution": {
             name: "Cross-Functional Execution",
-            description: "Coordinating across product, engineering, marketing, and operations to ship results.",
+            description: "Coordinating across product, engineering, marketing, and operations to drive results.",
             tools: ["Asana"]
           },
           "stakeholder-communication": {
@@ -293,11 +299,11 @@ export const skillGraph: Record<string, Branch> = {
       },
       "ai-supported-ops": {
         name: "AI-Supported Operations",
-        description: "Using AI to reduce operational overhead through planning support, automation, and documentation.",
+        description: "Using AI to reduce overhead through automation, documentation, and decision support.",
         skills: {
           "ai-supported-operations": {
             name: "AI-Supported Operations",
-            description: "Using AI to reduce operational overhead through planning support, automation, and documentation.",
+            description: "Using AI to reduce overhead through automation, documentation, and decision support.",
             tools: ["Claude Code"]
           }
         }

@@ -9,17 +9,33 @@ interface TimelineProps {
   filteredProjects?: Project[];
 }
 
-function parseQuarterDate(dateStr: string): number {
-  // Supports: "Q1 2026" and "Present"
+function parseDate(dateStr: string): number {
+  // Supports: "Q1 2026", "Jan 2026", "Present"
   if (!dateStr) return 0;
   if (dateStr === 'Present') return 9999;
 
-  const match = dateStr.match(/Q([1-4])\s+(\d{4})/);
-  if (!match) return 0;
+  // Try quarter format first: "Q1 2026"
+  const quarterMatch = dateStr.match(/Q([1-4])\s+(\d{4})/);
+  if (quarterMatch) {
+    const quarter = Number(quarterMatch[1]); // 1..4
+    const year = Number(quarterMatch[2]);
+    return year + (quarter - 1) * 0.25;
+  }
 
-  const quarter = Number(match[1]); // 1..4
-  const year = Number(match[2]);
-  return year + (quarter - 1) * 0.25;
+  // Try month format: "Jan 2026", "Sept 2025", etc.
+  const months: Record<string, number> = {
+    'Jan': 1, 'Feb': 2, 'Mar': 3, 'March': 3, 'Apr': 4, 'April': 4,
+    'May': 5, 'Jun': 6, 'June': 6, 'Jul': 7, 'July': 7, 'Aug': 8,
+    'Sept': 9, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
+  };
+  const monthMatch = dateStr.match(/([A-Za-z]+)\s+(\d{4})/);
+  if (monthMatch) {
+    const month = months[monthMatch[1]] || 1;
+    const year = Number(monthMatch[2]);
+    return year + (month - 1) / 12;
+  }
+
+  return 0;
 }
 
 function getTypeBadge(nodeType: Project['nodeType']) {
@@ -53,7 +69,7 @@ export default function Timeline({ filteredProjects }: TimelineProps) {
   const allProjects = useMemo(() => {
     const projectsToSort = filteredProjects || projects;
     return [...projectsToSort].sort((a, b) => {
-      return parseQuarterDate(b.dateStart) - parseQuarterDate(a.dateStart);
+      return parseDate(b.dateStart) - parseDate(a.dateStart);
     });
   }, [filteredProjects]);
 
