@@ -31,7 +31,7 @@ export default function TopNav() {
             Email
           </a>
           <a
-            href="/images/EthanJablonowski_Resume.pdf"
+            href="/images/EthanJablonowski_Resume.pdf?v=2025-01"
             download
             className="text-sm px-6 py-3 bg-warm-800 text-white rounded-lg hover:bg-warm-900 transition-all duration-200 ease-out font-medium"
             aria-label="Download Resume"
