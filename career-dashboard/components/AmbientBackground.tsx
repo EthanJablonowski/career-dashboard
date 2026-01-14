@@ -259,8 +259,8 @@ export default function AmbientBackground() {
 
   return (
     <div
-      className="fixed inset-0 overflow-hidden pointer-events-none"
-      style={{ zIndex: -1 }}
+      className="fixed inset-0 overflow-hidden pointer-events-none bg-warm-50"
+      style={{ zIndex: 0 }}
       aria-hidden="true"
     >
       {/* SVG layer with morphing blobs */}

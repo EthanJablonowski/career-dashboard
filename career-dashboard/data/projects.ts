@@ -547,7 +547,7 @@ export const projects: Project[] = [
     dateStart: "Jan 2014",
     dateEnd: "Feb 2018",
     nodeType: "primary",
-    snapshot: "Early hands-on period of 'learning by doing' across a range projects to understand the fundamentals of building a business with the internet.",
+    snapshot: "Early hands-on period of 'learning by doing' across a range of projects to understand the fundamentals of building a business with the internet.",
     bullets: [],
     skills: [],
     sections: {

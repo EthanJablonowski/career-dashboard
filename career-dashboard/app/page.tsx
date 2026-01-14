@@ -50,22 +50,24 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-warm-50 relative">
+    <>
       <AmbientBackground />
-      <TopNav />
-      <Overview />
-      <Highlights />
-      <div ref={timelineRef}>
-        <TimelineWithFilters
-          showFilters={showFilters}
-          setShowFilters={setShowFilters}
-          filterState={filterState}
-          setFilterState={setFilterState}
-          onJumpToFilter={handleJumpToFilter}
-          onResetFilters={handleResetFilters}
-        />
-      </div>
-      <ProjectDrawer onJumpToFilter={handleJumpToFilter} />
-    </main>
+      <main className="min-h-screen relative" style={{ zIndex: 1 }}>
+        <TopNav />
+        <Overview />
+        <Highlights />
+        <div ref={timelineRef}>
+          <TimelineWithFilters
+            showFilters={showFilters}
+            setShowFilters={setShowFilters}
+            filterState={filterState}
+            setFilterState={setFilterState}
+            onJumpToFilter={handleJumpToFilter}
+            onResetFilters={handleResetFilters}
+          />
+        </div>
+        <ProjectDrawer onJumpToFilter={handleJumpToFilter} />
+      </main>
+    </>
   );
 }
