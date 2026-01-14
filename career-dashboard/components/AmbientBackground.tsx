@@ -137,48 +137,48 @@ interface BlobConfig {
 }
 
 const BLOB_CONFIGS: BlobConfig[] = [
-  // Large warm shape - top left area
+  // Large warm/taupe shape - top left area
   {
-    cx: 15,
-    cy: 20,
-    radius: 35,
+    cx: 20,
+    cy: 25,
+    radius: 40,
     points: 8,
     variance: 12,
-    color: '#f0efea', // warm-200
-    opacity: 0.6,
+    color: '#d4d1c8', // warm-400 - more visible taupe
+    opacity: 0.35,
     duration: 25000,
   },
   // Medium sage shape - right side
   {
-    cx: 85,
-    cy: 45,
-    radius: 30,
+    cx: 80,
+    cy: 50,
+    radius: 35,
     points: 7,
     variance: 10,
-    color: '#d1d8cf', // sage-200
-    opacity: 0.5,
+    color: '#b0bcad', // sage-300 - muted sage green
+    opacity: 0.3,
     duration: 30000,
   },
-  // Subtle forest accent - bottom
+  // Subtle forest accent - bottom left
   {
-    cx: 40,
-    cy: 85,
-    radius: 40,
+    cx: 25,
+    cy: 75,
+    radius: 45,
     points: 9,
     variance: 15,
-    color: '#e4e8e4', // forest-100
-    opacity: 0.4,
+    color: '#cad2ca', // forest-200 - soft forest
+    opacity: 0.25,
     duration: 35000,
   },
-  // Small warm accent - center-ish
+  // Warm amber accent - center right
   {
-    cx: 60,
-    cy: 30,
-    radius: 20,
+    cx: 70,
+    cy: 35,
+    radius: 25,
     points: 6,
     variance: 8,
-    color: '#faf6ef', // amber-100
-    opacity: 0.35,
+    color: '#ebdcc0', // amber-300 - warm sand
+    opacity: 0.3,
     duration: 20000,
   },
 ];
