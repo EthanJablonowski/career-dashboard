@@ -33,12 +33,12 @@ export const skillGraph: Record<string, Branch> = {
           "positioning-value-proposition": {
             name: "Positioning & Value Proposition",
             description: "Articulating who the product is for, what problem it solves, and why it matters.",
-            tools: []
+            tools: ["Google Business Profile"]
           },
           "pricing-packaging": {
             name: "Pricing & Packaging",
             description: "Structuring how offerings are priced, bundled, and presented to align with value and demand.",
-            tools: []
+            tools: ["PayPal"]
           }
         }
       },
@@ -54,12 +54,12 @@ export const skillGraph: Record<string, Branch> = {
           "workflow-automation-design": {
             name: "Workflows & Automations",
             description: "Establishing pipelines and automated systems to improve operational efficiency and reduce manual work.",
-            tools: ["Zapier", "Supabase", "Stripe", "HubSpot"]
+            tools: ["Zapier", "ManyChat", "MailerLite"]
           },
           "platform-infrastructure": {
             name: "Platform & Infrastructure",
             description: "Choosing platforms, rails, and infrastructure that shape performance, cost, and UX.",
-            tools: ["Node/Next.js", "Supabase", "Stripe", "Webflow", "Shopify", "SimplePractice (EHR)", "DrChrono"]
+            tools: ["WordPress", "Node/Next.js", "Webflow", "Shopify", "SimplePractice", "DrChrono", "React Native", "Ethereum Network", "Base Network", "Solidity"]
           },
           "user-flows-ux": {
             name: "User Flows & UX",
@@ -75,7 +75,7 @@ export const skillGraph: Record<string, Branch> = {
           "requirements-product-specs": {
             name: "Requirements & Specs",
             description: "Translating product requirements and features into clear, actionable specifications for development.",
-            tools: ["Asana", "Google Docs"]
+            tools: ["Google Docs", "Claude Code"]
           },
           "project-management": {
             name: "Project Management",
@@ -85,7 +85,7 @@ export const skillGraph: Record<string, Branch> = {
           "development": {
             name: "Build & Delivery",
             description: "Shipping websites, internal tools, and lightweight apps, often using AI-assisted development to move faster.",
-            tools: ["WordPress", "Webflow", "Webflow CMS", "Shopify", "Hygraph (CMS)", "React Native"]
+            tools: ["WordPress", "Webflow", "Shopify", "Node/Next.js", "Solidity", "Canva", "ClickFunnels"]
           }
         }
       },
@@ -129,12 +129,12 @@ export const skillGraph: Record<string, Branch> = {
           "seo-strategy-architecture": {
             name: "SEO Strategy & Architecture",
             description: "Designing site structure, content strategy, and technical foundations to capture organic search traffic.",
-            tools: ["Ahrefs", "Google Search Console", "WordPress", "Webflow CMS"]
+            tools: ["Ahrefs", "Google Search Console"]
           },
           "content-strategy-production-systems": {
             name: "Content Strategy & Production",
             description: "Creating scalable systems for content planning, production, distribution, and optimization.",
-            tools: ["WordPress", "Webflow", "Hygraph (CMS)", "YouTube"]
+            tools: ["WordPress", "CMS", "YouTube", "Claude Code"]
           },
           "local-seo": {
             name: "Local SEO",
@@ -160,7 +160,7 @@ export const skillGraph: Record<string, Branch> = {
           "performance-optimization": {
             name: "Performance Optimization",
             description: "Analyzing and improving campaign performance, conversion rates, and return on ad spend.",
-            tools: ["Google Analytics", "Airtable"]
+            tools: ["Google Analytics", "Google Ads", "Meta Ads", "Game Analytics"]
           },
           "influencer-kol-campaigns": {
             name: "Influencer & KOL Campaigns",
@@ -176,12 +176,12 @@ export const skillGraph: Record<string, Branch> = {
           "community-building": {
             name: "Community Building",
             description: "Creating and nurturing engaged communities around products, brands, or shared interests.",
-            tools: ["Discord", "Telegram", "Facebook Groups"]
+            tools: ["Discord", "Telegram", "Facebook Groups", "Instagram", "Facebook"]
           },
           "narrative-messaging": {
             name: "Narrative & Messaging",
             description: "Crafting compelling stories and messaging that resonate with audiences and shape perception.",
-            tools: ["YouTube", "X (Twitter)", "TikTok"]
+            tools: ["X (Twitter)", "YouTube", "TikTok", "Instagram", "Facebook"]
           }
         }
       },
@@ -192,12 +192,12 @@ export const skillGraph: Record<string, Branch> = {
           "strategic-partnerships": {
             name: "Strategic Partnerships",
             description: "Identifying and building mutually beneficial relationships that create strategic value.",
-            tools: []
+            tools: ["Xsolla"]
           },
           "deal-structuring-management": {
             name: "Deal Structuring & Management",
             description: "Crafting, negotiating, and managing partnership agreements and commercial relationships.",
-            tools: []
+            tools: ["Xsolla"]
           }
         }
       },
@@ -225,17 +225,17 @@ export const skillGraph: Record<string, Branch> = {
           "operating-systems": {
             name: "Operating Systems",
             description: "Building internal processes, workflows, and systems that enable consistent execution.",
-            tools: ["Google Workspace"]
+            tools: ["Google Workspace", "Asana", "Shopify", "CRM", "Google Voice", "Google Docs"]
           },
           "capacity-scheduling": {
             name: "Capacity & Scheduling",
             description: "Managing resource allocation, scheduling, and operational capacity constraints.",
-            tools: ["Google Voice", "SimplePractice (EHR)"]
+            tools: ["Google Voice", "SimplePractice"]
           },
           "customer-experience": {
             name: "Customer Experience",
             description: "Designing and managing customer touchpoints, support, and satisfaction systems.",
-            tools: ["HubSpot", "Google Voice"]
+            tools: []
           }
         }
       },
@@ -246,17 +246,17 @@ export const skillGraph: Record<string, Branch> = {
           "unit-economics-pricing-models": {
             name: "Unit Economics & Pricing",
             description: "Modeling profitability per customer, transaction, or unit to guide pricing and growth decisions.",
-            tools: ["Airtable"]
+            tools: ["Google Sheets", "Airtable", "PayPal"]
           },
           "cash-flow-reporting": {
             name: "Cash Flow & Reporting",
             description: "Tracking revenue, expenses, and financial health to support decision-making and ensure accurate reports.",
-            tools: ["QuickBooks", "Airtable"]
+            tools: ["QuickBooks", "Airtable", "Xsolla", "Etherscan", "Basescan"]
           },
           "billing-disputes": {
             name: "Billing & Disputes",
             description: "Managing payment invoicing, processing, and customer billing issues.",
-            tools: ["Stripe", "QuickBooks"]
+            tools: ["PayPal", "Xsolla", "Ethereum", "Base"]
           }
         }
       },
@@ -272,7 +272,7 @@ export const skillGraph: Record<string, Branch> = {
           "regulatory-platform-compliance": {
             name: "Regulatory & Platform Compliance",
             description: "Ensuring compliance with industry regulations, platform policies, and legal requirements.",
-            tools: ["SimplePractice (EHR)", "DrChrono"]
+            tools: ["SimplePractice", "DrChrono"]
           },
           "risk-management": {
             name: "Risk Management",
@@ -288,7 +288,7 @@ export const skillGraph: Record<string, Branch> = {
           "cross-functional-execution": {
             name: "Cross-Functional Execution",
             description: "Coordinating across product, engineering, marketing, and operations to drive results.",
-            tools: ["Asana"]
+            tools: []
           },
           "stakeholder-communication": {
             name: "Stakeholder Communication",
