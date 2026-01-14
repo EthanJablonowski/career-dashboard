@@ -11,13 +11,13 @@ interface Highlight {
 
 const highlights: Highlight[] = [
   {
-    header: "Built & operated a $100M+ game economy",
+    header: "Built & scaled $100M+ game economy",
     subheader: "Decentralized marketplace and ecosystem",
     proof: "110k+ transactions across tokens and assets",
     targetRole: "kompete-scale"
   },
   {
-    header: "Public face for an actively traded product",
+    header: "Public operator for actively traded assets",
     subheader: "Real-time stakeholder communication",
     proof: "100+ updates, AMAs, and panels",
     targetRole: "kompete-scale"
