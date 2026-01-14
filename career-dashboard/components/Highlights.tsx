@@ -11,9 +11,8 @@ interface Highlight {
 
 const highlights: Highlight[] = [
   {
-    header: "Built & operated a $100M+ game economy",
-    subheader: "Decentralized marketplace and ecosystem",
-    proof: "110k+ transactions • Actively traded tokens & assets",
+    header: "Built & operated $100M+ game economy",
+    subheader: "110k+ transactions across tokens and game assets",
     targetRole: "kompete-scale"
   },
   {
@@ -99,7 +98,7 @@ export default function Highlights() {
           {/* Header */}
           <div className="px-6 mb-4">
             <h2 className="text-lg font-medium text-warm-900">Highlights</h2>
-            <p className="text-sm text-warm-600 mt-1">A few outcomes that define my work</p>
+            <p className="text-sm text-warm-600 mt-1">Outcomes that define my work</p>
           </div>
 
           {/* Mobile Carousel */}
@@ -155,7 +154,7 @@ export default function Highlights() {
         {/* Header */}
         <div className="mb-6">
           <h2 className="text-lg font-medium text-warm-900">Highlights</h2>
-          <p className="text-sm text-warm-600 mt-1">A few outcomes that define my work</p>
+          <p className="text-sm text-warm-600 mt-1">Outcomes that define my work</p>
         </div>
 
         {/* Grid of all cards */}
