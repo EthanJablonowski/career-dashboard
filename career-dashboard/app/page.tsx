@@ -6,6 +6,7 @@ import Overview from '@/components/Overview';
 import Highlights from '@/components/Highlights';
 import TimelineWithFilters from '@/components/TimelineWithFilters';
 import ProjectDrawer from '@/components/ProjectDrawer';
+import AmbientBackground from '@/components/AmbientBackground';
 
 export type FilterState = {
   branch: 'product' | 'growth' | 'ops' | null;
@@ -49,7 +50,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-warm-50">
+    <main className="min-h-screen bg-warm-50 relative">
+      <AmbientBackground />
       <TopNav />
       <Overview />
       <Highlights />
