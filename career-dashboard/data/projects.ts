@@ -368,7 +368,7 @@ export const projects: Project[] = [
     dateStart: "April 2020",
     dateEnd: "Dec 2020",
     nodeType: "primary",
-    snapshot: "Oversaw design and early development of a mobile application for an LA-based medical spa to support on-demand, in-home treatments. Worked closely with stakeholders and outsourced developers to design a compliant, intuitive healthcare experience.",
+    snapshot: "Oversaw design and early development of a mobile application for an LA-based medical spa to support on-demand, in-home treatments.",
     bullets: [],
     skills: [],
     sections: {
@@ -547,7 +547,7 @@ export const projects: Project[] = [
     dateStart: "Jan 2014",
     dateEnd: "Feb 2018",
     nodeType: "primary",
-    snapshot: "Early hands-on period of 'learning by doing' across a range projects to understand the fundamentals of building a business with the internet. This phase sparked a real fascination with marketing as a system—where attention is captured, converted, and optimized—and established many of the core principles that still guide my work today.",
+    snapshot: "Early hands-on period of 'learning by doing' across a range projects to understand the fundamentals of building a business with the internet.",
     bullets: [],
     skills: [],
     sections: {

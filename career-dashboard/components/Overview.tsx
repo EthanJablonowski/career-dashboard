@@ -26,7 +26,7 @@ export default function Overview() {
         {/* Right: Hero Text */}
         <div className="md:col-span-8 space-y-6">
           <p className="text-lg md:text-xl leading-relaxed text-warm-800">
-            I build and scale products, services, and brands in challenging markets, including health &amp; fitness, ecommerce, gaming, and real estate.
+            I build and scale products, services, and brands in complex, competitive markets.
           </p>
           <p className="text-base md:text-lg leading-relaxed text-warm-700">
             Over 13+ years, I&apos;ve learned that growth comes from alignment: understanding your audience, building things people genuinely value, and communicating clearly enough that it resonates. My work centers on what gets built, how it reaches the right people, and how it&apos;s designed to scale.

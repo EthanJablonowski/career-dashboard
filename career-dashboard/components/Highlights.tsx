@@ -38,7 +38,7 @@ const highlights: Highlight[] = [
     header: "Built digital funnels from zero to profit",
     subheader: "Affiliate, service, and info products",
     proof: "Key insights on attention and conversion",
-    targetRole: "fitness-with-ethan"
+    targetRole: "early-seo-roots"
   }
 ];
 
