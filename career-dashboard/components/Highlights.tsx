@@ -114,20 +114,18 @@ export default function Highlights() {
                 <button
                   key={i}
                   onClick={() => handleCardClick(highlight)}
-                  className="relative flex-none w-[85vw] max-w-[320px] h-[130px] snap-center p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 transition-all duration-200 flex flex-col"
+                  className="relative flex-none w-[85vw] max-w-[320px] snap-center p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 transition-all duration-200 flex flex-col"
                 >
-                  {/* Title - 2 line clamp */}
-                  <h3 className="text-base font-medium text-warm-900 leading-snug pr-6 line-clamp-2">
+                  <h3 className="text-base font-medium text-warm-900 leading-snug pr-6">
                     {highlight.header}
                   </h3>
-                  {/* Subtitle - 2 line clamp */}
-                  <p className="text-sm text-warm-600 mt-2 leading-relaxed line-clamp-2">
+                  <p className="text-sm text-warm-600 mt-2 leading-relaxed">
                     {highlight.subheader}
                   </p>
                   {/* Meta row - pinned to bottom */}
-                  <div className="mt-auto pt-2 flex items-center justify-between">
+                  <div className="mt-auto pt-3 flex items-center justify-between">
                     {highlight.proof && (
-                      <p className="text-xs text-warm-500 leading-tight line-clamp-1 pr-4">
+                      <p className="text-xs text-warm-500 leading-tight pr-4">
                         {highlight.proof}
                       </p>
                     )}
@@ -163,25 +161,23 @@ export default function Highlights() {
         </div>
 
         {/* Grid of all cards */}
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-5 gap-4 items-stretch">
           {highlights.map((highlight, i) => (
             <button
               key={i}
               onClick={() => handleCardClick(highlight)}
-              className="relative h-[140px] p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group flex flex-col"
+              className="relative p-5 bg-white border border-warm-200 rounded-xl text-left hover:border-sage-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group flex flex-col"
             >
-              {/* Title - 2 line clamp */}
-              <h3 className="text-sm font-medium text-warm-900 leading-snug pr-4 line-clamp-2">
+              <h3 className="text-sm font-medium text-warm-900 leading-snug pr-4">
                 {highlight.header}
               </h3>
-              {/* Subtitle - 2 line clamp */}
-              <p className="text-xs text-warm-600 mt-2 leading-relaxed line-clamp-2">
+              <p className="text-xs text-warm-600 mt-2 leading-relaxed">
                 {highlight.subheader}
               </p>
               {/* Meta row - pinned to bottom */}
-              <div className="mt-auto pt-2 flex items-center justify-between">
+              <div className="mt-auto pt-3 flex items-center justify-between">
                 {highlight.proof && (
-                  <p className="text-[0.65rem] text-warm-500 leading-tight line-clamp-1 pr-4">
+                  <p className="text-[0.65rem] text-warm-500 leading-tight pr-4">
                     {highlight.proof}
                   </p>
                 )}
