@@ -516,7 +516,7 @@ export const projects: Project[] = [
     dateStart: "April 2015",
     dateEnd: "Oct 2015",
     nodeType: "life",
-    snapshot: "Completed a six-month thru-hike of the Pacific Crest Trail from Mexico to Canada, covering 2,650 miles. Stepped away from routine to gain perspective, spend extended time outdoors, and experience the world at a different pace.",
+    snapshot: "Completed a six-month thru-hike of the Pacific Crest Trail from Mexico to Canada, covering 2,650 miles.",
     bullets: [],
     skills: [],
     sections: {
