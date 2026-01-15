@@ -216,7 +216,7 @@ export const skillGraph: Record<string, Branch> = {
   },
   ops: {
     name: "Ops & Strategy",
-    description: "Making work durable through coordination, finance, risk, and execution.",
+    description: "Driving execution across teams, systems, and constraints.",
     skillGroups: {
       "business-operations": {
         name: "Business Operations",
