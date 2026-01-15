@@ -52,7 +52,7 @@ export const projects: Project[] = [
           "Building localized home-services lead-gen sites using an AI-assisted content strategy and scalable site architecture.",
           "Designing a lead tracking and routing dashboard to manage inbound leads and backend operations."
         ],
-        skills: ["Service & Offering Design", "Pricing & Packaging", "Workflows & Automations", "Platform & Infrastructure", "User Flows & UX", "Requirements & Specs", "Build & Delivery", "AI-Supported Product Development"],
+        skills: ["Service & Offering Design", "Pricing & Packaging", "Workflows & Automations", "Platform & Infrastructure", "User Flows & UX", "Requirements & Specs", "Project Management", "Build & Delivery", "AI-Supported Product Development"],
         tools: ["Claude Code", "PayPal", "Zapier", "WordPress", "Node/Next.js", "Figma"]
       },
       growth: {
@@ -68,7 +68,7 @@ export const projects: Project[] = [
           "Exploring and designing early-stage systems for lead intake, CRM tracking, and partner delivery workflows.",
           "Establishing initial policies around pricing, billing, disputes, refunds, and lead quality as the model takes shape."
         ],
-        skills: ["Operating Systems", "Unit Economics & Pricing", "Billing & Disputes", "AI-Supported Operations"],
+        skills: ["Operating Systems", "Unit Economics & Pricing", "AI-Supported Operations"],
         tools: ["CRM", "PayPal", "Claude Code"]
       }
     },
@@ -149,7 +149,7 @@ export const projects: Project[] = [
           "Developed service structure, session pricing, and delivery format based on unit economics.",
           "Created a scalable foundation to support future therapists, locations, and service expansion."
         ],
-        skills: ["Service & Offering Design", "Positioning & Value Proposition", "Pricing & Packaging", "Workflows & Automations", "Platform & Infrastructure", "User Flows & UX", "Build & Delivery", "AI-Supported Product Development"],
+        skills: ["Service & Offering Design", "Positioning & Value Proposition", "Pricing & Packaging", "Workflows & Automations", "Platform & Infrastructure", "User Flows & UX", "Requirements & Specs", "Project Management", "Build & Delivery", "AI-Supported Product Development"],
         tools: ["Webflow", "Figma", "Claude Code"]
       },
       growth: {
@@ -160,7 +160,7 @@ export const projects: Project[] = [
           "Positioned the brand as a modern alternative to inefficient, insurance-driven therapy models.",
           "Developed dual-sided messaging for families seeking better care and therapists seeking better careers."
         ],
-        skills: ["Market & Keyword Research", "Product-Channel Fit", "SEO Strategy & Architecture", "Content Strategy & Production", "Local SEO", "Narrative & Messaging", "AI-Supported Growth"],
+        skills: ["Market & Keyword Research", "Product-Channel Fit", "SEO Strategy & Architecture", "Content Strategy & Production", "Local SEO", "Narrative & Messaging", "Strategic Partnerships", "AI-Supported Growth"],
         tools: ["Ahrefs", "Google Keyword Planner", "Google Search Console", "CMS", "Google Business Profile", "Claude Code"]
       },
       ops: {
@@ -171,7 +171,7 @@ export const projects: Project[] = [
           "Identified a non-traditional infrastructure solution (converted school bus) that avoids commercial leases while expanding service flexibility and improving margins.",
           "Built systems with optionality to scale if demand and clinical interest support expansion."
         ],
-        skills: ["Operating Systems", "Unit Economics & Pricing", "Cash Flow & Reporting", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "AI-Supported Operations"],
+        skills: ["Operating Systems", "Unit Economics & Pricing", "Cash Flow & Reporting", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Risk Management", "Cross-Functional Execution", "Stakeholder Communication", "AI-Supported Operations"],
         tools: ["Google Workspace", "Google Sheets", "QuickBooks", "SimplePractice", "Claude Code"]
       }
     },
@@ -212,7 +212,7 @@ export const projects: Project[] = [
           "Led marketplace UX and functional improvements to reduce friction through clearer supply and pricing visibility, improved UI, and features such as a bid/ask system.",
           "Co-led planning and execution of the economy infrastructure migration to Base (Ethereum L2), materially reducing fees and latency while improving onboarding UX."
         ],
-        skills: ["Economics & Incentives", "Workflows & Automations", "Platform & Infrastructure", "User Flows & UX", "Requirements & Specs", "Project Management", "AI-Supported Product Development"],
+        skills: ["Positioning & Value Proposition", "Pricing & Packaging", "Build & Delivery", "Economics & Incentives", "Workflows & Automations", "Platform & Infrastructure", "User Flows & UX", "Requirements & Specs", "Project Management", "AI-Supported Product Development"],
         tools: ["Dune", "Claude Code", "Ethereum Network", "Base Network", "Solidity", "Figma", "Google Docs", "Asana"]
       },
       growth: {
@@ -225,7 +225,7 @@ export const projects: Project[] = [
           "Contributed to paid media strategy and performance analysis across Google Ads and Meta Ads.",
           "Wrote and directed the majority of blogs, announcements, and social content."
         ],
-        skills: ["Community Building", "Narrative & Messaging", "Influencer & KOL Campaigns", "Paid Search", "Paid Social", "Performance Optimization", "Content Strategy & Production"],
+        skills: ["Market & Keyword Research", "Product-Channel Fit", "Community Building", "Narrative & Messaging", "Influencer & KOL Campaigns", "Paid Search", "Paid Social", "Performance Optimization", "Content Strategy & Production", "Strategic Partnerships", "Deal Structuring & Management", "AI-Supported Growth"],
         tools: ["Discord", "Telegram", "X (Twitter)", "YouTube", "TikTok", "Google Ads", "Meta Ads", "Google Analytics", "Game Analytics", "CMS"]
       },
       ops: {
@@ -237,7 +237,7 @@ export const projects: Project[] = [
           "Built internal cash-flow tracking to support tax reporting and financial clarity for external professionals.",
           "Coordinated execution across product, engineering, community, and external partners."
         ],
-        skills: ["Operating Systems", "Cash Flow & Reporting", "Billing & Disputes", "Risk Management", "Cross-Functional Execution", "Stakeholder Communication"],
+        skills: ["Customer Experience", "Unit Economics & Pricing", "Operating Systems", "Cash Flow & Reporting", "Billing & Disputes", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Risk Management", "Cross-Functional Execution", "Stakeholder Communication", "AI-Supported Operations"],
         tools: ["Google Workspace", "QuickBooks", "Etherscan", "Basescan", "Xsolla", "Ethereum", "Base"]
       }
     },
@@ -274,7 +274,7 @@ export const projects: Project[] = [
           "Balanced multiple user incentive profiles into a cohesive economic feedback loop.",
           "Built and operated a motion-capture pipeline, recording hundreds of custom basketball animations with a contracted professional athlete."
         ],
-        skills: ["Economics & Incentives", "Workflows & Automations", "Platform & Infrastructure", "User Flows & UX", "Requirements & Specs", "Project Management", "Build & Delivery", "AI-Supported Product Development"],
+        skills: ["Positioning & Value Proposition", "Pricing & Packaging", "Economics & Incentives", "Workflows & Automations", "Platform & Infrastructure", "User Flows & UX", "Requirements & Specs", "Project Management", "Build & Delivery", "AI-Supported Product Development"],
         tools: ["Ethereum Network", "Base Network", "Solidity", "Figma", "Google Docs", "Asana", "Claude Code"]
       },
       growth: {
@@ -284,7 +284,7 @@ export const projects: Project[] = [
           "Shaped early asset releases with clear narratives to establish value signals and guide collector behavior.",
           "Framed development as collaborative and transparent to set expectations and build trust ahead of launch."
         ],
-        skills: ["Community Building", "Narrative & Messaging"],
+        skills: ["Market & Keyword Research", "Product-Channel Fit", "Content Strategy & Production", "Influencer & KOL Campaigns", "Community Building", "Narrative & Messaging"],
         tools: ["Discord", "Telegram", "Facebook Groups", "X (Twitter)", "YouTube"]
       },
       ops: {
@@ -297,7 +297,7 @@ export const projects: Project[] = [
           "Authored internal policies for dispute resolution and risk management.",
           "Wrote a public-facing player code of conduct to support community health and long-term sustainability."
         ],
-        skills: ["Operating Systems", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Risk Management", "Strategic Partnerships", "Deal Structuring & Management", "Cash Flow & Reporting", "Billing & Disputes"],
+        skills: ["Customer Experience", "Unit Economics & Pricing", "Operating Systems", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Risk Management", "Strategic Partnerships", "Deal Structuring & Management", "Cash Flow & Reporting", "Billing & Disputes", "Cross-Functional Execution", "Stakeholder Communication"],
         tools: ["Google Workspace", "Xsolla", "QuickBooks"]
       }
     },
@@ -337,7 +337,7 @@ export const projects: Project[] = [
           "Rapidly tested creatives, audiences, and content formats, scaling only campaigns achieving 3x+ return.",
           "Analyzed Facebook Ad Library and competitor positioning to inform creative direction and messaging strategy."
         ],
-        skills: ["Market & Keyword Research", "Product-Channel Fit", "SEO Strategy & Architecture", "Content Strategy & Production", "Paid Search", "Paid Social", "Performance Optimization"],
+        skills: ["Workflows & Automations", "Market & Keyword Research", "Product-Channel Fit", "SEO Strategy & Architecture", "Content Strategy & Production", "Paid Search", "Paid Social", "Performance Optimization"],
         tools: ["Ahrefs", "Google Keyword Planner", "WordPress", "Google Ads", "Meta Ads"]
       },
       ops: {
@@ -347,7 +347,7 @@ export const projects: Project[] = [
           "Managed systems that scaled to six figures in monthly ad spend during peak performance periods.",
           "Supported cash-flow planning and stakeholder communication to manage working-capital constraints while scaling."
         ],
-        skills: ["Unit Economics & Pricing", "Cash Flow & Reporting"],
+        skills: ["Unit Economics & Pricing", "Cash Flow & Reporting", "Risk Management", "Stakeholder Communication"],
         tools: ["Airtable"]
       }
     },
@@ -380,7 +380,7 @@ export const projects: Project[] = [
           "Interviewed and selected outsourced development partners, owning product scope, feature requirements, and budget oversight.",
           "Led early planning for EHR integration with DrChrono, including feasibility research and initial implementation work."
         ],
-        skills: ["Service & Offering Design", "Pricing & Packaging", "User Flows & UX", "Requirements & Specs", "Platform & Infrastructure", "Project Management"],
+        skills: ["Positioning & Value Proposition", "Service & Offering Design", "Pricing & Packaging", "User Flows & UX", "Requirements & Specs", "Platform & Infrastructure", "Project Management"],
         tools: ["Figma", "React Native", "DrChrono", "Google Docs", "Asana"]
       },
       ops: {
@@ -389,7 +389,7 @@ export const projects: Project[] = [
           "Coordinated with IV therapy suppliers to plan procurement strategy and operational efficiency.",
           "Acted as day-to-day product liaison to the founder, providing regular updates and decision support across moving pieces."
         ],
-        skills: ["Operating Systems", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Cross-Functional Execution"],
+        skills: ["Operating Systems", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Risk Management", "Strategic Partnerships", "Cross-Functional Execution", "Stakeholder Communication"],
         tools: ["Asana", "DrChrono"]
       }
     },
@@ -422,7 +422,7 @@ export const projects: Project[] = [
           "Partnered with the founder to restructure site hierarchy, navigation, and product presentation for clarity and conversion.",
           "Oversaw complex data migration from a legacy order-management system, including manual cleanup and consolidation."
         ],
-        skills: ["Platform & Infrastructure", "User Flows & UX", "Workflows & Automations", "Project Management", "Build & Delivery"],
+        skills: ["Platform & Infrastructure", "User Flows & UX", "Workflows & Automations", "Requirements & Specs", "Project Management", "Build & Delivery"],
         tools: ["Shopify", "MailerLite"]
       },
       growth: {
@@ -443,7 +443,7 @@ export const projects: Project[] = [
           "Helped align marketing initiatives with inventory, fulfillment, and customer service realities.",
           "Balanced experimentation with the operational constraints of a legacy business."
         ],
-        skills: ["Operating Systems"],
+        skills: ["Operating Systems", "Cross-Functional Execution", "Stakeholder Communication"],
         tools: ["Shopify"]
       }
     },
@@ -484,7 +484,7 @@ export const projects: Project[] = [
           "Executed outbound prospecting and cold outreach to build an early-stage pipeline.",
           "Assisted with open houses and community-based relationship building to support local presence and referrals."
         ],
-        skills: ["Product-Channel Fit", "Paid Search", "Paid Social"],
+        skills: ["Product-Channel Fit", "Paid Search", "Paid Social", "Narrative & Messaging"],
         tools: ["Google Ads", "Facebook Ads"]
       },
       ops: {
@@ -495,7 +495,7 @@ export const projects: Project[] = [
           "Participated in team meetings and training to understand market strategy, pricing dynamics, and operational best practices.",
           "Developed and maintained listing presentations, buyer consultation materials, and comparative market analyses."
         ],
-        skills: ["Operating Systems", "Customer Experience", "Cross-Functional Execution"],
+        skills: ["Operating Systems", "Customer Experience", "Unit Economics & Pricing", "Legal & Contract Coordination", "Regulatory & Platform Compliance", "Risk Management", "Cross-Functional Execution", "Stakeholder Communication"],
         tools: ["CRM"]
       }
     },
@@ -579,7 +579,7 @@ export const projects: Project[] = [
           "Ran webinar and VSL funnels inspired by direct-response frameworks to convert engaged users into coaching.",
           "Experienced firsthand the volatility of organic traffic and platform dependency across affiliate and content models."
         ],
-        skills: ["Market & Keyword Research", "SEO Strategy & Architecture", "Content Strategy & Production", "Local SEO", "Product-Channel Fit", "Paid Social", "Community Building", "Narrative & Messaging"],
+        skills: ["Market & Keyword Research", "SEO Strategy & Architecture", "Content Strategy & Production", "Local SEO", "Product-Channel Fit", "Paid Social", "Performance Optimization", "Community Building", "Narrative & Messaging"],
         tools: ["Ahrefs", "YouTube", "Google Search Console", "Facebook Ads", "YouTube Ads", "Facebook Groups"]
       },
       ops: {
@@ -592,7 +592,7 @@ export const projects: Project[] = [
           "Operated independently with minimal budget, optimizing for learning velocity over scale.",
           "Developed a bias toward building systems rather than trading time for money."
         ],
-        skills: ["Operating Systems", "Customer Experience", "Billing & Disputes", "Risk Management"],
+        skills: ["Operating Systems", "Customer Experience", "Unit Economics & Pricing", "Cash Flow & Reporting", "Billing & Disputes", "Risk Management", "Cross-Functional Execution", "Stakeholder Communication"],
         tools: ["Google Docs", "ManyChat", "MailerLite", "PayPal"]
       }
     },
