@@ -15,7 +15,7 @@ const epilogue = Epilogue({
 
 export const metadata: Metadata = {
   title: "Ethan Jablonowski - Product, Growth & Operations",
-  description: "Career portfolio showcasing 13+ years of building and scaling digital products across challenging markets.",
+  description: "Career portfolio showcasing 10+ years of building and scaling digital products across challenging markets.",
 };
 
 export default function RootLayout({
