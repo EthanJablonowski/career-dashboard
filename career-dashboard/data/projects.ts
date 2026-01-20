@@ -23,6 +23,7 @@ export interface Project {
   metrics?: { label: string; value: string; note?: string }[];
   links?: { label: string; href: string; kind?: "proof" | "press" | "site" }[];
   media?: { src: string; alt: string; caption?: string }[];
+  bannerImages?: string[];
   tags: string[];
   relevantFor?: string[];
   sections?: {
@@ -43,6 +44,7 @@ export const projects: Project[] = [
     dateStart: "Jan 2026",
     dateEnd: "Present",
     nodeType: "experiment",
+    bannerImages: ["/images/Projects/boring-business.png"],
     snapshot: "Building a hub-and-spoke network of localized home-services lead-gen sites, paired with a dashboard and sales engine to track, route, and sell inbound leads.",
     bullets: [],
     skills: [],
@@ -89,6 +91,7 @@ export const projects: Project[] = [
     dateStart: "Sept 2025",
     dateEnd: "Dec 2025",
     nodeType: "experiment",
+    bannerImages: ["/images/Projects/scenic-cleanup.png"],
     snapshot: "A hands-on local services experiment to test lead-generation economics, conversion, and real-world operations in home services.",
     bullets: [],
     skills: [],
@@ -137,6 +140,7 @@ export const projects: Project[] = [
     dateStart: "July 2025",
     dateEnd: "Present",
     nodeType: "primary",
+    bannerImages: ["/images/Projects/outpost-therapy-1.png", "/images/Projects/outpost-therapy-2.png", "/images/Projects/outpost-therapy-3.png"],
     snapshot: "Co-founding a pediatric therapy practice from zero. Applying product, growth, and operational thinking to design the brand, service model, and foundations of a modern cash-pay OT business.",
     bullets: [],
     skills: [],
@@ -199,6 +203,7 @@ export const projects: Project[] = [
     dateStart: "Oct 2023",
     dateEnd: "June 2025",
     nodeType: "primary",
+    bannerImages: ["/images/Projects/kompete-scale-1.png", "/images/Projects/kompete-scale-2.png", "/images/Projects/kompete-scale-3.png", "/images/Projects/kompete-scale-4.png"],
     snapshot: "Scaled and operated a live, decentralized game economy and on-chain marketplace as trade volume across tokens and in-game assets grew past $100M.",
     bullets: [],
     skills: [],
@@ -258,6 +263,7 @@ export const projects: Project[] = [
     dateStart: "Feb 2021",
     dateEnd: "Oct 2023",
     nodeType: "primary",
+    bannerImages: ["/images/Projects/kompete-build-1.png", "/images/Projects/kompete-build-2.png", "/images/Projects/kompete-build-3.png", "/images/Projects/kompete-build-4.png"],
     snapshot: "Designed and launched the foundational infrastructure for a player-owned game economy, including token design, marketplace mechanics, and crypto–fiat interoperability.",
     bullets: [],
     skills: [],
@@ -325,6 +331,7 @@ export const projects: Project[] = [
     dateStart: "April 2020",
     dateEnd: "Dec 2020",
     nodeType: "primary",
+    bannerImages: ["/images/Projects/digitopia-media-1.png", "/images/Projects/digitopia-media-2.png"],
     snapshot: "Built and operated a content-driven paid acquisition and arbitrage system in healthcare verticals, leveraging pricing inefficiencies across search, social, and content monetization channels.",
     bullets: [],
     skills: [],
@@ -368,6 +375,7 @@ export const projects: Project[] = [
     dateStart: "April 2020",
     dateEnd: "Dec 2020",
     nodeType: "primary",
+    bannerImages: ["/images/Projects/digitopia-pm-1.png", "/images/Projects/digitopia-pm-2.png", "/images/Projects/digitopia-pm-3.png", "/images/Projects/digitopia-pm-4.png"],
     snapshot: "Oversaw design and early development of a mobile application for an LA-based medical spa to support on-demand, in-home treatments.",
     bullets: [],
     skills: [],
@@ -410,6 +418,7 @@ export const projects: Project[] = [
     dateStart: "May 2019",
     dateEnd: "April 2020",
     nodeType: "primary",
+    bannerImages: ["/images/Projects/linnea-design-1.png", "/images/Projects/linnea-design-2.png", "/images/Projects/linnea-design-3.png"],
     snapshot: "Led growth marketing for an established interior design ecommerce brand, expanding into new demographics while modernizing UX and migrating the business to more modern digital infrastructure.",
     bullets: [],
     skills: [],
@@ -464,6 +473,7 @@ export const projects: Project[] = [
     dateStart: "March 2018",
     dateEnd: "April 2019",
     nodeType: "experiment",
+    bannerImages: ["/images/Projects/real-estate.png"],
     snapshot: "Hands-on exposure to high-ticket sales, lead generation, and deal execution in a highly competitive San Diego real estate market.",
     bullets: [],
     skills: [],
@@ -547,6 +557,7 @@ export const projects: Project[] = [
     dateStart: "Jan 2014",
     dateEnd: "Feb 2018",
     nodeType: "primary",
+    bannerImages: ["/images/Projects/early-seo-roots.png"],
     snapshot: "Early hands-on period of 'learning by doing' across a range of projects to understand the fundamentals of building a business with the internet.",
     bullets: [],
     skills: [],

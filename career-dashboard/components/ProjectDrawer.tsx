@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { projects, Project } from '@/data/projects';
 import { skillGraph } from '@/data/skillGraph';
 import * as Dialog from '@radix-ui/react-dialog';
+import useEmblaCarousel from 'embla-carousel-react';
 
 type FilterState = {
   branch: 'product' | 'growth' | 'ops' | null;
@@ -121,6 +122,195 @@ function CollapsibleSubSection({ title, children }: CollapsibleSubSectionProps) 
         </div>
       )}
     </div>
+  );
+}
+
+// Lightbox component for expanded image view
+function ImageLightbox({
+  images,
+  initialIndex,
+  onClose
+}: {
+  images: string[];
+  initialIndex: number;
+  onClose: () => void;
+}) {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') setCurrentIndex((i) => (i - 1 + images.length) % images.length);
+      if (e.key === 'ArrowRight') setCurrentIndex((i) => (i + 1) % images.length);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [images.length, onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center"
+      onClick={onClose}
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors z-10"
+        aria-label="Close"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      {/* Navigation arrows */}
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentIndex((i) => (i - 1 + images.length) % images.length);
+            }}
+            className="absolute left-4 text-white/70 hover:text-white transition-colors p-2"
+            aria-label="Previous image"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentIndex((i) => (i + 1) % images.length);
+            }}
+            className="absolute right-4 text-white/70 hover:text-white transition-colors p-2"
+            aria-label="Next image"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </>
+      )}
+
+      {/* Image */}
+      <img
+        src={images[currentIndex]}
+        alt={`Image ${currentIndex + 1} of ${images.length}`}
+        className="max-w-[90vw] max-h-[90vh] object-contain"
+        onClick={(e) => e.stopPropagation()}
+      />
+
+      {/* Dot indicators */}
+      {images.length > 1 && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex(index);
+              }}
+              className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                index === currentIndex ? 'bg-white' : 'bg-white/40'
+              }`}
+              aria-label={`Go to image ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Banner carousel component for multiple images
+function BannerCarousel({ images, title }: { images: string[]; title: string }) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
+
+    emblaApi.on('select', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi]);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  // Single image - no carousel needed
+  if (images.length === 1) {
+    return (
+      <>
+        <div className="mb-8">
+          <img
+            src={images[0]}
+            alt={`${title} banner`}
+            className="w-full h-auto rounded-lg object-contain max-h-72 cursor-pointer hover:opacity-90 transition-opacity"
+            onClick={() => openLightbox(0)}
+          />
+        </div>
+        {lightboxOpen && (
+          <ImageLightbox
+            images={images}
+            initialIndex={lightboxIndex}
+            onClose={() => setLightboxOpen(false)}
+          />
+        )}
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div className="mb-8">
+        <div className="overflow-hidden rounded-lg" ref={emblaRef}>
+          <div className="flex">
+            {images.map((src, index) => (
+              <div key={index} className="flex-[0_0_100%] min-w-0">
+                <img
+                  src={src}
+                  alt={`${title} banner ${index + 1}`}
+                  className="w-full h-auto object-contain max-h-72 cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => openLightbox(index)}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-2 mt-3">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => emblaApi?.scrollTo(index)}
+              className={`w-2 h-2 rounded-full transition-colors ${
+                index === selectedIndex ? 'bg-warm-600' : 'bg-warm-300'
+              }`}
+              aria-label={`Go to image ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+      {lightboxOpen && (
+        <ImageLightbox
+          images={images}
+          initialIndex={lightboxIndex}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
+    </>
   );
 }
 
@@ -260,6 +450,10 @@ export default function ProjectDrawer({ onJumpToFilter }: ProjectDrawerProps) {
                   <p className="text-sm text-warm-600 mt-1">{activeProject.primaryMetric.context}</p>
                 )}
               </div>
+            )}
+
+            {activeProject.bannerImages && activeProject.bannerImages.length > 0 && (
+              <BannerCarousel images={activeProject.bannerImages} title={activeProject.title} />
             )}
 
             <div className="mb-8">

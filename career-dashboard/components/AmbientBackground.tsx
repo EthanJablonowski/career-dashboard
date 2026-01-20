@@ -285,6 +285,7 @@ export default function AmbientBackground() {
               d={INITIAL_PATHS[index]}
               fill={config.color}
               opacity={config.opacity}
+              suppressHydrationWarning
             />
           ))}
         </g>
