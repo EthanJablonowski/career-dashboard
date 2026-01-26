@@ -29,10 +29,10 @@ export default function Overview() {
             I build and scale products, services, and brands in complex, competitive markets.
           </p>
           <p className="text-base md:text-lg leading-relaxed text-warm-700">
-            Over 10+ years, I&apos;ve learned that growth comes from alignment: understanding your audience, building things people genuinely value, and communicating clearly enough that it resonates. My work centers on what gets built, how it reaches the right people, and how it&apos;s designed to scale.
+            Over 10+ years, I&apos;ve learned that growth comes from alignment: understanding your audience, building things they genuinely value, and communicating clearly enough that it resonates. My work centers on what gets built, how it reaches the right people, and how it&apos;s designed to scale.
           </p>
           <p className="text-base md:text-lg leading-relaxed text-warm-700">
-            The portfolio below reflects a decade of hands-on work across marketing, product development, and leadership, shaped by a long-standing interest in how modern businesses succeed as technology evolves.
+            The portfolio below reflects a decade of hands-on experience across marketing, product development, and leadership, shaped by a long-standing interest in how modern businesses succeed as technology evolves.
           </p>
           <p className="text-base md:text-lg leading-relaxed text-warm-700">
             I&apos;m currently open to new opportunities. Reach out if you&apos;d like to connect.
