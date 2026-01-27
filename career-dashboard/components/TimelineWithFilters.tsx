@@ -4,6 +4,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { skillGraph } from '@/data/skillGraph';
 import { projects } from '@/data/projects';
 import Timeline from './Timeline';
+import ExperienceMeter from './ExperienceMeter';
+import {
+  createProjectsMap,
+  computeTotalMonthsFromExperiences,
+} from '@/lib/durationUtils';
 
 type BranchId = 'product' | 'growth' | 'ops';
 
@@ -25,6 +30,73 @@ interface TimelineWithFiltersProps {
 
 // Constants for tool chip limiting
 const MAX_VISIBLE_TOOLS = 8;
+
+// Pre-compute projects map for efficient lookups
+const projectsMap = createProjectsMap(projects);
+
+/**
+ * Gets the set of matching experience IDs for a given set of skill names.
+ * Optionally filters by tool.
+ */
+function getMatchingExperienceIds(
+  skillNames: string[],
+  selectedTool?: string | null
+): Set<string> {
+  const ids = new Set<string>();
+
+  for (const project of projects) {
+    if (!project.sections) continue;
+
+    const sections = Object.values(project.sections);
+    const hasRelevantSkill = sections.some(section =>
+      section?.skills?.some(skill => skillNames.includes(skill))
+    );
+
+    if (!hasRelevantSkill) continue;
+
+    // If a tool is selected, further filter
+    if (selectedTool) {
+      const hasToolWithSkill = sections.some(section =>
+        section?.tools?.includes(selectedTool) &&
+        section?.skills?.some(skill => skillNames.includes(skill))
+      );
+      if (!hasToolWithSkill) continue;
+    }
+
+    ids.add(project.id);
+  }
+
+  return ids;
+}
+
+/**
+ * Computes the total months from a set of experience IDs.
+ */
+function getTotalMonthsFromIds(ids: Set<string>): number {
+  return computeTotalMonthsFromExperiences(ids, projectsMap);
+}
+
+/**
+ * Helper: get all skill names for a branch
+ */
+function getBranchSkillNames(branchId: BranchId): string[] {
+  const branch = skillGraph[branchId];
+  if (!branch) return [];
+  return Object.values(branch.skillGroups).flatMap(group =>
+    Object.values(group.skills).map(s => s.name)
+  );
+}
+
+/**
+ * Helper: get all skill names for a skill group
+ */
+function getGroupSkillNames(branchId: BranchId, groupId: string): string[] {
+  const branch = skillGraph[branchId];
+  if (!branch) return [];
+  const group = branch.skillGroups[groupId];
+  if (!group) return [];
+  return Object.values(group.skills).map(s => s.name);
+}
 
 export default function TimelineWithFilters({
   showFilters,
@@ -202,6 +274,122 @@ export default function TimelineWithFilters({
   const visibleTools = showAllTools ? tools : tools.slice(0, MAX_VISIBLE_TOOLS);
   const hasMoreTools = tools.length > MAX_VISIBLE_TOOLS;
 
+  // Compute experience metrics for Level 1 (Branch cards)
+  const branchMetrics = useMemo(() => {
+    const metrics: Record<BranchId, { ids: Set<string>; months: number }> = {} as Record<BranchId, { ids: Set<string>; months: number }>;
+    let maxMonths = 0;
+
+    for (const branchId of Object.keys(skillGraph) as BranchId[]) {
+      const skillNames = getBranchSkillNames(branchId);
+      const ids = getMatchingExperienceIds(skillNames);
+      const months = getTotalMonthsFromIds(ids);
+      metrics[branchId] = { ids, months };
+      maxMonths = Math.max(maxMonths, months);
+    }
+
+    return { metrics, maxMonths };
+  }, []);
+
+  // Compute experience metrics for Level 2 (Skill Group cards)
+  const groupMetrics = useMemo(() => {
+    if (!expandedBranch) return { metrics: {}, maxMonths: 0 };
+
+    const branch = skillGraph[expandedBranch];
+    const metrics: Record<string, { ids: Set<string>; months: number }> = {};
+    let maxMonths = 0;
+
+    for (const groupId of Object.keys(branch.skillGroups)) {
+      const skillNames = getGroupSkillNames(expandedBranch, groupId);
+      const ids = getMatchingExperienceIds(skillNames);
+      const months = getTotalMonthsFromIds(ids);
+      metrics[groupId] = { ids, months };
+      maxMonths = Math.max(maxMonths, months);
+    }
+
+    return { metrics, maxMonths };
+  }, [expandedBranch]);
+
+  // Compute experience metrics for Level 3 (Individual Skill cards)
+  const skillMetrics = useMemo(() => {
+    if (!expandedBranch || !expandedGroup) return { metrics: {}, maxMonths: 0 };
+
+    const group = skillGraph[expandedBranch].skillGroups[expandedGroup];
+    if (!group) return { metrics: {}, maxMonths: 0 };
+
+    const metrics: Record<string, { ids: Set<string>; months: number }> = {};
+    let maxMonths = 0;
+
+    for (const skillId of Object.keys(group.skills)) {
+      const skill = group.skills[skillId];
+      const ids = getMatchingExperienceIds([skill.name]);
+      const months = getTotalMonthsFromIds(ids);
+      metrics[skillId] = { ids, months };
+      maxMonths = Math.max(maxMonths, months);
+    }
+
+    return { metrics, maxMonths };
+  }, [expandedBranch, expandedGroup]);
+
+  // Compute experience metrics for Level 4 (Summary card with optional tool filter)
+  const summaryMetrics = useMemo(() => {
+    if (!expandedBranch || !expandedGroup || !selectedSkill) {
+      return { ids: new Set<string>(), months: 0 };
+    }
+
+    const skill = skillGraph[expandedBranch].skillGroups[expandedGroup]?.skills[selectedSkill];
+    if (!skill) return { ids: new Set<string>(), months: 0 };
+
+    const ids = getMatchingExperienceIds([skill.name], selectedTool);
+    const months = getTotalMonthsFromIds(ids);
+
+    return { ids, months };
+  }, [expandedBranch, expandedGroup, selectedSkill, selectedTool]);
+
+  // Dev-only assertion: verify parent metrics are union-based
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'development') return;
+
+    // Verify branch metrics equal union of group metrics
+    if (expandedBranch && Object.keys(groupMetrics.metrics).length > 0) {
+      const branchIds = branchMetrics.metrics[expandedBranch]?.ids || new Set();
+      const unionOfGroupIds = new Set<string>();
+      for (const groupData of Object.values(groupMetrics.metrics)) {
+        for (const id of groupData.ids) {
+          unionOfGroupIds.add(id);
+        }
+      }
+
+      const branchSize = branchIds.size;
+      const unionSize = unionOfGroupIds.size;
+
+      if (branchSize !== unionSize) {
+        console.warn(
+          `[ExperienceMeter] Branch "${expandedBranch}" has ${branchSize} experiences, but union of groups has ${unionSize}. They should match.`
+        );
+      }
+    }
+
+    // Verify group metrics equal union of skill metrics
+    if (expandedBranch && expandedGroup && Object.keys(skillMetrics.metrics).length > 0) {
+      const groupIds = groupMetrics.metrics[expandedGroup]?.ids || new Set();
+      const unionOfSkillIds = new Set<string>();
+      for (const skillData of Object.values(skillMetrics.metrics)) {
+        for (const id of skillData.ids) {
+          unionOfSkillIds.add(id);
+        }
+      }
+
+      const groupSize = groupIds.size;
+      const unionSize = unionOfSkillIds.size;
+
+      if (groupSize !== unionSize) {
+        console.warn(
+          `[ExperienceMeter] Group "${expandedGroup}" has ${groupSize} experiences, but union of skills has ${unionSize}. They should match.`
+        );
+      }
+    }
+  }, [expandedBranch, expandedGroup, branchMetrics, groupMetrics, skillMetrics]);
+
   return (
     <section className="max-w-4xl mx-auto px-6 pt-6 pb-20">
       {/* Header */}
@@ -265,16 +453,8 @@ export default function TimelineWithFilters({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {(Object.keys(skillGraph) as BranchId[]).map(branchId => {
                 const branch = skillGraph[branchId];
-                // Count matching projects for this branch
-                const branchSkillNames = Object.values(branch.skillGroups).flatMap(group =>
-                  Object.values(group.skills).map(s => s.name)
-                );
-                const branchMatchCount = projects.filter(project => {
-                  if (!project.sections) return false;
-                  return Object.values(project.sections).some(section =>
-                    section?.skills?.some(skill => branchSkillNames.includes(skill))
-                  );
-                }).length;
+                const metrics = branchMetrics.metrics[branchId];
+                const branchMatchCount = metrics?.ids.size || 0;
 
                 return (
                   <button
@@ -286,7 +466,13 @@ export default function TimelineWithFilters({
                       {branch.name}
                     </h3>
                     <p className="text-xs text-warm-600 line-clamp-2">{branch.description}</p>
-                    <p className="text-[10px] text-warm-400 mt-2">{branchMatchCount} experience{branchMatchCount === 1 ? '' : 's'}</p>
+                    <div className="mt-2">
+                      <p className="text-[10px] text-warm-400">{branchMatchCount} experience{branchMatchCount === 1 ? '' : 's'}</p>
+                      <ExperienceMeter
+                        months={metrics?.months || 0}
+                        maxMonths={branchMetrics.maxMonths}
+                      />
+                    </div>
                   </button>
                 );
               })}
@@ -297,14 +483,8 @@ export default function TimelineWithFilters({
           {expandedBranch && !expandedGroup && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {Object.entries(skillGraph[expandedBranch].skillGroups).map(([groupId, group]) => {
-                // Count matching projects for this group
-                const groupSkillNames = Object.values(group.skills).map(s => s.name);
-                const groupMatchCount = projects.filter(project => {
-                  if (!project.sections) return false;
-                  return Object.values(project.sections).some(section =>
-                    section?.skills?.some(skill => groupSkillNames.includes(skill))
-                  );
-                }).length;
+                const metrics = groupMetrics.metrics[groupId];
+                const groupMatchCount = metrics?.ids.size || 0;
 
                 return (
                   <button
@@ -316,7 +496,13 @@ export default function TimelineWithFilters({
                       {group.name}
                     </h4>
                     <p className="text-xs text-warm-600 line-clamp-2">{group.description}</p>
-                    <p className="text-[10px] text-warm-400 mt-2">{groupMatchCount} experience{groupMatchCount === 1 ? '' : 's'}</p>
+                    <div className="mt-2">
+                      <p className="text-[10px] text-warm-400">{groupMatchCount} experience{groupMatchCount === 1 ? '' : 's'}</p>
+                      <ExperienceMeter
+                        months={metrics?.months || 0}
+                        maxMonths={groupMetrics.maxMonths}
+                      />
+                    </div>
                   </button>
                 );
               })}
@@ -327,13 +513,8 @@ export default function TimelineWithFilters({
           {expandedBranch && expandedGroup && !selectedSkill && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {Object.entries(skillGraph[expandedBranch].skillGroups[expandedGroup].skills).map(([skillId, skill]) => {
-                // Count matching projects for this skill
-                const skillMatchCount = projects.filter(project => {
-                  if (!project.sections) return false;
-                  return Object.values(project.sections).some(section =>
-                    section?.skills?.includes(skill.name)
-                  );
-                }).length;
+                const metrics = skillMetrics.metrics[skillId];
+                const skillMatchCount = metrics?.ids.size || 0;
 
                 return (
                   <button
@@ -345,7 +526,13 @@ export default function TimelineWithFilters({
                       {skill.name}
                     </h5>
                     <p className="text-xs text-warm-600 line-clamp-2">{skill.description}</p>
-                    <p className="text-[10px] text-warm-400 mt-2">{skillMatchCount} experience{skillMatchCount === 1 ? '' : 's'}</p>
+                    <div className="mt-2">
+                      <p className="text-[10px] text-warm-400">{skillMatchCount} experience{skillMatchCount === 1 ? '' : 's'}</p>
+                      <ExperienceMeter
+                        months={metrics?.months || 0}
+                        maxMonths={skillMetrics.maxMonths}
+                      />
+                    </div>
                   </button>
                 );
               })}
@@ -394,8 +581,12 @@ export default function TimelineWithFilters({
 
               <div className="mt-3 pt-3 border-t border-warm-100">
                 <p className="text-xs text-warm-500">
-                  {filteredProjects?.length || 0} experience{filteredProjects?.length === 1 ? '' : 's'} {selectedTool ? `using ${selectedTool}` : 'match'}
+                  {summaryMetrics.ids.size} experience{summaryMetrics.ids.size === 1 ? '' : 's'} {selectedTool ? `using ${selectedTool}` : 'match'}
                 </p>
+                <ExperienceMeter
+                  months={summaryMetrics.months}
+                  maxMonths={skillMetrics.maxMonths}
+                />
               </div>
             </div>
           )}

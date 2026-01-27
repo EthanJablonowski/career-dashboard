@@ -81,3 +81,25 @@
   --spacing-18: 4.5rem;
   --spacing-22: 5.5rem;
 }
+
+/* Experience meter animation */
+@keyframes experience-meter-fill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--target-width, 0%);
+  }
+}
+
+.experience-meter-bar {
+  width: var(--target-width, 0%);
+  animation: experience-meter-fill 500ms ease-out forwards;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .experience-meter-bar {
+    animation: none;
+  }
+}
