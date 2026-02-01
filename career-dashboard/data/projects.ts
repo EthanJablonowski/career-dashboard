@@ -136,7 +136,7 @@ export const projects: Project[] = [
     id: "outpost-therapy",
     title: "Outpost Therapy",
     org: "Outpost Therapy",
-    role: "Co-Founder",
+    role: "Business Consultant",
     dateStart: "July 2025",
     dateEnd: "Present",
     nodeType: "primary",
@@ -406,7 +406,7 @@ export const projects: Project[] = [
       insteadOf: "Waterfall approach with upfront specifications",
       because: "Medical spa market required rapid validation and pivots based on provider feedback"
     },
-    learned: "This project showed how quickly external events can upend a business model. COVID introduced uncertainty around regulation and feasibility, and it was my first real exposure to how complex real product ecosystems are. Individual feature decisions can ripple outward, creating orders of magnitude more complexity across the system.",
+    learned: "This project showed how quickly external events can upend a business model. COVID introduced uncertainty and ultimately stalled our plans. This was my first real exposure to how complex real product ecosystems are. Individual feature decisions can ripple outward, creating orders of magnitude more complexity across the system.",
     tags: ["Core Experience"],
     relevantFor: ["product", "operations"]
   },
